@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
+import '../style/Login.css';
 
 const Login = () => {
     const [email, setEmail] = useState("");
@@ -19,28 +20,35 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <h2>Admin Login</h2>
-            <form onSubmit={handleSubmit}>
-                <input 
-                    type="email" 
-                    value={email} 
-                    onChange={(e) => setEmail(e.target.value)} 
-                    placeholder="Email"
-                    required 
-                />
-                <input 
-                    type="password" 
-                    value={password} 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    placeholder="Password"
-                    required 
-                />
-                <button type="submit">Login</button>
-            </form>
-            <p>
-                Vous n'avez pas de compte? <Link to="/signup">Signup</Link>
-            </p>
+        <div className="login-container">
+            <div className="login-left">
+                <img src="/assets/logo.png" alt="Logo" className="logo" />
+                <img src="/assets/login.svg" alt="Login Illustration" className="login-image" />
+            </div>
+            <div className="login-right">
+                <h2>Bienvenue administrateur</h2>
+                <p>Connectez-vous à votre compte</p>
+                <form onSubmit={handleSubmit} className="login-form">
+                    <input 
+                        type="email" 
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        placeholder="Email"
+                        required 
+                    />
+                    <input 
+                        type="password" 
+                        value={password} 
+                        onChange={(e) => setPassword(e.target.value)} 
+                        placeholder="Mot de passe"
+                        required 
+                    />
+                    <button type="submit" className="login-button">Se connecter</button>
+                </form>
+                <p className="signup-prompt">
+                    Vous n'avez pas de compte? <Link to="/signup" className="signup-link">S'inscrire</Link>
+                </p>
+            </div>
         </div>
     );
 };

@@ -36,7 +36,7 @@ const Signup = () => {
                     placeholder="Password"
                     required 
                 />
-                <button type="submit">Signup</button>
+                <button type="submit">S'inscrire</button>
             </form>
         </div>
     );
