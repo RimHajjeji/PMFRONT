@@ -2,7 +2,7 @@
 
 .layout {
     display: flex;
-    height: 100vh;
+    height: 150vh;
     background-color: #3F3D56;
 }
 
@@ -40,7 +40,7 @@
 }
 
 /* Responsive Design */
-@media (max-width: 1024px) {
+@media (max-width: 700px) {
     .sidebar {
         width: 60px;
         min-width: 60px;

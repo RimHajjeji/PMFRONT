@@ -1,10 +1,7 @@
 // src/components/Sidebar.jsx
 import React from 'react';
-
 import { FaUser } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
-
-
 import { useNavigate } from 'react-router-dom';
 import '../style/Sidebar.css';
 
@@ -18,12 +15,12 @@ const Sidebar = () => {
             </div>
             <nav className="menu">
                 <div className="menu-item" onClick={() => navigate('/dashboard')}>
-                    <FaHouse className="menu-icon" />
-                    <span className="menu-text">Accueil</span>
+                    <FaHouse className="icon" />
+                    <span className="text">Accueil</span>
                 </div>
                 <div className="menu-item" onClick={() => navigate('/add-client')}>
-                    <FaUser className="menu-icon" />
-                    <span className="menu-text">Ajouter Client</span>
+                    <FaUser className="icon" />
+                    <span className="text">Ajouter Client</span>
                 </div>
             </nav>
         </aside>
