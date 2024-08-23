@@ -1,6 +1,6 @@
 .sidebar {
-    width: 20%;
-    background-color: #F2F2F2;
+    width: 19.5%;
+    background-color:#F2F2F2;
     height: 100vh;
     padding-top: 20px; /* Adjust the padding to match the top space of the navbar */
     display: flex;
