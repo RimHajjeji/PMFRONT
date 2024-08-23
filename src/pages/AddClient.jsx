@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../style/AddClient.css';
-import Navbar from '../components/Navbar';
-import Sidebar from '../components/Sidebar';
 
 const AddClient = () => {
     const [showForm, setShowForm] = useState(false);
@@ -46,49 +44,50 @@ const AddClient = () => {
     }, []);
 
     return (
-        
         <div className="add-client-page">
-           
+            <h1 className="title">Ajouter des Clients</h1>
             <button className="btn-toggle-form" onClick={toggleForm}>
                 Ajouter Client
             </button>
 
             {showForm && (
-                <form className="client-form" onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        name="firstName"
-                        placeholder="Prénom"
-                        value={clientData.firstName}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="lastName"
-                        placeholder="Nom"
-                        value={clientData.lastName}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="text"
-                        name="phone"
-                        placeholder="Numéro de Téléphone"
-                        value={clientData.phone}
-                        onChange={handleChange}
-                        required
-                    />
-                    <input
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        value={clientData.email}
-                        onChange={handleChange}
-                        required
-                    />
-                    <button type="submit">Enregistrer</button>
-                </form>
+                <div className="client-form-container"> {/* Added a container around the form */}
+                    <form className="client-form" onSubmit={handleSubmit}>
+                        <input
+                            type="text"
+                            name="firstName"
+                            placeholder="Prénom"
+                            value={clientData.firstName}
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="lastName"
+                            placeholder="Nom"
+                            value={clientData.lastName}
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="phone"
+                            placeholder="Numéro de Téléphone"
+                            value={clientData.phone}
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={clientData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                        <button type="submit">Enregistrer</button>
+                    </form>
+                </div>
             )}
 
             <table className="client-table">
