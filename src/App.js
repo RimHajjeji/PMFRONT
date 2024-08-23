@@ -1,25 +1,39 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
-import Signup from './pages/Signup';  // Import Signup component
+import Signup from './pages/Signup';
 import PrivateRoute from './PrivateRoute';
-import Dashboard from './pages/Dashboard'; 
+import Dashboard from './pages/Dashboard';
+import AddClient from './pages/AddClient';
+import Layout from './components/Layout'; // Import Layout
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />  {/* Add Signup route */}
-        <Route 
-          path="/dashboard" 
+        <Route path="/signup" element={<Signup />} />
+        <Route
+          path="/dashboard"
           element={
             <PrivateRoute>
-              <Dashboard /> 
+              <Layout>
+                <Dashboard />
+              </Layout>
             </PrivateRoute>
-          } 
+          }
         />
-        {/* Default route */}
+        <Route
+          path="/add-client"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <AddClient />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

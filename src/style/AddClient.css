@@ -1,0 +1,47 @@
+.add-client-page {
+    padding: 20px;
+}
+
+.btn-toggle-form {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.client-form {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.client-form input {
+    margin-bottom: 10px;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.client-form button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.client-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.client-table th, .client-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.client-table th {
+    background-color: #f2f2f2;
+}
