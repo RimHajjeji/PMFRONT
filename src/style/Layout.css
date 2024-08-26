@@ -2,7 +2,7 @@
 
 .layout {
     display: flex;
-    height: 200vh;
+    
     background-color: #3F3D56;
 }
 
@@ -33,6 +33,7 @@
     margin-top: 90px; /* Height of the navbar + spacing */
     padding: 20px;
     background-color: #fff;
+    
     border-radius: 10px;
     min-height: calc(100vh - 110px); /* Adjusted for navbar height and padding */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

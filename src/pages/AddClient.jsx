@@ -11,6 +11,7 @@ const AddClient = () => {
         phone: '',
         email: ''
     });
+    const [searchTerm, setSearchTerm] = useState('');
 
     const toggleForm = () => setShowForm(!showForm);
 
@@ -30,6 +31,10 @@ const AddClient = () => {
         }
     };
 
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
     useEffect(() => {
         const fetchClients = async () => {
             try {
@@ -43,6 +48,11 @@ const AddClient = () => {
         fetchClients();
     }, []);
 
+    const filteredClients = clients.filter(client =>
+        client.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        client.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
         <div className="add-client-page">
             <h1 className="title">Ajouter des Clients</h1>
@@ -51,7 +61,7 @@ const AddClient = () => {
             </button>
 
             {showForm && (
-                <div className="client-form-container"> {/* Added a container around the form */}
+                <div className="client-form-container">
                     <form className="client-form" onSubmit={handleSubmit}>
                         <input
                             type="text"
@@ -90,28 +100,38 @@ const AddClient = () => {
                 </div>
             )}
 
-            <table className="client-table">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Prénom</th>
-                        <th>Nom</th>
-                        <th>Numéro de Téléphone</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {clients.map((client, index) => (
-                        <tr key={client._id}>
-                            <td>{index + 1}</td>
-                            <td>{client.firstName}</td>
-                            <td>{client.lastName}</td>
-                            <td>{client.phone}</td>
-                            <td>{client.email}</td>
+            <div className="client-table-container">
+                <h1 className="client-table-title">Liste des clients</h1>
+                <input
+                    type="text"
+                    className="search-bar"
+                    placeholder="Rechercher par nom..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
+                <table className="client-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                            <th>Numéro de Téléphone</th>
+                            <th>Email</th>
                         </tr>
-                    ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {filteredClients.map((client, index) => (
+                            <tr key={client._id}>
+                                <td>{index + 1}</td>
+                                <td>{client.firstName}</td>
+                                <td>{client.lastName}</td>
+                                <td>{client.phone}</td>
+                                <td>{client.email}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
