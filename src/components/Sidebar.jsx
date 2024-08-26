@@ -27,7 +27,7 @@ const Sidebar = () => {
                 <div className="menu-item" onClick={() => navigate('/add-material')}>
                 <FaCar
                 className="icon" />
-                    <span className="text">Nos véhicule</span>
+                    <span className="text">Nos véhicules</span>
                 </div>
             </nav>
         </aside>

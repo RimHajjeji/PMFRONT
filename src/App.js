@@ -6,6 +6,7 @@ import Signup from './pages/Signup';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './pages/Dashboard';
 import AddClient from './pages/AddClient';
+import AddMaterial from './pages/AddMaterial';
 import Layout from './components/Layout'; // Import Layout
 
 function App() {
@@ -30,6 +31,16 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <AddClient />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+            <Route
+          path="/add-material"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <AddMaterial/>
               </Layout>
             </PrivateRoute>
           }
