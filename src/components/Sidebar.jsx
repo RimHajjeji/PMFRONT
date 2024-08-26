@@ -24,7 +24,7 @@ const Sidebar = () => {
                     <FaUser className="icon" />
                     <span className="text">Ajouter Client</span>
                 </div>
-                <div className="menu-item" onClick={() => navigate('/add-materiel')}>
+                <div className="menu-item" onClick={() => navigate('/add-material')}>
                 <FaCar
                 className="icon" />
                     <span className="text">Nos véhicule</span>
