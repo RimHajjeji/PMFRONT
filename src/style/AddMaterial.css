@@ -4,45 +4,64 @@
 }
 
 .title {
-    font-size: 24px;
-    color: #333;
-    margin-bottom: 20px;
+    font-size: 36px;
+    color: #3F3D56;
+    margin-bottom: 40px;
 }
 
 .add-category {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
 .add-category button {
-    padding: 10px 20px;
+    padding: 15px 30px;
     background-color: #24B4DE;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.add-category button:hover,
+.add-category button:focus {
+    transform: scale(1.05);
+}
+
+.categories-title {
+    font-size: 28px;
+    color: #3F3D56;
+    margin-bottom: 20px;
 }
 
 .categories {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 20px;
 }
 
 .category-card {
-    width: 150px;
-    height: 100px;
-    background-color: #f2f2f2;
+    width: 180px;
+    height: 120px;
+    background-color: #F2F2F2;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
 }
 
 .modal {
-    display: none;
+    display: none; /* Initialement caché */
     position: fixed;
     z-index: 1;
     left: 0;
@@ -56,66 +75,115 @@
 .modal-content {
     background-color: #fff;
     margin: 15% auto;
-    padding: 20px;
+    padding: 30px;
     border: 1px solid #888;
-    width: 30%;
-    border-radius: 5px;
+    width: 40%;
+    border-radius: 10px;
+    text-align: center; /* Centre tout le contenu */
 }
 
 .close {
-    color: #aaa;
+    color: red;
     float: right;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-    color: black;
+    color: #ff0000; /* Couleur rouge plus intense au survol */
     text-decoration: none;
     cursor: pointer;
 }
 
+.modal-content input {
+    padding: 15px;
+    width: 80%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+.modal-content button {
+    padding: 15px 30px;
+    background-color: #24B4DE;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.modal-content button:hover,
+.modal-content button:focus {
+    transform: scale(1.05);
+}
+
 .vehicle-form {
     margin-top: 20px;
-    text-align: left;
+    padding: 20px;
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    text-align: center;
 }
 
 .vehicle-form h2 {
-    margin-bottom: 10px;
+    font-size: 28px;
+    color: #3F3D56;
+    margin-bottom: 20px;
 }
 
 .vehicle-form input {
     display: block;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: 100%;
-    border-radius: 5px;
+    margin: 10px auto;
+    padding: 15px;
+    width: 90%;
+    border-radius: 10px;
     border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 16px;
 }
 
 .vehicle-form button {
-    padding: 10px 20px;
+    padding: 15px 30px;
     background-color: #24B4DE;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 25px;
     cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+.vehicle-form button:hover,
+.vehicle-form button:focus {
+    transform: scale(1.05);
 }
 
 .vehicle-table {
     margin-top: 20px;
     width: 100%;
     border-collapse: collapse;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .vehicle-table th,
 .vehicle-table td {
-    padding: 10px;
+    padding: 15px;
     border: 1px solid #ddd;
     text-align: left;
+    font-size: 16px;
 }
 
 .vehicle-table th {
-    background-color: #f2f2f2;
+    background-color: #FAA381;
+}
+
+.vehicle-table td {
+    background-color: #fff;
 }

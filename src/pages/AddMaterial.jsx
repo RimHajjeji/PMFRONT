@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import '../style/AddMaterial.css' ;
 
-
 const AddMaterial = () => {
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState("");
@@ -29,6 +28,7 @@ const AddMaterial = () => {
             .then((response) => {
                 setCategories([...categories, response.data]);
                 setNewCategory("");
+                document.getElementById("addCategoryModal").style.display = "none"; // Masquer le popup après ajout
             })
             .catch((error) => {
                 console.error("There was an error adding the category!", error);
@@ -49,6 +49,7 @@ const AddMaterial = () => {
     return (
         <div className="add-material">
             <h1 className="title">VEHICULES DU SERVICE LOCATION COURTE DUREE</h1>
+
             <div className="add-category">
                 <button onClick={() => document.getElementById("addCategoryModal").style.display = "block"}>
                     Ajouter une nouvelle categorie
@@ -58,7 +59,7 @@ const AddMaterial = () => {
             <div id="addCategoryModal" className="modal">
                 <div className="modal-content">
                     <span className="close" onClick={() => document.getElementById("addCategoryModal").style.display = "none"}>&times;</span>
-                    <h2>Ajouter une nouvelle categorie</h2>
+                    <h2 style={{ color: "#3F3D56" }}>Ajouter une nouvelle categorie</h2>
                     <input 
                         type="text" 
                         value={newCategory} 
@@ -68,6 +69,8 @@ const AddMaterial = () => {
                     <button onClick={handleAddCategory}>Ajouter</button>
                 </div>
             </div>
+
+            <h2 className="categories-title">Nos Categories</h2>
 
             <div className="categories">
                 {categories.map(category => (
