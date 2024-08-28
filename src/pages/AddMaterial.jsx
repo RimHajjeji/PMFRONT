@@ -47,17 +47,17 @@ const AddMaterial = () => {
     };
 
     return (
-        <div className="add-material">
-            <h1 className="title">VEHICULES DU SERVICE LOCATION COURTE DUREE</h1>
+        <div className="add-materialM">
+            <h1 className="titleM">VEHICULES DU SERVICE LOCATION COURTE DUREE</h1>
 
-            <div className="add-category">
+            <div className="add-categoryM">
                 <button onClick={() => document.getElementById("addCategoryModal").style.display = "block"}>
                     Ajouter une nouvelle categorie
                 </button>
             </div>
 
-            <div id="addCategoryModal" className="modal">
-                <div className="modal-content">
+            <div id="addCategoryModal" className="modalM">
+                <div className="modal-contentM">
                     <span className="close" onClick={() => document.getElementById("addCategoryModal").style.display = "none"}>&times;</span>
                     <h2 style={{ color: "#3F3D56" }}>Ajouter une nouvelle categorie</h2>
                     <input 
@@ -70,13 +70,13 @@ const AddMaterial = () => {
                 </div>
             </div>
 
-            <h2 className="categories-title">Nos Categories</h2>
+            <h2 className="categories-titleM">Nos Categories</h2>
 
-            <div className="categories">
+            <div className="categoriesM">
                 {categories.map(category => (
                     <div 
                         key={category._id} 
-                        className="category-card"
+                        className="category-cardM"
                         onClick={() => setSelectedCategory(category)}
                     >
                         {category.name}
@@ -85,7 +85,7 @@ const AddMaterial = () => {
             </div>
 
             {selectedCategory && (
-                <div className="vehicle-form">
+                <div className="vehicle-formM">
                     <h2>Ajouter un véhicule à la catégorie: {selectedCategory.name}</h2>
                     <input 
                         type="text" 
@@ -114,7 +114,7 @@ const AddMaterial = () => {
                     <button onClick={() => handleAddVehicle(selectedCategory._id)}>Ajouter</button>
                     
                     <h3>Liste des véhicules pour la catégorie: {selectedCategory.name}</h3>
-                    <table className="vehicle-table">
+                    <table className="vehicle-tableM">
                         <thead>
                             <tr>
                                 <th>Marque</th>

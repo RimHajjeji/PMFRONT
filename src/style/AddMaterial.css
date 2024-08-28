@@ -1,19 +1,19 @@
-.add-material {
+.add-materialM {
     padding: 20px;
     text-align: center;
 }
 
-.title {
+.titleM {
     font-size: 36px;
     color: #3F3D56;
     margin-bottom: 40px;
 }
 
-.add-category {
+.add-categoryM {
     margin-bottom: 40px;
 }
 
-.add-category button {
+.add-categoryM button {
     padding: 15px 30px;
     background-color: #24B4DE;
     color: white;
@@ -25,25 +25,25 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.add-category button:hover,
-.add-category button:focus {
+.add-categoryM button:hover,
+.add-categoryM button:focus {
     transform: scale(1.05);
 }
 
-.categories-title {
+.categories-titleM {
     font-size: 28px;
     color: #3F3D56;
     margin-bottom: 20px;
 }
 
-.categories {
+.categoriesM {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
 }
 
-.category-card {
+.category-cardM {
     width: 180px;
     height: 120px;
     background-color: #F2F2F2;
@@ -56,11 +56,11 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.category-card:hover {
+.category-cardM:hover {
     transform: scale(1.05);
 }
 
-.modal {
+.modalM {
     display: none; /* Initialement caché */
     position: fixed;
     z-index: 1;
@@ -72,7 +72,7 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-content {
+.modal-contentM {
     background-color: #fff;
     margin: 15% auto;
     padding: 30px;
@@ -97,7 +97,7 @@
     cursor: pointer;
 }
 
-.modal-content input {
+.modal-contentM input {
     padding: 15px;
     width: 80%;
     border-radius: 10px;
@@ -105,7 +105,7 @@
     border: 1px solid #ccc;
 }
 
-.modal-content button {
+.modal-contentM button {
     padding: 15px 30px;
     background-color: #24B4DE;
     color: white;
@@ -117,12 +117,12 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.modal-content button:hover,
-.modal-content button:focus {
+.modal-contentM button:hover,
+.modal-contentM button:focus {
     transform: scale(1.05);
 }
 
-.vehicle-form {
+.vehicle-formM {
     margin-top: 20px;
     padding: 20px;
     background-color: #F2F2F2;
@@ -130,13 +130,13 @@
     text-align: center;
 }
 
-.vehicle-form h2 {
+.vehicle-formM h2 {
     font-size: 28px;
     color: #3F3D56;
     margin-bottom: 20px;
 }
 
-.vehicle-form input {
+.vehicle-formM input {
     display: block;
     margin: 10px auto;
     padding: 15px;
@@ -147,7 +147,7 @@
     font-size: 16px;
 }
 
-.vehicle-form button {
+.vehicle-formM button {
     padding: 15px 30px;
     background-color: #24B4DE;
     color: white;
@@ -159,12 +159,12 @@
     transition: transform 0.2s ease-in-out;
 }
 
-.vehicle-form button:hover,
-.vehicle-form button:focus {
+.vehicle-formM button:hover,
+.vehicle-formM button:focus {
     transform: scale(1.05);
 }
 
-.vehicle-table {
+.vehicle-tableM {
     margin-top: 20px;
     width: 100%;
     border-collapse: collapse;
@@ -172,18 +172,18 @@
     overflow: hidden;
 }
 
-.vehicle-table th,
-.vehicle-table td {
+.vehicle-tableM th,
+.vehicle-tableM td {
     padding: 15px;
     border: 1px solid #ddd;
     text-align: left;
     font-size: 16px;
 }
 
-.vehicle-table th {
+.vehicle-tableM th {
     background-color: #FAA381;
 }
 
-.vehicle-table td {
+.vehicle-tableM td {
     background-color: #fff;
 }

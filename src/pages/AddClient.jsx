@@ -54,15 +54,15 @@ const AddClient = () => {
     );
 
     return (
-        <div className="add-client-page">
-            <h1 className="title">Ajouter des Clients</h1>
-            <button className="btn-toggle-form" onClick={toggleForm}>
+        <div className="add-client-pageC">
+            <h1 className="titleC">Ajouter des Clients</h1>
+            <button className="btn-toggle-formC" onClick={toggleForm}>
                 Ajouter Client
             </button>
 
             {showForm && (
-                <div className="client-form-container">
-                    <form className="client-form" onSubmit={handleSubmit}>
+                <div className="client-form-containerC">
+                    <form className="client-formC" onSubmit={handleSubmit}>
                         <input
                             type="text"
                             name="firstName"
@@ -100,8 +100,8 @@ const AddClient = () => {
                 </div>
             )}
 
-            <div className="client-table-container">
-                <h1 className="client-table-title">Liste des clients</h1>
+            <div className="client-table-containerC">
+                <h1 className="client-table-titleC">Liste des clients</h1>
                 <input
                     type="text"
                     className="search-bar"
@@ -109,7 +109,7 @@ const AddClient = () => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
-                <table className="client-table">
+                <table className="client-tableC">
                     <thead>
                         <tr>
                             <th>ID</th>
