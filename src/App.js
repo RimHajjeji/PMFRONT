@@ -7,6 +7,7 @@ import PrivateRoute from './PrivateRoute';
 import Dashboard from './pages/Dashboard';
 import AddClient from './pages/AddClient';
 import AddMaterial from './pages/AddMaterial';
+import Facture from './pages/Facture';
 import Layout from './components/Layout'; // Import Layout
 
 function App() {
@@ -41,6 +42,17 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <AddMaterial/>
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+            <Route
+          path="/facture"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <Facture/>
               </Layout>
             </PrivateRoute>
           }

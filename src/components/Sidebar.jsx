@@ -3,6 +3,7 @@ import React from 'react';
 import { FaUser } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa6";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 
 import { useNavigate } from 'react-router-dom';
 import '../style/Sidebar.css';
@@ -28,6 +29,11 @@ const Sidebar = () => {
                 <FaCar
                 className="icon" />
                     <span className="text">Nos véhicules</span>
+                </div>
+                <div className="menu-item" onClick={() => navigate('/facture')}>
+                <FaFileInvoiceDollar 
+                className="icon" />
+                    <span className="text">Facture</span>
                 </div>
             </nav>
         </aside>
