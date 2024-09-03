@@ -20,7 +20,7 @@ const Facture = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [dailyRate, setDailyRate] = useState("");
   const [daysRented, setDaysRented] = useState("");
-  const [firstEntry, setFirstEntry] = useState(true); // Ajout de cette ligne
+  const [firstEntry, setFirstEntry] = useState(true);
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -29,7 +29,9 @@ const Facture = () => {
     };
 
     const fetchCategories = async () => {
-      const response = await axios.get("http://localhost:5000/api/categories/categories");
+      const response = await axios.get(
+        "http://localhost:5000/api/categories/categories"
+      );
       setCategories(response.data);
     };
 
@@ -57,7 +59,7 @@ const Facture = () => {
 
   const handleVehicleSelect = (vehicle) => {
     setSelectedVehicle(vehicle);
-    setIsPopupOpen(true); // Ouvre la popup lorsqu'un véhicule est sélectionné
+    setIsPopupOpen(true);
   };
 
   const handleAddVehicle = () => {
@@ -66,24 +68,27 @@ const Facture = () => {
       return;
     }
 
+    const montant = dailyRate * daysRented;
+
     setRentedVehicles([
       ...rentedVehicles,
-      { 
-        marque: selectedVehicle.marque, 
-        modele: selectedVehicle.modele, 
-        dailyRate, 
-        daysRented 
+      {
+        marque: selectedVehicle.marque,
+        modele: selectedVehicle.modele,
+        dailyRate,
+        daysRented,
+        montant,
       },
     ]);
 
-    setIsPopupOpen(false); // Ferme la popup après l'ajout du véhicule
+    setIsPopupOpen(false);
     setDailyRate("");
     setDaysRented("");
-    setSelectedVehicle(null); // Réinitialise le véhicule sélectionné
-    setSelectedCategory(null); // Réinitialise la catégorie sélectionnée
-    setVehicles([]); // Vide la liste des véhicules
+    setSelectedVehicle(null);
+    setSelectedCategory(null);
+    setVehicles([]);
 
-    setFirstEntry(false); // La première entrée a été faite
+    setFirstEntry(false);
   };
 
   const handleSubmit = async (e) => {
@@ -126,7 +131,10 @@ const Facture = () => {
               <br />
               <br />
               <strong className="highlighted-textF">Le Locataire:</strong>
-              <select onChange={(e) => handleClientSelect(e.target.value)} required>
+              <select
+                onChange={(e) => handleClientSelect(e.target.value)}
+                required
+              >
                 <option value="">Sélectionner un client</option>
                 {clients.map((client) => (
                   <option key={client._id} value={client._id}>
@@ -182,7 +190,7 @@ const Facture = () => {
             <select
               value={selectedCategory ? selectedCategory._id : ""}
               onChange={(e) => handleCategorySelect(e.target.value)}
-              required={firstEntry} // Obligatoire seulement pour la première entrée
+              required={firstEntry}
             >
               <option value="">Sélectionner une catégorie</option>
               {categories.map((category) => (
@@ -195,8 +203,10 @@ const Facture = () => {
             {vehicles.length > 0 && (
               <select
                 value={selectedVehicle ? selectedVehicle._id : ""}
-                onChange={(e) => handleVehicleSelect(vehicles.find((v) => v._id === e.target.value))}
-                required={firstEntry} // Obligatoire seulement pour la première entrée
+                onChange={(e) =>
+                  handleVehicleSelect(vehicles.find((v) => v._id === e.target.value))
+                }
+                required={firstEntry}
               >
                 <option value="">Sélectionner un véhicule</option>
                 {vehicles.map((vehicle) => (
@@ -208,7 +218,6 @@ const Facture = () => {
             )}
           </div>
 
-          {/* Popup pour entrer le tarif journalier et le nombre de jours */}
           {isPopupOpen && (
             <div className="popupF">
               <div className="popup-contentF">
@@ -218,14 +227,14 @@ const Facture = () => {
                   type="number"
                   value={dailyRate}
                   onChange={(e) => setDailyRate(e.target.value)}
-                  required={firstEntry} // Obligatoire seulement pour la première entrée
+                  required={firstEntry}
                 />
                 <label>Nombre de Jours:</label>
                 <input
                   type="number"
                   value={daysRented}
                   onChange={(e) => setDaysRented(e.target.value)}
-                  required={firstEntry} // Obligatoire seulement pour la première entrée
+                  required={firstEntry}
                 />
                 <button type="button" onClick={handleAddVehicle}>
                   Ajouter le véhicule
@@ -243,6 +252,7 @@ const Facture = () => {
                   <th>Modèle</th>
                   <th>Tarif Journalier</th>
                   <th>Nombre de Jours</th>
+                  <th>Montant</th>
                 </tr>
               </thead>
               <tbody>
@@ -252,6 +262,7 @@ const Facture = () => {
                     <td>{vehicle.modele}</td>
                     <td>{vehicle.dailyRate}</td>
                     <td>{vehicle.daysRented}</td>
+                    <td>{vehicle.montant}</td>
                   </tr>
                 ))}
               </tbody>
