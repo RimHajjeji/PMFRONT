@@ -1,48 +1,140 @@
-/* Popup Styles */
-.popupF {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-  
-  .popup-contentF {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    text-align: center;
-  }
-  
-  .popup-contentF h3 {
-    margin-bottom: 15px;
-  }
-  
-  .popup-contentF input {
-    width: 100%;
-    padding: 8px;
-    margin: 10px 0;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  
-  .popup-contentF button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .popup-contentF button:hover {
-    background-color: #45a049;
-  }
-  
+/* General Wrapper */
+.wrapperF {
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Facture Container */
+.facture-containerF {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.headerF {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logoF img {
+  width: 150px;
+}
+
+.company-infoF {
+  text-align: right;
+  color: #555;
+  font-size: 14px;
+}
+
+/* Separator */
+.separatorF {
+  height: 2px;
+  background-color: #1d94b7;
+  margin: 20px 0;
+}
+
+/* Client Info */
+.client-infoF {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.left-sectionF,
+.right-sectionF {
+  width: 48%;
+}
+
+.highlighted-textF {
+  color: #1d94b7;
+  font-weight: bold;
+}
+
+.highlighted-text-largeF {
+  font-size: 24px;
+  color: #1d94b7;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Vehicle Selection */
+.vehicle-selectionF h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.vehicle-selectionF select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Vehicle Table */
+.vehicle-table-containerF {
+  margin-top: 30px;
+}
+
+.vehicle-tableF {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.vehicle-tableF th,
+.vehicle-tableF td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.vehicle-tableF th {
+  background-color: #1d94b7;
+  color: white;
+}
+
+.totalHTF {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Submit Button */
+.submit-buttonF {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-buttonF button {
+  background-color: #1d94b7;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.submit-buttonF button:hover {
+  background-color: #1d94b7;
+}

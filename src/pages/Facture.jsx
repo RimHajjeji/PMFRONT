@@ -91,6 +91,11 @@ const Facture = () => {
     setFirstEntry(false);
   };
 
+  // Calculate the TOTAL HT by summing all montants
+  const calculateTotalHT = () => {
+    return rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newInvoice = {
@@ -98,6 +103,7 @@ const Facture = () => {
       issuedBy,
       billingPeriod,
       vehicles: rentedVehicles,
+      totalHT: calculateTotalHT(), // Include the TOTAL HT in the invoice
     };
 
     await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
@@ -109,7 +115,7 @@ const Facture = () => {
       <div className="facture-containerF">
         <div className="headerF">
           <div className="logoF">
-            <img src="/assets/logoF.png" alt="Logo" />
+            <img src="/assets/logo.png" alt="Logo" />
           </div>
           <div className="company-infoF">
             <strong>SIEGE SOCIAL</strong>
@@ -227,49 +233,55 @@ const Facture = () => {
                   type="number"
                   value={dailyRate}
                   onChange={(e) => setDailyRate(e.target.value)}
-                  required={firstEntry}
+                  required
                 />
-                <label>Nombre de Jours:</label>
+                <label>Nombre de Jours Facturés:</label>
                 <input
                   type="number"
                   value={daysRented}
                   onChange={(e) => setDaysRented(e.target.value)}
-                  required={firstEntry}
+                  required
                 />
-                <button type="button" onClick={handleAddVehicle}>
-                  Ajouter le véhicule
-                </button>
+                <button onClick={handleAddVehicle}>Ajouter Véhicule</button>
               </div>
             </div>
           )}
 
-          <div className="rented-vehicles-tableF">
-            <h3>Véhicules Loués</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Marque</th>
-                  <th>Modèle</th>
-                  <th>Tarif Journalier</th>
-                  <th>Nombre de Jours</th>
-                  <th>Montant</th>
-                </tr>
-              </thead>
-              <tbody>
-                {rentedVehicles.map((vehicle, index) => (
-                  <tr key={index}>
-                    <td>{vehicle.marque}</td>
-                    <td>{vehicle.modele}</td>
-                    <td>{vehicle.dailyRate}</td>
-                    <td>{vehicle.daysRented}</td>
-                    <td>{vehicle.montant}</td>
+          {rentedVehicles.length > 0 && (
+            <div className="vehicle-table-containerF">
+              <h3>Véhicules Loués</h3>
+              <table className="vehicle-tableF">
+                <thead>
+                  <tr>
+                    <th>Marque</th>
+                    <th>Modèle</th>
+                    <th>Tarif Journalier</th>
+                    <th>N° de Jours</th>
+                    <th>Montant</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+                </thead>
+                <tbody>
+                  {rentedVehicles.map((vehicle, index) => (
+                    <tr key={index}>
+                      <td>{vehicle.marque}</td>
+                      <td>{vehicle.modele}</td>
+                      <td>{vehicle.dailyRate} FCFA</td>
+                      <td>{vehicle.daysRented} jours</td>
+                      <td>{vehicle.montant} FCFA</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
 
-          <button type="submit">Créer la facture</button>
+              <div className="totalHTF">
+                <strong>TOTAL HT:</strong> {calculateTotalHT()} FCFA
+              </div>
+            </div>
+          )}
+
+          <div className="submit-buttonF">
+            <button type="submit">Créer Facture</button>
+          </div>
         </form>
       </div>
     </div>
