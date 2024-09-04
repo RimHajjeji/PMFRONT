@@ -13,8 +13,8 @@ const Facture = () => {
     startDate: "",
     endDate: "",
   });
-  const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [selectedVehicle, setSelectedVehicle] = useState("");
   const [vehicles, setVehicles] = useState([]);
   const [rentedVehicles, setRentedVehicles] = useState([]);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -52,17 +52,17 @@ const Facture = () => {
 
   const handleCategorySelect = (categoryId) => {
     const category = categories.find((cat) => cat._id === categoryId);
-    setSelectedCategory(category);
+    setSelectedCategory(categoryId);
     setVehicles(category.vehicles);
   };
 
-  const handleVehicleSelect = (vehicle) => {
+  const handleVehicleSelect = (index) => {
+    const vehicle = vehicles[index];
     setSelectedVehicle(vehicle);
     setIsPopupOpen(true);
   };
 
   const handleAddVehicle = () => {
-    // Vérification des champs uniquement si c'est la première saisie
     if (rentedVehicles.length === 0 && (!dailyRate || !daysRented || !selectedVehicle)) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
@@ -84,12 +84,11 @@ const Facture = () => {
     setIsPopupOpen(false);
     setDailyRate("");
     setDaysRented("");
-    setSelectedVehicle(null);
-    setSelectedCategory(null);
+    setSelectedVehicle("");
+    setSelectedCategory("");
     setVehicles([]);
   };
 
-  // Calculer le TOTAL HT en additionnant tous les montants
   const calculateTotalHT = () => {
     return rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
   };
@@ -101,7 +100,7 @@ const Facture = () => {
       issuedBy,
       billingPeriod,
       vehicles: rentedVehicles,
-      totalHT: calculateTotalHT(), // Inclure le TOTAL HT dans la facture
+      totalHT: calculateTotalHT(),
     };
 
     await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
@@ -192,6 +191,7 @@ const Facture = () => {
           <div className="vehicle-selectionF">
             <h3>Sélectionner un véhicule à louer</h3>
             <select
+              value={selectedCategory}
               onChange={(e) => handleCategorySelect(e.target.value)}
               required={rentedVehicles.length === 0}
             >
@@ -204,78 +204,85 @@ const Facture = () => {
             </select>
             <br />
             <select
-              onChange={(e) => handleVehicleSelect(vehicles[e.target.value])}
+              value={selectedVehicle ? vehicles.indexOf(selectedVehicle) : ""}
+              onChange={(e) => handleVehicleSelect(e.target.value)}
               required={rentedVehicles.length === 0}
+              disabled={!selectedCategory}
             >
               <option value="">Sélectionner un véhicule</option>
               {vehicles.map((vehicle, index) => (
                 <option key={index} value={index}>
-                  {vehicle.marque} {vehicle.modele}
-                </option>
-              ))}
-            </select>
-          </div>
+                {vehicle.marque} {vehicle.modele}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          <div className="vehicle-listF">
-            <h3>Véhicules Loués</h3>
-            <table>
-              <thead>
-                <tr>
-                  <th>Marque</th>
-                  <th>Modèle</th>
-                  <th>Tarif Journalier</th>
-                  <th>Nbre de Jours</th>
-                  <th>Montant</th>
+        <div className="vehicle-listF">
+          <h3>Véhicules Loués</h3>
+          <table className="vehicle-tableF">
+            <thead>
+              <tr>
+                <th>Marque</th>
+                <th>Modèle</th>
+                <th>Tarif Journalier</th>
+                <th>Nbre de Jours</th>
+                <th>Montant</th>
+              </tr>
+            </thead>
+            <tbody>
+              {rentedVehicles.map((vehicle, index) => (
+                <tr key={index}>
+                  <td>{vehicle.marque}</td>
+                  <td>{vehicle.modele}</td>
+                  <td>{vehicle.dailyRate}</td>
+                  <td>{vehicle.daysRented}</td>
+                  <td>{vehicle.montant}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {rentedVehicles.map((vehicle, index) => (
-                  <tr key={index}>
-                    <td>{vehicle.marque}</td>
-                    <td>{vehicle.modele}</td>
-                    <td>{vehicle.dailyRate}</td>
-                    <td>{vehicle.daysRented}</td>
-                    <td>{vehicle.montant}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-          <div className="totalF">
-            <strong>Total HT:</strong> {calculateTotalHT()} FCFA
-          </div>
+        <div className="totalF">
+          <strong>Total HT:</strong> {calculateTotalHT()} FCFA
+        </div>
 
+        <div className="submit-buttonF">
           <button type="submit">Enregistrer la Facture</button>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
 
-      {isPopupOpen && (
-        <div className="popup-overlayF">
-          <div className="popup-contentF">
-            <h3>Ajouter les détails de la location</h3>
-            <label>Tarif Journalier:</label>
-            <input
-              type="number"
-              value={dailyRate}
-              onChange={(e) => setDailyRate(e.target.value)}
-              required={rentedVehicles.length === 0}
-            />
-            <br />
-            <label>Nbre de Jours:</label>
-            <input
-              type="number"
-              value={daysRented}
-              onChange={(e) => setDaysRented(e.target.value)}
-              required={rentedVehicles.length === 0}
-            />
-            <br />
-            <button onClick={handleAddVehicle}>Ajouter le Véhicule</button>
+    {isPopupOpen && (
+      <div className="popup-overlayF">
+        <div className="popup-contentF">
+          <h3>Ajouter les détails de la location</h3>
+          <label>Tarif Journalier:</label>
+          <input
+            type="number"
+            value={dailyRate}
+            onChange={(e) => setDailyRate(e.target.value)}
+            required
+          />
+          <br />
+          <label>Nbre de Jours:</label>
+          <input
+            type="number"
+            value={daysRented}
+            onChange={(e) => setDaysRented(e.target.value)}
+            required
+          />
+          <br />
+          <div className="popup-buttonsF">
+            <button onClick={handleAddVehicle}>Ajouter le véhicule</button>
+            <button onClick={() => setIsPopupOpen(false)}>Annuler</button>
           </div>
         </div>
-      )}
-    </div>
-  );
+      </div>
+    )}
+  </div>
+);
 };
 
 export default Facture;

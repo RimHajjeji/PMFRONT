@@ -91,10 +91,6 @@ select {
 }
 
 /* Vehicle Table */
-.vehicle-table-containerF {
-  margin-top: 30px;
-}
-
 .vehicle-tableF {
   width: 100%;
   border-collapse: collapse;
@@ -113,7 +109,7 @@ select {
   color: white;
 }
 
-.totalHTF {
+.totalF {
   text-align: right;
   font-size: 18px;
   font-weight: bold;
@@ -136,5 +132,54 @@ select {
 }
 
 .submit-buttonF button:hover {
+  background-color: #155a77;
+}
+
+/* Popup Overlay */
+.popup-overlayF {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Popup Content */
+.popup-contentF {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+}
+
+.popup-buttonsF {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-buttonsF button {
   background-color: #1d94b7;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.popup-buttonsF button:hover {
+  background-color: #155a77;
+}
+
+.popup-buttonsF button:last-child {
+  background-color: #d9534f;
+}
+
+.popup-buttonsF button:last-child:hover {
+  background-color: #c9302c;
 }
