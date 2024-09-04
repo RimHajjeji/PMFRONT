@@ -20,7 +20,6 @@ const Facture = () => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [dailyRate, setDailyRate] = useState("");
   const [daysRented, setDaysRented] = useState("");
-  const [firstEntry, setFirstEntry] = useState(true);
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -63,7 +62,8 @@ const Facture = () => {
   };
 
   const handleAddVehicle = () => {
-    if (firstEntry && (!dailyRate || !daysRented || !selectedVehicle)) {
+    // Vérification des champs uniquement si c'est la première saisie
+    if (rentedVehicles.length === 0 && (!dailyRate || !daysRented || !selectedVehicle)) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
     }
@@ -87,11 +87,9 @@ const Facture = () => {
     setSelectedVehicle(null);
     setSelectedCategory(null);
     setVehicles([]);
-
-    setFirstEntry(false);
   };
 
-  // Calculate the TOTAL HT by summing all montants
+  // Calculer le TOTAL HT en additionnant tous les montants
   const calculateTotalHT = () => {
     return rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
   };
@@ -103,7 +101,7 @@ const Facture = () => {
       issuedBy,
       billingPeriod,
       vehicles: rentedVehicles,
-      totalHT: calculateTotalHT(), // Include the TOTAL HT in the invoice
+      totalHT: calculateTotalHT(), // Inclure le TOTAL HT dans la facture
     };
 
     await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
@@ -194,9 +192,8 @@ const Facture = () => {
           <div className="vehicle-selectionF">
             <h3>Sélectionner un véhicule à louer</h3>
             <select
-              value={selectedCategory ? selectedCategory._id : ""}
               onChange={(e) => handleCategorySelect(e.target.value)}
-              required={firstEntry}
+              required={rentedVehicles.length === 0}
             >
               <option value="">Sélectionner une catégorie</option>
               {categories.map((category) => (
@@ -205,85 +202,78 @@ const Facture = () => {
                 </option>
               ))}
             </select>
-
-            {vehicles.length > 0 && (
-              <select
-                value={selectedVehicle ? selectedVehicle._id : ""}
-                onChange={(e) =>
-                  handleVehicleSelect(vehicles.find((v) => v._id === e.target.value))
-                }
-                required={firstEntry}
-              >
-                <option value="">Sélectionner un véhicule</option>
-                {vehicles.map((vehicle) => (
-                  <option key={vehicle._id} value={vehicle._id}>
-                    {vehicle.marque} {vehicle.modele} - {vehicle.plaque}
-                  </option>
-                ))}
-              </select>
-            )}
+            <br />
+            <select
+              onChange={(e) => handleVehicleSelect(vehicles[e.target.value])}
+              required={rentedVehicles.length === 0}
+            >
+              <option value="">Sélectionner un véhicule</option>
+              {vehicles.map((vehicle, index) => (
+                <option key={index} value={index}>
+                  {vehicle.marque} {vehicle.modele}
+                </option>
+              ))}
+            </select>
           </div>
 
-          {isPopupOpen && (
-            <div className="popupF">
-              <div className="popup-contentF">
-                <h3>Entrer les détails de location du véhicule</h3>
-                <label>Tarif Journalier:</label>
-                <input
-                  type="number"
-                  value={dailyRate}
-                  onChange={(e) => setDailyRate(e.target.value)}
-                  required
-                />
-                <label>Nombre de Jours Facturés:</label>
-                <input
-                  type="number"
-                  value={daysRented}
-                  onChange={(e) => setDaysRented(e.target.value)}
-                  required
-                />
-                <button onClick={handleAddVehicle}>Ajouter Véhicule</button>
-              </div>
-            </div>
-          )}
-
-          {rentedVehicles.length > 0 && (
-            <div className="vehicle-table-containerF">
-              <h3>Véhicules Loués</h3>
-              <table className="vehicle-tableF">
-                <thead>
-                  <tr>
-                    <th>Marque</th>
-                    <th>Modèle</th>
-                    <th>Tarif Journalier</th>
-                    <th>N° de Jours</th>
-                    <th>Montant</th>
+          <div className="vehicle-listF">
+            <h3>Véhicules Loués</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Marque</th>
+                  <th>Modèle</th>
+                  <th>Tarif Journalier</th>
+                  <th>Nbre de Jours</th>
+                  <th>Montant</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rentedVehicles.map((vehicle, index) => (
+                  <tr key={index}>
+                    <td>{vehicle.marque}</td>
+                    <td>{vehicle.modele}</td>
+                    <td>{vehicle.dailyRate}</td>
+                    <td>{vehicle.daysRented}</td>
+                    <td>{vehicle.montant}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {rentedVehicles.map((vehicle, index) => (
-                    <tr key={index}>
-                      <td>{vehicle.marque}</td>
-                      <td>{vehicle.modele}</td>
-                      <td>{vehicle.dailyRate} FCFA</td>
-                      <td>{vehicle.daysRented} jours</td>
-                      <td>{vehicle.montant} FCFA</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-
-              <div className="totalHTF">
-                <strong>TOTAL HT:</strong> {calculateTotalHT()} FCFA
-              </div>
-            </div>
-          )}
-
-          <div className="submit-buttonF">
-            <button type="submit">Créer Facture</button>
+                ))}
+              </tbody>
+            </table>
           </div>
+
+          <div className="totalF">
+            <strong>Total HT:</strong> {calculateTotalHT()} FCFA
+          </div>
+
+          <button type="submit">Enregistrer la Facture</button>
         </form>
       </div>
+
+      {isPopupOpen && (
+        <div className="popup-overlayF">
+          <div className="popup-contentF">
+            <h3>Ajouter les détails de la location</h3>
+            <label>Tarif Journalier:</label>
+            <input
+              type="number"
+              value={dailyRate}
+              onChange={(e) => setDailyRate(e.target.value)}
+              required={rentedVehicles.length === 0}
+            />
+            <br />
+            <label>Nbre de Jours:</label>
+            <input
+              type="number"
+              value={daysRented}
+              onChange={(e) => setDaysRented(e.target.value)}
+              required={rentedVehicles.length === 0}
+            />
+            <br />
+            <button onClick={handleAddVehicle}>Ajouter le Véhicule</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
