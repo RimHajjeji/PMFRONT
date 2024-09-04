@@ -1,137 +1,140 @@
-/* Set up the A4 page layout */
-@page {
-    size: A4;
-    margin: 10mm;
-}
-
+/* General Wrapper */
 .wrapperF {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0; /* Optional: Light gray background for better contrast */
+  font-family: "Arial", sans-serif;
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Facture Container */
 .facture-containerF {
-    width: 210mm;
-    height: auto;
-    max-height: 297mm;
-    padding: 20mm;
-    font-family: Arial, sans-serif;
-    box-sizing: border-box;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Header Section */
+/* Header */
 .headerF {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .logoF img {
-    width: 120px;
+  width: 150px;
 }
 
 .company-infoF {
-    text-align: right;
-    font-size: 12px;
-    line-height: 1.5;
+  text-align: right;
+  color: #555;
+  font-size: 14px;
 }
 
-/* Custom Separator Line */
+/* Separator */
 .separatorF {
-    border: none;
-    height: 2px;  /* Set the thickness of the line */
-    background-color: #24B4DE;  /* Set the color of the line */
-    width: 100%;  /* Ensure the line spans the full width */
-    margin-bottom: 20px;  /* Spacing below the line */
+  height: 2px;
+  background-color: #1d94b7;
+  margin: 20px 0;
 }
 
-/* Client Info Section */
+/* Client Info */
 .client-infoF {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-.left-sectionF, .right-sectionF {
-    width: 48%;
-    font-size: 14px;
-    line-height: 1.5;
-}
-
-.left-sectionF {
-    margin-right: 4%;
+.left-sectionF,
+.right-sectionF {
+  width: 48%;
 }
 
 .highlighted-textF {
-    color: #24B4DE;
-    font-weight: bold;
-    display: block;
-    margin-bottom: 10px;
+  color: #1d94b7;
+  font-weight: bold;
 }
 
 .highlighted-text-largeF {
-    color: #24B4DE;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
+  font-size: 24px;
+  color: #1d94b7;
+  font-weight: bold;
 }
 
-/* Input Fields */
 input[type="text"],
+input[type="date"],
 select {
-    width: 100%;
-    padding: 5px;
-    font-size: 14px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    margin-bottom: 10px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Vehicle Selection */
+.vehicle-selectionF h3 {
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.vehicle-selectionF select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Vehicle Table */
+.vehicle-table-containerF {
+  margin-top: 30px;
+}
+
+.vehicle-tableF {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.vehicle-tableF th,
+.vehicle-tableF td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.vehicle-tableF th {
+  background-color: #1d94b7;
+  color: white;
+}
+
+.totalHTF {
+  text-align: right;
+  font-size: 18px;
+  font-weight: bold;
 }
 
 /* Submit Button */
 .submit-buttonF {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    background-color: #24B4DE;
-    color: white;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 30px;
+  text-align: center;
+  margin-top: 20px;
 }
 
-.submit-buttonF:hover {
-    background-color: #1d94bd;
+.submit-buttonF button {
+  background-color: #1d94b7;
+  color: white;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-/* Adjustments for print view */
-@media print {
-    .wrapperF {
-        -webkit-print-color-adjust: exact;
-        background-color: #fff;
-    }
-
-    .facture-containerF {
-        padding: 0;
-        margin: 0;
-        width: 100%;
-        height: auto;
-        box-shadow: none;
-    }
-
-    .submit-buttonF {
-        display: none;
-    }
+.submit-buttonF button:hover {
+  background-color: #1d94b7;
 }
