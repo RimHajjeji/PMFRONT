@@ -99,6 +99,10 @@ const Facture = () => {
     return calculateTotalHT() * 0.01;
   };
 
+  const calculateTotalTTC = () => {
+    return calculateTotalHT() + calculateTVA() + calculateCSS();
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const totalHT = calculateTotalHT();
@@ -110,6 +114,7 @@ const Facture = () => {
       totalHT,
       tva: calculateTVA(),
       css: calculateCSS(),
+      totalTTC: calculateTotalTTC(), // Include totalTTC in the request
     };
 
     await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
@@ -256,6 +261,8 @@ const Facture = () => {
             <strong>TVA 18%:</strong> {calculateTVA()} FCFA
             <br />
             <strong>CSS 1%:</strong> {calculateCSS()} FCFA
+            <br />
+            <strong>Total TTC:</strong> {calculateTotalTTC()} FCFA
           </div>
 
           <div className="submit-buttonF">
