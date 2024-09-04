@@ -28,9 +28,7 @@ const Facture = () => {
     };
 
     const fetchCategories = async () => {
-      const response = await axios.get(
-        "http://localhost:5000/api/categories/categories"
-      );
+      const response = await axios.get("http://localhost:5000/api/categories/categories");
       setCategories(response.data);
     };
 
@@ -63,7 +61,7 @@ const Facture = () => {
   };
 
   const handleAddVehicle = () => {
-    if (rentedVehicles.length === 0 && (!dailyRate || !daysRented || !selectedVehicle)) {
+    if (!dailyRate || !daysRented || !selectedVehicle) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
     }
@@ -93,14 +91,25 @@ const Facture = () => {
     return rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
   };
 
+  const calculateTVA = () => {
+    return calculateTotalHT() * 0.18;
+  };
+
+  const calculateCSS = () => {
+    return calculateTotalHT() * 0.01;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const totalHT = calculateTotalHT();
     const newInvoice = {
       clientId: selectedClient._id,
       issuedBy,
       billingPeriod,
       vehicles: rentedVehicles,
-      totalHT: calculateTotalHT(),
+      totalHT,
+      tva: calculateTVA(),
+      css: calculateCSS(),
     };
 
     await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
@@ -134,10 +143,7 @@ const Facture = () => {
               <br />
               <br />
               <strong className="highlighted-textF">Le Locataire:</strong>
-              <select
-                onChange={(e) => handleClientSelect(e.target.value)}
-                required
-              >
+              <select onChange={(e) => handleClientSelect(e.target.value)} required>
                 <option value="">Sélectionner un client</option>
                 {clients.map((client) => (
                   <option key={client._id} value={client._id}>
@@ -212,77 +218,81 @@ const Facture = () => {
               <option value="">Sélectionner un véhicule</option>
               {vehicles.map((vehicle, index) => (
                 <option key={index} value={index}>
-                {vehicle.marque} {vehicle.modele}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <div className="vehicle-listF">
-          <h3>Véhicules Loués</h3>
-          <table className="vehicle-tableF">
-            <thead>
-              <tr>
-                <th>Marque</th>
-                <th>Modèle</th>
-                <th>Tarif Journalier</th>
-                <th>Nbre de Jours</th>
-                <th>Montant</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rentedVehicles.map((vehicle, index) => (
-                <tr key={index}>
-                  <td>{vehicle.marque}</td>
-                  <td>{vehicle.modele}</td>
-                  <td>{vehicle.dailyRate}</td>
-                  <td>{vehicle.daysRented}</td>
-                  <td>{vehicle.montant}</td>
-                </tr>
+                  {vehicle.marque} {vehicle.modele}
+                </option>
               ))}
-            </tbody>
-          </table>
-        </div>
+            </select>
+          </div>
 
-        <div className="totalF">
-          <strong>Total HT:</strong> {calculateTotalHT()} FCFA
-        </div>
+          <div className="vehicle-listF">
+            <h3>Véhicules Loués</h3>
+            <table className="vehicle-tableF">
+              <thead>
+                <tr>
+                  <th>Marque</th>
+                  <th>Modèle</th>
+                  <th>Tarif Journalier</th>
+                  <th>Nbre de Jours</th>
+                  <th>Montant</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rentedVehicles.map((vehicle, index) => (
+                  <tr key={index}>
+                    <td>{vehicle.marque}</td>
+                    <td>{vehicle.modele}</td>
+                    <td>{vehicle.dailyRate}</td>
+                    <td>{vehicle.daysRented}</td>
+                    <td>{vehicle.montant}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
 
-        <div className="submit-buttonF">
-          <button type="submit">Enregistrer la Facture</button>
-        </div>
-      </form>
-    </div>
+          <div className="totalF">
+            <strong>Total HT:</strong> {calculateTotalHT()} FCFA
+            <br />
+            <strong>TVA 18%:</strong> {calculateTVA()} FCFA
+            <br />
+            <strong>CSS 1%:</strong> {calculateCSS()} FCFA
+          </div>
 
-    {isPopupOpen && (
-      <div className="popup-overlayF">
-        <div className="popup-contentF">
-          <h3>Ajouter les détails de la location</h3>
-          <label>Tarif Journalier:</label>
-          <input
-            type="number"
-            value={dailyRate}
-            onChange={(e) => setDailyRate(e.target.value)}
-            required
-          />
-          <br />
-          <label>Nbre de Jours:</label>
-          <input
-            type="number"
-            value={daysRented}
-            onChange={(e) => setDaysRented(e.target.value)}
-            required
-          />
-          <br />
-          <div className="popup-buttonsF">
-            <button onClick={handleAddVehicle}>Ajouter le véhicule</button>
-            <button onClick={() => setIsPopupOpen(false)}>Annuler</button>
+          <div className="submit-buttonF">
+            <button type="submit">Enregistrer la Facture</button>
+          </div>
+        </form>
+      </div>
+
+      {isPopupOpen && (
+        <div className="popup-overlayF">
+          <div className="popup-contentF">
+            <h3>Ajouter les détails de la location</h3>
+            <label>Tarif Journalier:</label>
+            <input
+              type="number"
+              value={dailyRate}
+              onChange={(e) => setDailyRate(e.target.value)}
+              required
+            />
+            <br />
+            <label>Nbre de Jours:</label>
+            <input
+              type="number"
+              value={daysRented}
+              onChange={(e) => setDaysRented(e.target.value)}
+              required
+            />
+            <br />
+            <div className="popup-buttonsF">
+              <button onClick={handleAddVehicle}>Ajouter le véhicule</button>
+              <button onClick={() => setIsPopupOpen(false)}>Annuler</button>
+            </div>
           </div>
         </div>
-      </div>
-    )}
-  </div>
-);
+      )}
+    </div>
+  );
 };
 
 export default Facture;
