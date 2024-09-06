@@ -1,4 +1,3 @@
-/* Updated class names */
 .dashboard-container-wrapper {
     display: flex;
     flex-direction: column;
@@ -8,7 +7,7 @@
     display: flex;
     padding: 20px;
     background-color: white;
-    min-height: calc(100vh - 40px); /* Adjust based on the height of your navbar */
+    min-height: calc(100vh - 40px);
     overflow-y: auto;
 }
 
@@ -31,31 +30,6 @@
     font-size: 35px;
     color: #2C3E50;
     margin: 0;
-    margin-top: 0px;
-    margin-bottom: 40px;
-    margin-left: 40px;
-}
-
-.welcome-text p {
-    color: #6b7280;
-    margin: 10px 0;
-    font-size: 19px;
-    margin-bottom: 40px;
-}
-
-.view-badges-button {
-    background-color: #d1d9ff;
-    color: #2C3E50;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 20px;
-    transition: background-color 0.3s ease;
-}
-
-.view-badges-button:hover {
-    background-color: #f0ecec;
 }
 
 .welcome-image img {
@@ -63,4 +37,64 @@
     height: 200px;
     border-radius: 12px;
     margin-right: 60px;
+}
+
+/* Invoices section */
+.invoices-section {
+    margin-top: 30px;
+    text-align: center; /* Centering the title */
+}
+
+.invoices-section h3 {
+    font-size: 28px;
+    color: #2C3E50;
+    margin-bottom: 20px;
+}
+
+/* Search bar */
+.search-bar {
+    margin-bottom: 20px;
+    text-align: center; /* Centering the search bar */
+}
+
+.search-bar input {
+    width: 50%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.invoices-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.invoices-table th, .invoices-table td {
+    padding: 8px;
+}
+
+.invoices-table th {
+    background-color: #f2f2f2;
+    color: #333;
+    border-bottom: 1px solid #ddd;
+}
+
+.invoices-table td {
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+}
+
+.invoices-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.invoices-table tr:hover {
+    background-color: #ddd;
+}
+
+/* Hide vertical lines */
+.invoices-table td, .invoices-table th {
+    border-left: none;
+    border-right: none;
 }
