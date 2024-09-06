@@ -1,0 +1,66 @@
+/* Updated class names */
+.dashboard-container-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard-main-content {
+    display: flex;
+    padding: 20px;
+    background-color: white;
+    min-height: calc(100vh - 40px); /* Adjust based on the height of your navbar */
+    overflow-y: auto;
+}
+
+.dashboard-content-wrapper {
+    width: 100%;
+}
+
+.welcome-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.568);
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.welcome-text h5 {
+    font-size: 35px;
+    color: #2C3E50;
+    margin: 0;
+    margin-top: 0px;
+    margin-bottom: 40px;
+    margin-left: 40px;
+}
+
+.welcome-text p {
+    color: #6b7280;
+    margin: 10px 0;
+    font-size: 19px;
+    margin-bottom: 40px;
+}
+
+.view-badges-button {
+    background-color: #d1d9ff;
+    color: #2C3E50;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.view-badges-button:hover {
+    background-color: #f0ecec;
+}
+
+.welcome-image img {
+    width: 250px;
+    height: 200px;
+    border-radius: 12px;
+    margin-right: 60px;
+}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import "../style/Facture.css";
 
 const Facture = () => {
@@ -22,6 +23,8 @@ const Facture = () => {
   const [daysRented, setDaysRented] = useState("");
   const [isDiscountPopupOpen, setIsDiscountPopupOpen] = useState(false);
   const [remise, setRemise] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -109,6 +112,10 @@ const Facture = () => {
     return calculateTotalTTC() * 0.15;
   };
 
+  const calculateTotalNet = () => {
+    return remise ? calculateTotalTTC() - remise : calculateTotalTTC();
+  };
+
   const handleDiscountPopup = () => {
     setIsDiscountPopupOpen(true);
   };
@@ -134,11 +141,13 @@ const Facture = () => {
       tva: calculateTVA(),
       css: calculateCSS(),
       totalTTC: calculateTotalTTC(),
-      remise: remise || 0, // Add remise in case it exists
+      remise: remise || 0,
+      totalNet: calculateTotalNet(),
     };
 
     await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
     alert("Facture créée avec succès");
+    navigate('/dashboard'); // Redirection vers le tableau de bord après la création
   };
 
   return (
@@ -275,68 +284,80 @@ const Facture = () => {
             </table>
           </div>
 
-          {isPopupOpen && (
-            <div className="popupF">
-              <h3>Ajouter Détails du Véhicule</h3>
-              <label>Tarif Journalier:</label>
-              <input
-                type="number"
-                value={dailyRate}
-                onChange={(e) => setDailyRate(e.target.value)}
-                required
-              />
-              <label>Nbre de Jours Loués:</label>
-              <input
-                type="number"
-                value={daysRented}
-                onChange={(e) => setDaysRented(e.target.value)}
-                required
-              />
-              <br />
+          <div className="totalsF">
+            <div className="totals-sectionF">
+              <div>
+                <strong>Total HT:</strong> {calculateTotalHT()} FCFA
+              </div>
+              <div>
+                <strong>TVA 18%:</strong> {calculateTVA()} FCFA
+              </div>
+              <div>
+                <strong>CSS 1%:</strong> {calculateCSS()} FCFA
+              </div>
+              <div>
+                <strong>Total TTC:</strong> {calculateTotalTTC()} FCFA
+              </div>
+              {remise !== null && (
+                <div>
+                  <strong>REMISE -15%:</strong> {remise} FCFA
+                </div>
+              )}
+              <div>
+                <strong>Total Net à Payer:</strong> {calculateTotalNet()} FCFA
+              </div>
+            </div>
+
+            <div className="remise-sectionF">
+              <button type="button" onClick={handleDiscountPopup} className="btn-remise">
+                Appliquer une remise
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" className="btn-submit">
+            Créer la facture
+          </button>
+        </form>
+
+        {isPopupOpen && (
+          <div className="popupF">
+            <div className="popup-contentF">
+              <h3>Ajouter ce véhicule</h3>
+              <label>
+                Tarif journalier (FCFA):
+                <input
+                  type="number"
+                  value={dailyRate}
+                  onChange={(e) => setDailyRate(e.target.value)}
+                  required
+                />
+              </label>
+              <label>
+                Nombre de jours:
+                <input
+                  type="number"
+                  value={daysRented}
+                  onChange={(e) => setDaysRented(e.target.value)}
+                  required
+                />
+              </label>
               <button type="button" onClick={handleAddVehicle}>
                 Ajouter
               </button>
             </div>
-          )}
-
-          <div className="total-sectionF">
-            <div>
-              <strong>Total HT:</strong> {calculateTotalHT()} FCFA
-            </div>
-            <div>
-              <strong>TVA (18%):</strong> {calculateTVA()} FCFA
-            </div>
-            <div>
-              <strong>CSS (1%):</strong> {calculateCSS()} FCFA
-            </div>
-            <div>
-              <strong>Total TTC:</strong> {calculateTotalTTC()} FCFA
-            </div>
-            {remise !== null && (
-              <div>
-                <strong>Remise (15%):</strong> {remise} FCFA
-              </div>
-            )}
           </div>
+        )}
 
-          {!remise && (
-            <button type="button" className="remise-buttonF" onClick={handleDiscountPopup}>
-              Remise -15%
-            </button>
-          )}
-
-          {isDiscountPopupOpen && (
-            <div className="popupF">
-              <h3>Voulez-vous appliquer une remise de 15% ?</h3>
+        {isDiscountPopupOpen && (
+          <div className="popupF">
+            <div className="popup-contentF">
+              <p>Voulez-vous appliquer une remise de 15% ?</p>
               <button onClick={handleDiscountYes}>Oui</button>
               <button onClick={handleDiscountNo}>Non</button>
             </div>
-          )}
-
-          <button type="submit" className="submit-buttonF">
-            Créer la Facture
-          </button>
-        </form>
+          </div>
+        )}
       </div>
     </div>
   );
