@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "../style/Dashboard.css";
 
 const Dashboard = () => {
     const [invoices, setInvoices] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchInvoices = async () => {
@@ -23,7 +25,11 @@ const Dashboard = () => {
         setSearchTerm(event.target.value);
     };
 
-    const filteredInvoices = invoices.filter((invoice) => 
+    const handlePrint = (invoiceId) => {
+        navigate(`/imprimefact/${invoiceId}`);
+    };
+
+    const filteredInvoices = invoices.filter((invoice) =>
         `${invoice.client.firstName} ${invoice.client.lastName}`
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
@@ -64,6 +70,7 @@ const Dashboard = () => {
                                     <th>Numéro de Téléphone</th>
                                     <th>Email</th>
                                     <th>Date</th>
+                                    <th>Imprimer</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,6 +81,11 @@ const Dashboard = () => {
                                         <td>{invoice.client.phone}</td>
                                         <td>{invoice.client.email}</td>
                                         <td>{new Date(invoice.createdAt).toLocaleDateString()}</td>
+                                        <td>
+                                            <button onClick={() => handlePrint(invoice._id)}>
+                                                Imprimer
+                                            </button>
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
