@@ -1,4 +1,3 @@
-// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
@@ -9,6 +8,7 @@ import AddClient from './pages/AddClient';
 import AddMaterial from './pages/AddMaterial';
 import Facture from './pages/Facture';
 import Layout from './components/Layout'; // Import Layout
+import Imprimefact from './pages/Imprimefact'; // Import Imprimefact
 
 function App() {
   return (
@@ -36,23 +36,33 @@ function App() {
             </PrivateRoute>
           }
         />
-            <Route
+        <Route
           path="/add-material"
           element={
             <PrivateRoute>
               <Layout>
-                <AddMaterial/>
+                <AddMaterial />
               </Layout>
             </PrivateRoute>
           }
         />
-
-            <Route
+        <Route
           path="/facture"
           element={
             <PrivateRoute>
               <Layout>
-                <Facture/>
+                <Facture />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        {/* Wrap Imprimefact inside Layout */}
+        <Route
+          path="/imprimefact/:invoiceId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <Imprimefact />
               </Layout>
             </PrivateRoute>
           }
