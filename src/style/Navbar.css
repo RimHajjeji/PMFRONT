@@ -1,10 +1,9 @@
 .navbar {
     position: fixed;
     top: 20px;
-    left: calc(20% + 1cm);
-    right: 1cm;
-    height: 65px;
-   
+    left: calc(20% + 0.68cm);
+    right: 0.68cm;
+    height: 63px;
     background-color: #ffffff;
     border-radius: 10px;
     display: flex;
@@ -22,7 +21,7 @@
 }
 
 .settings-icon, .logout-icon {
-    font-size: 40px;
+    font-size: 35px;
     color: #24B4DE;
     cursor: pointer;
     margin: 0 10px;
@@ -30,21 +29,21 @@
 
 .logout-button {
     position: absolute;
-    top: 70px;
-    right: 20px;
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
+    top: 13px;
+    right: 80px;
+    background-color: #d4e3eb;
+    border-color: #d4d4d441;
+    color: #5f5e5e;
     border-radius: 5px;
     padding: 8px 16px;
-    font-size: 20px;
+    font-size: 16px;
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: background-color 0.2s ease;
 }
 
 .logout-button:hover {
-    background-color: #c0392b;
+    background-color: #b6d8eb;
 }
 
 /* Settings Popup Styles */

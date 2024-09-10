@@ -72,8 +72,8 @@ body, html {
 
 /* Input field styles */
 .login-form input {
-    flex: 1; /* Allows the input to take available width */
-    padding: 15px 15px 15px 40px; /* Padding for the icon on the left */
+    flex: 1;
+    padding: 15px 15px 15px 55px; /* Augmenter le padding-left à 55px pour ajouter plus d'espace */
     border: 1px solid #fffbfb;
     border-radius: 5px;
     font-size: 16px;
@@ -100,7 +100,7 @@ body, html {
     font-size: 1.5em;
     position: absolute;
     right: 15px; /* Adds consistent spacing to the right */
-    top: 50%;
+    top: 55%;
     transform: translateY(-50%);
     color: #3F3D56;
 }
@@ -144,9 +144,10 @@ body, html {
 
 /* Ensure other styles are applied correctly */
 .login-form input[type="password"],
-.login-form input[type="text"] {
+.login-form input[type="text"],
+.login-form input[type="email"] {
     width: 100%;
-    padding: 15px 15px 15px 40px; /* Padding for the left icon */
+    padding: 15px 15px 15px 55px; /* Appliquer le même padding pour tous les types d'input */
     border: 1px solid #fffbfb;
     border-radius: 5px;
     font-size: 16px;

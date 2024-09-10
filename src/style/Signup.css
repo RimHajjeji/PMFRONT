@@ -6,120 +6,151 @@ body, html {
     background-color: #FFFFFF;
 }
 
-.signup-container {
+.login-container {
     display: flex;
     height: 100vh;
     width: 100%;
 }
 
-/* Left section styles */
-.signup-left {
+/* Right section (now left) styles */
+.login-right {
     flex: 1;
     background-color: #FFFFFF;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 40px;
     text-align: center;
 }
 
-.signup-left h2 {
-    font-size: 48px;
+.login-right h2 {
+    margin-top: 20px;
+    font-size: 40px;
     color: #3F3D56;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.signup-left p {
+.login-right p {
     margin: 20px 0 50px 0;
-    font-size: 24px;
-    color: #000000;
+    font-size: 22px;
+    color: #3F3D56;
 }
 
-.signup-form {
-    background-color: #F2F2F2;
-    padding: 60px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.signup-form input {
-    width: 80%;
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.signup-button {
-    width: 60%;
-    padding: 15px;
-    margin-top: 20px;
-    background-color: #3F3D56;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s ease-in-out;
-    align-self: center;
-}
-
-.signup-button:hover {
-    transform: scale(1.05);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .signup-container {
-        flex-direction: column;
-    }
-
-    .signup-left, .signup-right {
-        flex: none;
-        width: 100%;
-        padding: 20px;
-    }
-
-    .signup-left {
-        padding: 20px;
-    }
-
-    .signup-form input {
-        width: 90%;
-    }
-
-    .signup-button {
-        width: 70%;
-    }
-}
-
-/* Right section styles */
-.signup-right {
+/* Left section (now right) styles */
+.login-left {
     flex: 1;
     background-color: #F2F2F2;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
 }
 
-.logo {
-    width: 400px; /* Set the width of the logo */
-    height: 150px; /* Maintain aspect ratio */
-    max-height: 150px; /* Control the maximum height */
-    margin-top: 15px; /* Move the logo higher by adding top margin */
-    margin-bottom:40px; /* Add space below the logo */
+.Logo {
+    width: 260px;
+    height: 150px;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    
 }
 
-.signup-image {
-    width: 70%; /* Reduce the size of the image */
-    height: 450px ; /* Maintain aspect ratio */
- 
-    margin-top: 20px; /* Add space above the photo */
+.login-image {
+    width: 60%;
+    height: 400px;
+    margin-top: 50px;
+  
+}
+
+/* Input container styles for better alignment */
+.input-container {
+    position: relative;
+    width: 77%;
+    margin: 10px auto; /* Centers the input container horizontally */
+    display: flex; /* Enables flexbox for alignment */
+    align-items: center; /* Aligns items vertically */
+}
+
+/* Input field styles */
+.login-form input {
+    flex: 1;
+    padding: 15px 15px 15px 55px; /* Augmenter le padding-left à 55px pour ajouter plus d'espace */
+    border: 1px solid #fffbfb;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #F2F2F2;
+    margin: 10px 0;
+    outline: none; /* Removes the input outline */
+}
+
+/* Icon styles */
+.input-icon {
+    position: absolute;
+    left: 15px; /* Adds some space on the left */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #3F3D56;
+    font-size: 20px;
+}
+
+/* Password visibility toggle button styles */
+.toggle-password-visibility {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5em;
+    position: absolute;
+    right: 15px; /* Adds consistent spacing to the right */
+    top: 55%;
+    transform: translateY(-50%);
+    color: #3F3D56;
+}
+
+/* Button styles */
+.login-button {
+    width: 77%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #24b4de;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    align-self: center;
+    margin-bottom: 20px;
+}
+
+.login-button:hover {
+    background-color: #209dc3;
+    transform: scale(1.05);
+}
+
+/* Sign-up prompt styles */
+.signup-prompt p {
+    margin-top: 30px;
+    font-size: 18px;
+    color: #3F3D56;
+}
+
+.signup-link {
+    color: #3F3D56;
+    font-weight: 600;
+}
+
+.signup-link:hover {
+    text-decoration: underline;
+}
+
+/* Ensure other styles are applied correctly */
+.login-form input[type="password"],
+.login-form input[type="text"],
+.login-form input[type="email"] {
+    width: 100%;
+    padding: 15px 15px 15px 55px; /* Appliquer le même padding pour tous les types d'input */
+    border: 1px solid #fffbfb;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #F2F2F2;
+    margin: 10px 0;
 }
