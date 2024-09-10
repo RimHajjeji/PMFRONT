@@ -48,23 +48,14 @@
 
 .sidebar .menu-item .icon {
     color:  #3F3D56; /* Set icon color */
-    margin-right: 15px; /* Add space between the icon and the text */
+    margin-right: 25px; /* Add space between the icon and the text */
+    margin-left: 15px;
     font-size: 30px;
 }
 
 .sidebar .menu-item .text {
     color:   #3F3D56; /* Set text color */
-    font-size: 25px;
+    font-size: 22px;
 }
 
-@media (max-width: 768px) {
-    .sidebar {
-        width: 25%;
-        padding-top: 15px; /* Adjust top padding for smaller screens */
-    }
 
-    .sidebar .menu-item {
-        font-size: 14px;
-        padding: 8px 0;
-    }
-}
