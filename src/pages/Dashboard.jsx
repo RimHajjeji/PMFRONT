@@ -59,6 +59,7 @@ const Dashboard = () => {
                         <table className="invoices-table">
                             <thead>
                                 <tr>
+                                    <th>Numéro de Facture</th>
                                     <th>Nom du Client</th>
                                     <th>Numéro de Téléphone</th>
                                     <th>Email</th>
@@ -68,6 +69,7 @@ const Dashboard = () => {
                             <tbody>
                                 {filteredInvoices.map((invoice) => (
                                     <tr key={invoice._id}>
+                                        <td>{invoice.invoiceNumber}</td>
                                         <td>{invoice.client.firstName} {invoice.client.lastName}</td>
                                         <td>{invoice.client.phone}</td>
                                         <td>{invoice.client.email}</td>

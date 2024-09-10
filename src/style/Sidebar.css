@@ -13,14 +13,14 @@
     padding-left: 20px; /* Add left padding to space out content from the edge */
 }
 
-.sidebar .logo {
+.sidebar .logoS {
     width: 100%;
     margin-bottom: 30px;
     display: flex;
     justify-content: center; /* Center the logo at the top */
 }
 
-.sidebar .logo img {
+.sidebar .logoS img {
     max-width: 70%;
     height: auto;
 }
