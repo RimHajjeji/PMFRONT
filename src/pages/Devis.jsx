@@ -131,13 +131,17 @@ const Devis = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const totalHT = calculateTotalHT();
+    if (!selectedClient || !issuedBy || !validityPeriod.startDate || !validityPeriod.endDate || quotedVehicles.length === 0) {
+      alert("Veuillez remplir tous les champs obligatoires.");
+      return;
+    }
+
     const newDevis = {
       clientId: selectedClient._id,
       issuedBy,
       validityPeriod,
       vehicles: quotedVehicles,
-      totalHT,
+      totalHT: calculateTotalHT(),
       tva: calculateTVA(),
       css: calculateCSS(),
       totalTTC: calculateTotalTTC(),
@@ -145,91 +149,55 @@ const Devis = () => {
       totalNet: calculateTotalNet(),
     };
 
-    await axios.post("http://localhost:5000/api/devis/add", newDevis);
-    alert("Devis créé avec succès");
-    navigate('/dashboard'); // Redirection après la création du devis
+    try {
+      const response = await axios.post("http://localhost:5000/api/devis/add", newDevis);
+      alert("Devis créé avec succès");
+      navigate('/dashboard');
+    } catch (error) {
+      console.error("Erreur lors de l'ajout du devis :", error);
+    }
   };
 
   return (
     <div className="wrapperD">
       <div className="devis-containerD">
-        <div className="headerD">
-          <div className="logoD">
-            <img src="/assets/logo.png" alt="Logo" />
-          </div>
-          <div className="company-infoD">
-            <strong>SIEGE SOCIAL</strong>
-            <br />
-            Libreville-Gabon-B.P.8357
-            <br />
-            Blvd Triomphale(Immeuble Centre Guido)
-            <br />
-            Tél: 011 70 75 15 / 060 47 34 10
-          </div>
-        </div>
-
-        <div className="separatorD"></div>
-
+        <h1>Créer un Devis</h1>
         <form onSubmit={handleSubmit}>
-          <div className="client-infoD">
-            <div className="left-sectionD">
-              <strong>Devis pour</strong>
-              <br />
-              <br />
-              <strong className="highlighted-textD">Client:</strong>
-              <select onChange={(e) => handleClientSelect(e.target.value)} required>
-                <option value="">Sélectionner un client</option>
-                {clients.map((client) => (
-                  <option key={client._id} value={client._id}>
-                    {client.firstName} {client.lastName}
-                  </option>
-                ))}
-              </select>
-              <br />
-              <strong>N° de Téléphone:</strong> {selectedClient?.phone}
-              <br />
-              <strong>Email:</strong> {selectedClient?.email}
-              <br />
-            </div>
+          <div className="devis-section">
+            <label>Client:</label>
+            <select onChange={(e) => handleClientSelect(e.target.value)} value={selectedClient?._id || ""}>
+              <option value="">Sélectionner un client</option>
+              {clients.map((client) => (
+                <option key={client._id} value={client._id}>
+                  {client.firstName} {client.lastName}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <div className="right-sectionD">
-              <strong className="highlighted-text-largeD">DEVIS</strong>
-              <br />
-              <strong>Devis N°:</strong> {quoteNumber}
-              <br />
-              <strong>Etablie Par:</strong>
-              <input
-                type="text"
-                value={issuedBy}
-                onChange={(e) => setIssuedBy(e.target.value)}
-                required
-              />
-              <br />
-              <strong>Date:</strong> {date}
-              <br />
-              <strong>Période de Validité:</strong>
-              <br />
-              <input
-                type="date"
-                value={validityPeriod.startDate}
-                onChange={(e) =>
-                  setValidityPeriod({ ...validityPeriod, startDate: e.target.value })
-                }
-                required
-              />
-              <input
-                type="date"
-                value={validityPeriod.endDate}
-                onChange={(e) =>
-                  setValidityPeriod({ ...validityPeriod, endDate: e.target.value })
-                }
-                required
-              />
-            </div>
+          <div className="devis-section">
+            <label>Émis par:</label>
+            <input type="text" value={issuedBy} onChange={(e) => setIssuedBy(e.target.value)} required />
+          </div>
+
+          <div className="devis-section">
+            <label>Période de Validité:</label>
+            <input
+              type="date"
+              value={validityPeriod.startDate}
+              onChange={(e) => setValidityPeriod({ ...validityPeriod, startDate: e.target.value })}
+              required
+            />
+            <input
+              type="date"
+              value={validityPeriod.endDate}
+              onChange={(e) => setValidityPeriod({ ...validityPeriod, endDate: e.target.value })}
+              required
+            />
           </div>
 
           <div className="vehicle-selectionD">
-            <h3>Sélectionner un véhicule</h3>
+            <h3>Sélectionner un véhicule à louer</h3>
             <select
               value={selectedCategory}
               onChange={(e) => handleCategorySelect(e.target.value)}
@@ -259,14 +227,14 @@ const Devis = () => {
           </div>
 
           <div className="vehicle-listD">
-            <h3>Véhicules</h3>
+            <h3>Véhicules Quotés</h3>
             <table className="vehicle-tableD">
               <thead>
                 <tr>
                   <th>Marque</th>
                   <th>Modèle</th>
                   <th>Tarif Journalier</th>
-                  <th>Nombre de Jours</th>
+                  <th>Nbre de Jours</th>
                   <th>Montant</th>
                 </tr>
               </thead>
@@ -275,9 +243,9 @@ const Devis = () => {
                   <tr key={index}>
                     <td>{vehicle.marque}</td>
                     <td>{vehicle.modele}</td>
-                    <td>{vehicle.dailyRate}</td>
+                    <td>{vehicle.dailyRate} FCFA</td>
                     <td>{vehicle.daysQuoted}</td>
-                    <td>{vehicle.montant} XAF</td>
+                    <td>{vehicle.montant} FCFA</td>
                   </tr>
                 ))}
               </tbody>
@@ -285,74 +253,64 @@ const Devis = () => {
           </div>
 
           <div className="totalsD">
-            <div className="total-rowD">
-              <span className="total-labelD">Total HT:</span>
-              <span className="total-valueD">{calculateTotalHT()} XAF</span>
-            </div>
-            <div className="total-rowD">
-              <span className="total-labelD">TVA 18%:</span>
-              <span className="total-valueD">{calculateTVA()} XAF</span>
-            </div>
-            <div className="total-rowD">
-              <span className="total-labelD">CSS 1%:</span>
-              <span className="total-valueD">{calculateCSS()} XAF</span>
-            </div>
-            <div className="total-rowD">
-              <span className="total-labelD">Total TTC:</span>
-              <span className="total-valueD">{calculateTotalTTC()} XAF</span>
-              <button type="button" onClick={handleDiscountPopup} className="remise-buttonD">
-                Remise
-              </button>
-            </div>
-            {remise && (
-              <div className="total-rowD">
-                <span className="total-labelD">Remise 15%:</span>
-                <span className="total-valueD">- {remise} XAF</span>
+            <div className="totals-sectionD">
+              <div>
+                <strong>Total HT:</strong> {calculateTotalHT()} FCFA
               </div>
-            )}
-            <div className="total-rowD">
-              <span className="total-labelD">Total Net:</span>
-              <span className="total-valueD">{calculateTotalNet()} XAF</span>
+              <div>
+                <strong>TVA 18%:</strong> {calculateTVA()} FCFA
+              </div>
+              <div>
+                <strong>CSS 1%:</strong> {calculateCSS()} FCFA
+              </div>
+              <div>
+                <strong>Total TTC:</strong> {calculateTotalTTC()} FCFA
+              </div>
+              {remise !== null && (
+                <div>
+                  <strong>Remise -15%:</strong> {remise} FCFA
+                </div>
+              )}
+              <div>
+                <strong>Total Net:</strong> {calculateTotalNet()} FCFA
+              </div>
+              <button type="button" className="remise-buttonD" onClick={handleDiscountPopup}>
+                Appliquer une remise
+              </button>
             </div>
           </div>
 
-          <button type="submit" className="submit-buttonD">
-            Créer le devis
-          </button>
+          <button type="submit" className="submit-buttonD">Créer le Devis</button>
         </form>
 
         {isPopupOpen && (
           <div className="popupD">
-            <div className="popup-contentD">
-              <h3>Ajouter un véhicule</h3>
-              <label htmlFor="dailyRate">Tarif Journalier:</label>
-              <input
-                type="number"
-                value={dailyRate}
-                onChange={(e) => setDailyRate(e.target.value)}
-                required
-              />
-              <br />
-              <label htmlFor="daysQuoted">Nombre de Jours:</label>
-              <input
-                type="number"
-                value={daysQuoted}
-                onChange={(e) => setDaysQuoted(e.target.value)}
-                required
-              />
-              <br />
-              <button onClick={handleAddVehicle}>Ajouter</button>
-            </div>
+            <h3>Informations du véhicule</h3>
+            <label>Tarif journalier:</label>
+            <input
+              type="number"
+              value={dailyRate}
+              onChange={(e) => setDailyRate(e.target.value)}
+              required
+            />
+            <label>Nombre de jours quotés:</label>
+            <input
+              type="number"
+              value={daysQuoted}
+              onChange={(e) => setDaysQuoted(e.target.value)}
+              required
+            />
+            <button type="button" onClick={handleAddVehicle}>
+              Ajouter le véhicule
+            </button>
           </div>
         )}
 
         {isDiscountPopupOpen && (
-          <div className="popupD">
-            <div className="popup-contentD">
-              <p>Voulez-vous appliquer une remise de 15%?</p>
-              <button onClick={handleDiscountYes}>Oui</button>
-              <button onClick={handleDiscountNo}>Non</button>
-            </div>
+          <div className="discount-popupD">
+            <h3>Voulez-vous appliquer une remise de 15%?</h3>
+            <button onClick={handleDiscountYes}>Oui</button>
+            <button onClick={handleDiscountNo}>Non</button>
           </div>
         )}
       </div>

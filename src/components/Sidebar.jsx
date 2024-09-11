@@ -4,6 +4,9 @@ import { FaUser } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa6";
 import { FaFileInvoiceDollar } from "react-icons/fa";
+import { IoIosPaper } from "react-icons/io";
+
+
 
 import { useNavigate } from 'react-router-dom';
 import '../style/Sidebar.css';
@@ -37,7 +40,7 @@ const Sidebar = () => {
                 </div>
 
                 <div className="menu-item" onClick={() => navigate('/devis')}>
-                <FaFileInvoiceDollar 
+                <IoIosPaper
                 className="icon" />
                     <span className="text">Devis</span>
                 </div>
