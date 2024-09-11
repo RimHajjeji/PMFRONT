@@ -1,0 +1,101 @@
+.wrapperD {
+    padding: 20px;
+  }
+  
+  .devis-containerD {
+    max-width: 900px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+  
+  .headerD {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .company-infoD {
+    text-align: right;
+  }
+  
+  .separatorD {
+    height: 2px;
+    background-color: #ccc;
+    margin: 20px 0;
+  }
+  
+  .client-infoD {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .vehicle-selectionD, .vehicle-listD, .totalsD {
+    margin-top: 20px;
+  }
+  
+  .vehicle-tableD {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .vehicle-tableD th, .vehicle-tableD td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .total-rowD {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .remise-buttonD {
+    margin-left: 10px;
+  }
+  
+  .submit-buttonD {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #24B4DE;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-buttonD:hover {
+    background-color: #1A8CB8;
+  }
+  
+  .popupD {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+  }
+  
+  .popup-contentD {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .popup-contentD button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #24B4DE;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .logoD img {
+    width: 150px;
+  }
+  

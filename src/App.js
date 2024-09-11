@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import AddClient from './pages/AddClient';
 import AddMaterial from './pages/AddMaterial';
 import Facture from './pages/Facture';
+import Devis from './pages/Devis';
 import Layout from './components/Layout'; // Import Layout
 import Imprimefact from './pages/Imprimefact'; // Import Imprimefact
 
@@ -56,6 +57,18 @@ function App() {
             </PrivateRoute>
           }
         />
+   <Route
+          path="/devis"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <Devis />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+
         {/* Wrap Imprimefact inside Layout */}
         <Route
           path="/imprimefact/:invoiceId"

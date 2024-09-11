@@ -35,6 +35,12 @@ const Sidebar = () => {
                 className="icon" />
                     <span className="text">Facture</span>
                 </div>
+
+                <div className="menu-item" onClick={() => navigate('/devis')}>
+                <FaFileInvoiceDollar 
+                className="icon" />
+                    <span className="text">Devis</span>
+                </div>
             </nav>
         </aside>
     );
