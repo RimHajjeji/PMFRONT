@@ -38,8 +38,13 @@ const Imprimefact = () => {
         </tr>
     ));
 
+    // Print the invoice
+    const handlePrint = () => {
+        window.print();
+    };
+
     return (
-        <div className="print-container">
+        <div className="print-area">
             <header className="print-header">
                 <div className="headerF">
                     <div className="logoF">
@@ -114,6 +119,13 @@ const Imprimefact = () => {
                     <li>Tout retard de paiement entraînera des pénalités.</li>
                 </ul>
             </footer>
+
+            {/* Print button */}
+            <div className="print-button-container">
+                <button onClick={handlePrint} className="print-button">
+                    Imprimer
+                </button>
+            </div>
         </div>
     );
 };
