@@ -21,8 +21,9 @@
 }
 
 .sidebar .logoS img {
-    max-width: 70%;
-    height: auto;
+    width: 180px;
+    height: 120px;
+  
 }
 
 .sidebar .menu {
@@ -40,17 +41,21 @@
     align-items: center;
     cursor: pointer;
     transition: transform 0.2s;
+    background-color: rgba(239, 239, 239, 0.437);
+    border-radius: 5px;
 }
 
 .sidebar .menu-item:hover {
     transform: scale(1.1); /* Slightly enlarge the item on hover */
+    background-color: #eaf5f9c5;
 }
 
 .sidebar .menu-item .icon {
     color:  #3F3D56; /* Set icon color */
     margin-right: 25px; /* Add space between the icon and the text */
-    margin-left: 15px;
+    margin-left: 20px;
     font-size: 30px;
+    
 }
 
 .sidebar .menu-item .text {
