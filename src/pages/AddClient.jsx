@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { FaSearch } from 'react-icons/fa'; // Import the search icon
 import '../style/AddClient.css';
 
 const AddClient = () => {
@@ -102,13 +103,16 @@ const AddClient = () => {
 
             <div className="client-table-containerC">
                 <h1 className="client-table-titleC">Liste des clients</h1>
-                <input
-                    type="text"
-                    className="search-bar"
-                    placeholder="Rechercher par nom..."
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                />
+                <div className="search-bar-containerC">
+                    <input
+                        type="text"
+                        className="search-barC"
+                        placeholder="Rechercher par nom..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                    />
+                    <FaSearch className="search-iconC" />
+                </div>
                 <table className="client-tableC">
                     <thead>
                         <tr>
@@ -135,7 +139,5 @@ const AddClient = () => {
         </div>
     );
 };
-
-
 
 export default AddClient;

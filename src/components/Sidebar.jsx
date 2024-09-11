@@ -28,7 +28,7 @@ const Sidebar = () => {
                 <div className="menu-item" onClick={() => navigate('/add-material')}>
                 <FaCar
                 className="icon" />
-                    <span className="text">Nos véhicules</span>
+                    <span className="text">Nos Véhicules</span>
                 </div>
                 <div className="menu-item" onClick={() => navigate('/facture')}>
                 <FaFileInvoiceDollar 

@@ -42,7 +42,7 @@
     cursor: pointer;
     transition: transform 0.2s;
     background-color: rgba(239, 239, 239, 0.437);
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .sidebar .menu-item:hover {

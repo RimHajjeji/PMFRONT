@@ -64,14 +64,14 @@ const Navbar = () => {
                 <div className="settings-popup">
                     <h2>Modifier Profile</h2>
                     <form onSubmit={handleSettingsSubmit}>
-                        <label>Email:</label>
+                        <label>Email :</label>
                         <input 
                             type="email" 
                             value={email} 
                             onChange={(e) => setEmail(e.target.value)} 
                             required 
                         />
-                        <label>Password:</label>
+                        <label>Mot de passe :</label>
                         <input 
                             type="password" 
                             value={password} 
@@ -79,8 +79,8 @@ const Navbar = () => {
                             required 
                         />
                         <div className="settings-buttons">
-                            <button type="submit">Save Changes</button>
-                            <button type="button" onClick={() => setShowSettings(false)}>Cancel</button>
+                            <button type="submit">Modifier Profile</button>
+                            <button type="button" onClick={() => setShowSettings(false)}>Annuler</button>
                         </div>
                     </form>
                 </div>
