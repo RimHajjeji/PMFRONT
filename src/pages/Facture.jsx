@@ -177,7 +177,7 @@ const Facture = () => {
               <br />
               <br />
               <strong className="highlighted-textF">Le Locataire:</strong>
-              <select onChange={(e) => handleClientSelect(e.target.value)} required>
+              <select className="client-select" onChange={(e) => handleClientSelect(e.target.value)} required>
                 <option value="">Sélectionner un client</option>
                 {clients.map((client) => (
                   <option key={client._id} value={client._id}>
@@ -200,6 +200,7 @@ const Facture = () => {
               <strong>Etablie Par:</strong>
               <input
                 type="text"
+                className="input-issued-by"
                 value={issuedBy}
                 onChange={(e) => setIssuedBy(e.target.value)}
                 required
@@ -211,6 +212,7 @@ const Facture = () => {
               <br />
               <input
                 type="date"
+                className="input-billing-period-start"
                 value={billingPeriod.startDate}
                 onChange={(e) =>
                   setBillingPeriod({ ...billingPeriod, startDate: e.target.value })
@@ -219,6 +221,7 @@ const Facture = () => {
               />
               <input
                 type="date"
+                className="input-billing-period-end"
                 value={billingPeriod.endDate}
                 onChange={(e) =>
                   setBillingPeriod({ ...billingPeriod, endDate: e.target.value })
@@ -231,6 +234,7 @@ const Facture = () => {
           <div className="vehicle-selectionF">
             <h3>Sélectionner un véhicule à louer</h3>
             <select
+              className="category-select"
               value={selectedCategory}
               onChange={(e) => handleCategorySelect(e.target.value)}
               required={rentedVehicles.length === 0}
@@ -244,6 +248,7 @@ const Facture = () => {
             </select>
             <br />
             <select
+              className="vehicle-select"
               value={selectedVehicle ? vehicles.indexOf(selectedVehicle) : ""}
               onChange={(e) => handleVehicleSelect(e.target.value)}
               required={rentedVehicles.length === 0}
@@ -266,7 +271,7 @@ const Facture = () => {
                   <th>Marque</th>
                   <th>Modèle</th>
                   <th>Tarif Journalier</th>
-                  <th>Nbre de Jours</th>
+                  <th>Nombre de Jours</th>
                   <th>Montant</th>
                 </tr>
               </thead>
@@ -275,89 +280,77 @@ const Facture = () => {
                   <tr key={index}>
                     <td>{vehicle.marque}</td>
                     <td>{vehicle.modele}</td>
-                    <td>{vehicle.dailyRate} FCFA</td>
+                    <td>{vehicle.dailyRate}</td>
                     <td>{vehicle.daysRented}</td>
-                    <td>{vehicle.montant} FCFA</td>
+                    <td>{vehicle.montant}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
 
-          <div className="totalsF">
-            <div className="totals-sectionF">
-              <div>
-                <strong>Total HT:</strong> {calculateTotalHT()} FCFA
-              </div>
-              <div>
-                <strong>TVA 18%:</strong> {calculateTVA()} FCFA
-              </div>
-              <div>
-                <strong>CSS 1%:</strong> {calculateCSS()} FCFA
-              </div>
-              <div>
-                <strong>Total TTC:</strong> {calculateTotalTTC()} FCFA
-              </div>
-              {remise !== null && (
-                <div>
-                  <strong>REMISE -15%:</strong> {remise} FCFA
-                </div>
-              )}
-              <div>
-                <strong>Total Net à Payer:</strong> {calculateTotalNet()} FCFA
+          {isPopupOpen && (
+            <div className="popupF">
+              <div className="popup-contentF">
+                <h3>Ajouter un véhicule</h3>
+                <label>
+                  Tarif Journalier:
+                  <input
+                    type="number"
+                    className="input-daily-rate"
+                    value={dailyRate}
+                    onChange={(e) => setDailyRate(e.target.value)}
+                    required
+                  />
+                </label>
+                <label>
+                  Nombre de jours:
+                  <input
+                    type="number"
+                    className="input-days-rented"
+                    value={daysRented}
+                    onChange={(e) => setDaysRented(e.target.value)}
+                    required
+                  />
+                </label>
+                <button onClick={handleAddVehicle}>Ajouter</button>
+                <button onClick={() => setIsPopupOpen(false)}>Annuler</button>
               </div>
             </div>
+          )}
 
-            <div className="remise-sectionF">
-              <button type="button" onClick={handleDiscountPopup} className="btn-remise">
-                Appliquer une remise
-              </button>
+          {isDiscountPopupOpen && (
+            <div className="discount-popupF">
+              <div className="discount-popup-contentF">
+                <p>Voulez-vous appliquer une remise de 15%?</p>
+                <button onClick={handleDiscountYes}>Oui</button>
+                <button onClick={handleDiscountNo}>Non</button>
+              </div>
             </div>
+          )}
+
+          <div className="total-sectionF">
+            <strong>Total HT:</strong> {calculateTotalHT().toFixed(2)} FCFA
+            <br />
+            <strong>TVA (18%):</strong> {calculateTVA().toFixed(2)} FCFA
+            <br />
+            <strong>CSS (1%):</strong> {calculateCSS().toFixed(2)} FCFA
+            <br />
+            <strong>Total TTC:</strong> {calculateTotalTTC().toFixed(2)} FCFA
+            <br />
+            {remise && (
+              <>
+                <strong>Remise (15%):</strong> {remise.toFixed(2)} FCFA
+                <br />
+              </>
+            )}
+            <strong>Total Net:</strong> {calculateTotalNet().toFixed(2)} FCFA
+            <br />
+            <button type="button" onClick={handleDiscountPopup}>Appliquer une remise</button>
           </div>
 
-          <button type="submit" className="btn-submit">
-            Créer la facture
-          </button>
+          <button type="submit" className="submit-btnF">Créer Facture</button>
         </form>
-
-        {isPopupOpen && (
-          <div className="popupF">
-            <div className="popup-contentF">
-              <h3>Ajouter ce véhicule</h3>
-              <label>
-                Tarif journalier (FCFA):
-                <input
-                  type="number"
-                  value={dailyRate}
-                  onChange={(e) => setDailyRate(e.target.value)}
-                  required
-                />
-              </label>
-              <label>
-                Nombre de jours:
-                <input
-                  type="number"
-                  value={daysRented}
-                  onChange={(e) => setDaysRented(e.target.value)}
-                  required
-                />
-              </label>
-              <button type="button" onClick={handleAddVehicle}>
-                Ajouter
-              </button>
-            </div>
-          </div>
-        )}
-
-        {isDiscountPopupOpen && (
-          <div className="popupF">
-            <div className="popup-contentF">
-              <p>Voulez-vous appliquer une remise de 15% ?</p>
-              <button onClick={handleDiscountYes}>Oui</button>
-              <button onClick={handleDiscountNo}>Non</button>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
