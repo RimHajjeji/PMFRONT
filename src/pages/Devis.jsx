@@ -152,7 +152,7 @@ const Devis = () => {
     try {
       const response = await axios.post("http://localhost:5000/api/devis/add", newDevis);
       alert("Devis créé avec succès");
-      navigate('/dashboard');
+      navigate('/table-devis');
     } catch (error) {
       console.error("Erreur lors de l'ajout du devis :", error);
     }
