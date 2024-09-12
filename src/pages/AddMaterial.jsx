@@ -48,18 +48,18 @@ const AddMaterial = () => {
 
     return (
         <div className="add-materialM">
-            <h1 className="titleM">VEHICULES DU SERVICE LOCATION COURTE DUREE</h1>
+            <h1 className="titleM">Véhicules du service location courte durée</h1>
 
             <div className="add-categoryM">
                 <button onClick={() => document.getElementById("addCategoryModal").style.display = "block"}>
-                    Ajouter une nouvelle categorie
+                    Ajouter une nouvelle catégorie
                 </button>
             </div>
 
             <div id="addCategoryModal" className="modalM">
                 <div className="modal-contentM">
                     <span className="close" onClick={() => document.getElementById("addCategoryModal").style.display = "none"}>&times;</span>
-                    <h2 style={{ color: "#3F3D56" }}>Ajouter une nouvelle categorie</h2>
+                    <h2 style={{ color: "#3F3D56" }}>Ajouter une nouvelle catégorie</h2>
                     <input 
                         type="text" 
                         value={newCategory} 
@@ -70,7 +70,7 @@ const AddMaterial = () => {
                 </div>
             </div>
 
-            <h2 className="categories-titleM">Nos Categories</h2>
+            <h2 className="categories-titleM">Nos Catégories</h2>
 
             <div className="categoriesM">
                 {categories.map(category => (
@@ -95,7 +95,7 @@ const AddMaterial = () => {
                     />
                     <input 
                         type="text" 
-                        placeholder="Modele" 
+                        placeholder="Modéle" 
                         value={vehicle.modele}
                         onChange={(e) => setVehicle({ ...vehicle, modele: e.target.value })}
                     />
@@ -118,7 +118,7 @@ const AddMaterial = () => {
                         <thead>
                             <tr>
                                 <th>Marque</th>
-                                <th>Modele</th>
+                                <th>Modéle</th>
                                 <th>Couleur</th>
                                 <th>Plaque</th>
                             </tr>

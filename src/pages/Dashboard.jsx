@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { FaSearch } from 'react-icons/fa';
 import "../style/Dashboard.css";
 
 const Dashboard = () => {
@@ -44,12 +45,12 @@ const Dashboard = () => {
                             <h5>Bienvenue Admin! 🎉</h5>
                         </div>
                         <div className="welcome-image">
-                            <img src="/assets/admindash.jpg" alt="Man working on laptop" />
+                            <img src="/assets/admindash.png" alt="Man working on laptop" />
                         </div>
                     </div>
 
                     <div className="invoices-section">
-                        <h3>LISTES DES FACTURES</h3>
+                        <h3>Liste des factures</h3>
 
                         {/* Search bar */}
                         <div className="search-bar">
@@ -59,6 +60,7 @@ const Dashboard = () => {
                                 value={searchTerm}
                                 onChange={handleSearch}
                             />
+                            <FaSearch className="search-icon" />
                         </div>
 
                         {/* Invoices table */}

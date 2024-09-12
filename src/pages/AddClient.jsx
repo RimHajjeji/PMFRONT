@@ -56,7 +56,7 @@ const AddClient = () => {
 
     return (
         <div className="add-client-pageC">
-            <h1 className="titleC">Ajouter des Clients</h1>
+            <h1 className="titleC">Ajouter des clients</h1>
             <button className="btn-toggle-formC" onClick={toggleForm}>
                 Ajouter Client
             </button>
@@ -96,7 +96,7 @@ const AddClient = () => {
                             onChange={handleChange}
                             required
                         />
-                        <button type="submit">Enregistrer</button>
+                        <button type="submit">Enregistrer Client</button>
                     </form>
                 </div>
             )}
