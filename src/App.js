@@ -11,6 +11,7 @@ import Facture from './pages/Facture';
 import Devis from './pages/Devis';
 import Layout from './components/Layout'; 
 import Imprimefact from './pages/Imprimefact'; 
+import Imprimedevis from './pages/Imprimedevis';
 
 function App() {
   return (
@@ -90,6 +91,22 @@ function App() {
             </PrivateRoute>
           }
         />
+
+
+<Route
+          path="/imprimedevis/:devisId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <Imprimedevis/>
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+
+
+
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

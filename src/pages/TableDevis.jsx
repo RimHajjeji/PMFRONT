@@ -26,7 +26,7 @@ const TableDevis = () => {
     };
 
     const handlePrint = (devisId) => {
-        navigate(`/imprimefact/${devisId}`);
+        navigate(`/imprimedevis/${devisId}`);
     };
 
     // Sort devis by createdAt in descending order
