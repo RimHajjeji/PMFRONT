@@ -59,14 +59,14 @@ const AddMaterial = () => {
             <div id="addCategoryModal" className="modalM">
                 <div className="modal-contentM">
                     <span className="close" onClick={() => document.getElementById("addCategoryModal").style.display = "none"}>&times;</span>
-                    <h2 style={{ color: "#3F3D56" }}>Ajouter une nouvelle catégorie</h2>
+                    <h2 className="titleSC">Ajouter une nouvelle catégorie</h2>
                     <input 
                         type="text" 
                         value={newCategory} 
                         onChange={(e) => setNewCategory(e.target.value)} 
                         placeholder="Nom de la categorie" 
                     />
-                    <button onClick={handleAddCategory}>Ajouter</button>
+                    <button onClick={handleAddCategory}>Ajouter catégorie</button>
                 </div>
             </div>
 
@@ -111,7 +111,7 @@ const AddMaterial = () => {
                         value={vehicle.plaque}
                         onChange={(e) => setVehicle({ ...vehicle, plaque: e.target.value })}
                     />
-                    <button onClick={() => handleAddVehicle(selectedCategory._id)}>Ajouter</button>
+                    <button onClick={() => handleAddVehicle(selectedCategory._id)}>Ajouter véhicule</button>
                     
                     <h3>Liste des véhicules pour la catégorie: {selectedCategory.name}</h3>
                     <table className="vehicle-tableM">

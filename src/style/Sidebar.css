@@ -46,7 +46,7 @@
 }
 
 .sidebar .menu-item:hover {
-    transform: scale(1.1); /* Slightly enlarge the item on hover */
+    transform: scale(1.04); /* Slightly enlarge the item on hover */
     background-color: #eaf5f9c5;
 }
 
