@@ -4,12 +4,13 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import PrivateRoute from './PrivateRoute';
 import Dashboard from './pages/Dashboard';
+import TableDevis from './pages/TableDevis';
 import AddClient from './pages/AddClient';
 import AddMaterial from './pages/AddMaterial';
 import Facture from './pages/Facture';
 import Devis from './pages/Devis';
-import Layout from './components/Layout'; // Import Layout
-import Imprimefact from './pages/Imprimefact'; // Import Imprimefact
+import Layout from './components/Layout'; 
+import Imprimefact from './pages/Imprimefact'; 
 
 function App() {
   return (
@@ -23,6 +24,17 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <Dashboard />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/table-devis"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <TableDevis />
               </Layout>
             </PrivateRoute>
           }
@@ -67,8 +79,6 @@ function App() {
             </PrivateRoute>
           }
         />
-
-
         {/* Wrap Imprimefact inside Layout */}
         <Route
           path="/imprimefact/:invoiceId"

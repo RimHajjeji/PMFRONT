@@ -45,7 +45,7 @@ const Sidebar = () => {
                 className="icon" />
                     <span className="text">Devis</span>
                 </div>
-                <div className="menu-item" onClick={() => navigate('/imprimer-devis')}>
+                <div className="menu-item" onClick={() => navigate('/table-devis')}>
                 <MdLocalPrintshop 
                 className="icon" />
                     <span className="text">Imprimer Devis</span>
