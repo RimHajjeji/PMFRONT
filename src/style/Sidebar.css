@@ -53,14 +53,15 @@
 .sidebar .menu-item .icon {
     color:  #3F3D56; /* Set icon color */
     margin-right: 25px; /* Add space between the icon and the text */
-    margin-left: 20px;
-    font-size: 30px;
+    margin-left: 25px;
+    margin-right: 25px;
+    font-size: 27px;
     
 }
 
 .sidebar .menu-item .text {
     color:   #3F3D56; /* Set text color */
-    font-size: 22px;
+    font-size: 20px;
 }
 
 
