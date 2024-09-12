@@ -5,6 +5,7 @@ import { FaHouse } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa6";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { IoIosPaper } from "react-icons/io";
+import { MdLocalPrintshop } from "react-icons/md";
 
 
 
@@ -43,6 +44,11 @@ const Sidebar = () => {
                 <IoIosPaper
                 className="icon" />
                     <span className="text">Devis</span>
+                </div>
+                <div className="menu-item" onClick={() => navigate('/imprimer-devis')}>
+                <MdLocalPrintshop 
+                className="icon" />
+                    <span className="text">Imprimer Devis</span>
                 </div>
             </nav>
         </aside>
