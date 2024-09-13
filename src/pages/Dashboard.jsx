@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
-import "../style/Dashboard.css";
+import "../style/Dashboard.css"; // Assurez-vous que ce fichier CSS existe et correspond à vos besoins.
 
 const Dashboard = () => {
     const [invoices, setInvoices] = useState([]);
@@ -30,7 +30,11 @@ const Dashboard = () => {
         navigate(`/imprimefact/${invoiceId}`);
     };
 
-    const filteredInvoices = invoices.filter((invoice) =>
+    // Tri des factures par date de création en ordre décroissant
+    const sortedInvoices = [...invoices].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    // Filtrage des factures par nom du client
+    const filteredInvoices = sortedInvoices.filter((invoice) =>
         `${invoice.client.firstName} ${invoice.client.lastName}`
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
@@ -52,7 +56,7 @@ const Dashboard = () => {
                     <div className="invoices-section">
                         <h3>Liste des factures</h3>
 
-                        {/* Search bar */}
+                        {/* Barre de recherche */}
                         <div className="search-bar">
                             <input 
                                 type="text" 
@@ -63,35 +67,37 @@ const Dashboard = () => {
                             <FaSearch className="search-icon" />
                         </div>
 
-                        {/* Invoices table */}
-                        <table className="invoices-table">
-                            <thead>
-                                <tr>
-                                    <th>Numéro de Facture</th>
-                                    <th>Nom du Client</th>
-                                    <th>Numéro de Téléphone</th>
-                                    <th>Email</th>
-                                    <th>Date</th>
-                                    <th>Imprimer</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {filteredInvoices.map((invoice) => (
-                                    <tr key={invoice._id}>
-                                        <td>{invoice.invoiceNumber}</td>
-                                        <td>{invoice.client.firstName} {invoice.client.lastName}</td>
-                                        <td>{invoice.client.phone}</td>
-                                        <td>{invoice.client.email}</td>
-                                        <td>{new Date(invoice.createdAt).toLocaleDateString()}</td>
-                                        <td>
-                                            <button onClick={() => handlePrint(invoice._id)}>
-                                                Imprimer
-                                            </button>
-                                        </td>
+                        {/* Tableau des factures */}
+                        <div className="invoices-table-container">
+                            <table className="invoices-table">
+                                <thead>
+                                    <tr>
+                                        <th>Numéro de Facture</th>
+                                        <th>Nom du Client</th>
+                                        <th>Numéro de Téléphone</th>
+                                        <th>Email</th>
+                                        <th>Date</th>
+                                        <th>Imprimer</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {filteredInvoices.map((invoice) => (
+                                        <tr key={invoice._id}>
+                                            <td>{invoice.invoiceNumber}</td>
+                                            <td>{invoice.client.firstName} {invoice.client.lastName}</td>
+                                            <td>{invoice.client.phone}</td>
+                                            <td>{invoice.client.email}</td>
+                                            <td>{new Date(invoice.createdAt).toLocaleDateString()}</td>
+                                            <td>
+                                                <button className="invoice-print-button" onClick={() => handlePrint(invoice._id)}>
+                                                    Imprimer
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

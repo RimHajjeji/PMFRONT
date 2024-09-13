@@ -71,7 +71,7 @@ const Devis = () => {
       return;
     }
 
-    const montant = dailyRate * daysQuoted;
+    const montant = Math.round(dailyRate * daysQuoted);
 
     setQuotedVehicles([
       ...quotedVehicles,
@@ -93,27 +93,27 @@ const Devis = () => {
   };
 
   const calculateTotalHT = () => {
-    return quotedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
+    return Math.round(quotedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0));
   };
 
   const calculateTVA = () => {
-    return calculateTotalHT() * 0.18;
+    return Math.round(calculateTotalHT() * 0.18);
   };
 
   const calculateCSS = () => {
-    return calculateTotalHT() * 0.01;
+    return Math.round(calculateTotalHT() * 0.01);
   };
 
   const calculateTotalTTC = () => {
-    return calculateTotalHT() + calculateTVA() + calculateCSS();
+    return Math.round(calculateTotalHT() + calculateTVA() + calculateCSS());
   };
 
   const calculateRemise = () => {
-    return calculateTotalTTC() * 0.15;
+    return Math.round(calculateTotalTTC() * 0.15);
   };
 
   const calculateTotalNet = () => {
-    return remise ? calculateTotalTTC() - remise : calculateTotalTTC();
+    return remise ? Math.round(calculateTotalTTC() - remise) : calculateTotalTTC();
   };
 
   const handleDiscountPopup = () => {
@@ -266,6 +266,9 @@ const Devis = () => {
               <div>
                 <strong>Total TTC:</strong> {calculateTotalTTC()} FCFA
               </div>
+              <button type="button" className="remise-btnD" onClick={handleDiscountPopup}>
+                Appliquer une Remise ?
+              </button>
               {remise !== null && (
                 <div>
                   <strong>Remise -15%:</strong> {remise} FCFA
@@ -274,26 +277,27 @@ const Devis = () => {
               <div>
                 <strong>Total Net:</strong> {calculateTotalNet()} FCFA
               </div>
-              <button type="button" className="remise-buttonD" onClick={handleDiscountPopup}>
-                Appliquer une remise
-              </button>
             </div>
           </div>
 
-          <button type="submit" className="submit-buttonD">Créer le Devis</button>
+          <button type="submit" className="submit-btnD">
+            Créer le Devis
+          </button>
         </form>
+      </div>
 
-        {isPopupOpen && (
+      {isPopupOpen && (
+        <div className="popup-overlayD">
           <div className="popupD">
-            <h3>Informations du véhicule</h3>
-            <label>Tarif journalier:</label>
+            <h3>Détails du Véhicule</h3>
+            <label>Tarif Journalier:</label>
             <input
               type="number"
               value={dailyRate}
               onChange={(e) => setDailyRate(e.target.value)}
               required
             />
-            <label>Nombre de jours quotés:</label>
+            <label>Nbre de Jours:</label>
             <input
               type="number"
               value={daysQuoted}
@@ -301,19 +305,28 @@ const Devis = () => {
               required
             />
             <button type="button" onClick={handleAddVehicle}>
-              Ajouter le véhicule
+              Ajouter
+            </button>
+            <button type="button" onClick={() => setIsPopupOpen(false)}>
+              Fermer
             </button>
           </div>
-        )}
+        </div>
+      )}
 
-        {isDiscountPopupOpen && (
-          <div className="discount-popupD">
-            <h3>Voulez-vous appliquer une remise de 15%?</h3>
-            <button onClick={handleDiscountYes}>Oui</button>
-            <button onClick={handleDiscountNo}>Non</button>
+      {isDiscountPopupOpen && (
+        <div className="popup-overlayD">
+          <div className="popupD">
+            <h3>Voulez-vous appliquer une remise de 15% ?</h3>
+            <button type="button" onClick={handleDiscountYes}>
+              Oui
+            </button>
+            <button type="button" onClick={handleDiscountNo}>
+              Non
+            </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 };
