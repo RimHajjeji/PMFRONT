@@ -1,10 +1,10 @@
 .add-materialM {
-    padding: 20px;
+    padding: 40px;
     text-align: center;
 }
 
 .titleM {
-    font-size: 36px;
+    font-size: 32px;
     color: #3F3D56;
     margin-bottom: 40px;
 }
@@ -14,39 +14,45 @@
 }
 
 .add-categoryM button {
-    padding: 15px 30px;
+    padding: 14px 40px;
     background-color: #24B4DE;
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out;
+    
+    
 }
 
 .add-categoryM button:hover,
 .add-categoryM button:focus {
-    transform: scale(1.05);
+    transform: scale(1.03);
+    background-color: #1d94b7;
 }
 
 .categories-titleM {
-    font-size: 28px;
+    font-size: 30px;
     color: #3F3D56;
-    margin-bottom: 20px;
+    margin-top: 50px;
+    margin-bottom: 30px;
 }
 
 .categoriesM {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 30px;
 }
 
 .category-cardM {
     width: 180px;
     height: 120px;
-    background-color: #F2F2F2;
+    font-size: 18px;
+    color: #3F3D56;
+    background-color: #e0eff5;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -73,8 +79,10 @@
 }
 
 .modal-contentM {
+    margin-left: 100px;
     background-color: #fff;
-    margin: 15% auto;
+    margin-top: 250px;
+    margin-left: 500px;
     padding: 30px;
     border: 1px solid #888;
     width: 40%;
@@ -83,38 +91,53 @@
 }
 
 .close {
-    color: red;
+    color: #1ea0c7;
     float: right;
-    font-size: 28px;
+    font-size: 30px;
     font-weight: bold;
     cursor: pointer;
 }
 
 .close:hover,
 .close:focus {
-    color: #ff0000; /* Couleur rouge plus intense au survol */
+    color: #1ea0c7; /* Couleur rouge plus intense au survol */
     text-decoration: none;
     cursor: pointer;
 }
 
 .modal-contentM input {
-    padding: 15px;
+    padding: 17px;
+    font-size: 16px;
     width: 80%;
     border-radius: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    background-color: white; /* White background */
+    border: 1px solid #ddd; /* Border */
+    outline: none;
+}
+
+.modal-contentM input:focus {
+    border-color: #1ea0c7;
+    box-shadow: 0 0 5px rgba(30, 160, 199, 0.3);
+}
+
+.modal-contentM h2{
+    color: #3F3D56;
+    margin-top: 10px;
+    margin-bottom: 40px;
 }
 
 .modal-contentM button {
-    padding: 15px 30px;
+    padding: 15px 40px;
     background-color: #24B4DE;
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius:10px;
     cursor: pointer;
     font-size: 18px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out;
+    width: 40%;
 }
 
 .modal-contentM button:hover,
@@ -123,7 +146,7 @@
 }
 
 .vehicle-formM {
-    margin-top: 20px;
+    margin-top: 70px;
     padding: 20px;
     background-color: #F2F2F2;
     border-radius: 10px;
@@ -131,32 +154,42 @@
 }
 
 .vehicle-formM h2 {
-    font-size: 28px;
+    font-size: 30px;
     color: #3F3D56;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 
 .vehicle-formM input {
     display: block;
     margin: 10px auto;
     padding: 15px;
-    width: 90%;
+    width: 60%;
     border-radius: 10px;
     border: 1px solid #ccc;
     background-color: #fff;
     font-size: 16px;
+    outline: none;
 }
 
+.vehicle-formM input:focus {
+    border-color: #1ea0c7;
+    box-shadow: 0 0 5px rgba(30, 160, 199, 0.3);
+}
+
+
 .vehicle-formM button {
-    padding: 15px 30px;
+    margin-top: 20px;
+    margin-bottom: 25px;
+    padding: 15px 40px;
     background-color: #24B4DE;
     color: white;
     border: none;
-    border-radius: 25px;
+    border-radius: 10px;
     cursor: pointer;
     font-size: 18px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out;
+    width: 62%;
 }
 
 .vehicle-formM button:hover,
@@ -164,26 +197,41 @@
     transform: scale(1.05);
 }
 
-.vehicle-tableM {
-    margin-top: 20px;
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: 10px;
-    overflow: hidden;
+.vehicle-formM h3{
+    font-size: 30px;
+    color: #3F3D56;
+    margin-bottom: 50px;
+
 }
 
-.vehicle-tableM th,
-.vehicle-tableM td {
-    padding: 15px;
-    border: 1px solid #ddd;
-    text-align: left;
-    font-size: 16px;
+.vehicle-tableM {
+    background-color: white;
+    margin-left: 30px; /* Similar to client-tableC margin */
+    width: 95%; /* Full width minus margins */
+    border-collapse: collapse;
+    text-align: left; /* Align text to the left */
+    font-size: 18px; /* Font size similar to client-tableC */
+    border-radius: 8px;
+    overflow: hidden; /* Ensure rounded borders */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.145); /* Similar box shadow */
+    margin-bottom: 80px; /* Space below the table */
+}
+
+.vehicle-tableM th, .vehicle-tableM td {
+    border: 1px solid #ddd; /* Border similar to client-tableC */
+    padding: 10px; /* Padding similar to client-tableC */
 }
 
 .vehicle-tableM th {
-    background-color: #FAA381;
+    background-color: #d4f0f8 ; /* Background color for header */
+    color: #333; /* Text color for header */
 }
 
 .vehicle-tableM td {
-    background-color: #fff;
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #ddd; /* Bottom border for rows */
+}
+
+.vehicle-tableM tr:hover {
+    background-color: #ddd; /* Hover effect */
 }

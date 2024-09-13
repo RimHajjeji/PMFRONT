@@ -113,10 +113,6 @@
     border-bottom: 1px solid #ddd; /* Bottom border for rows */
 }
 
-.invoices-table tr:nth-child(even) {
-    background-color: #f9f9f9; /* Alternating row color */
-}
-
 .invoices-table tr:hover {
     background-color: #ddd; /* Hover effect */
 }
