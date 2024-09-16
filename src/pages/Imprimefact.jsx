@@ -105,7 +105,7 @@ const Imprimefact = () => {
                 <div><strong>CSS 1%:</strong> {formatNumber(invoice.css)} CFA</div>
                 <div><strong>Total TTC:</strong> {formatNumber(invoice.totalTTC)} CFA</div>
                 {invoice.remise > 0 && (
-                    <div><strong>Remise -15%:</strong> {formatNumber(invoice.remise)} CFA</div>
+                    <div><strong>Remise :</strong> {formatNumber(invoice.remise)} CFA</div>
                 )}
                 <div><strong>Total Net:</strong> {formatNumber(invoice.totalNet)} CFA</div>
             </section>
