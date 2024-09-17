@@ -10,7 +10,9 @@ const AddClient = () => {
         firstName: '',
         lastName: '',
         phone: '',
-        email: ''
+        email: '',
+        codeClient: '', // Added "code client"
+        typeClient: '' // Added "type client"
     });
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -25,7 +27,14 @@ const AddClient = () => {
         try {
             const response = await axios.post('http://localhost:5000/api/clients/add', clientData);
             setClients([...clients, response.data]);
-            setClientData({ firstName: '', lastName: '', phone: '', email: '' });
+            setClientData({
+                firstName: '',
+                lastName: '',
+                phone: '',
+                email: '',
+                codeClient: '', // Reset "code client"
+                typeClient: '' // Reset "type client"
+            });
             setShowForm(false);
         } catch (error) {
             console.error('Error adding client', error);
@@ -96,6 +105,23 @@ const AddClient = () => {
                             onChange={handleChange}
                             required
                         />
+                        {/* New fields for "code client" and "type client" */}
+                        <input
+                            type="text"
+                            name="codeClient"
+                            placeholder="Code Client"
+                            value={clientData.codeClient}
+                            onChange={handleChange}
+                            required
+                        />
+                        <input
+                            type="text"
+                            name="typeClient"
+                            placeholder="Type Client"
+                            value={clientData.typeClient}
+                            onChange={handleChange}
+                            required
+                        />
                         <button type="submit">Enregistrer Client</button>
                     </form>
                 </div>
@@ -121,6 +147,8 @@ const AddClient = () => {
                             <th>Nom</th>
                             <th>Numéro de Téléphone</th>
                             <th>Email</th>
+                            <th>Code Client</th>
+                            <th>Type Client</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -131,6 +159,8 @@ const AddClient = () => {
                                 <td>{client.lastName}</td>
                                 <td>{client.phone}</td>
                                 <td>{client.email}</td>
+                                <td>{client.codeClient}</td>
+                                <td>{client.typeClient}</td>
                             </tr>
                         ))}
                     </tbody>
