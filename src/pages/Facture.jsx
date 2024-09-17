@@ -247,6 +247,12 @@ const Facture = () => {
               <br />
               <strong>N° de Téléphone:</strong> {selectedClient?.phone || "N/A"}
               <br />
+              <br />
+              <strong>code client:</strong> {selectedClient?.codeClient || "N/A"}
+              <br />
+              <br />
+              <strong>Type client:</strong> {selectedClient?.typeClient || "N/A"}
+              <br />
               <strong>Email:</strong> {selectedClient?.email || "N/A"}
               <br />
             </div>
