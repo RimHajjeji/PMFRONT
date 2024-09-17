@@ -154,3 +154,14 @@ body, html {
     background-color: #F2F2F2;
     margin: 10px 0;
 }
+
+
+.forgot-password {
+    margin-top: 20px; 
+    margin-bottom: 20px;
+}
+
+.forgot-password a{
+    font-size: 17.5px;
+    color: #3F3D56;
+}

@@ -67,6 +67,9 @@ const Login = () => {
                     <button type="submit" className="login-button">Se Connecter</button>
                 </form>
                 <div className="signup-prompt">
+                <div className="forgot-password">
+                    <a href="/reset-password-request">Mot de passe oublié ?</a>
+                </div>
                     <p>
                         Vous n'avez pas de compte? <Link to="/signup" className="signup-link">S'inscrire</Link>
                     </p>

@@ -12,6 +12,8 @@ import Devis from './pages/Devis';
 import Layout from './components/Layout'; 
 import Imprimefact from './pages/Imprimefact'; 
 import Imprimedevis from './pages/Imprimedevis';
+import ResetPasswordRequest from './pages/ResetPasswordRequest';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
   return (
@@ -70,7 +72,7 @@ function App() {
             </PrivateRoute>
           }
         />
-   <Route
+        <Route
           path="/devis"
           element={
             <PrivateRoute>
@@ -92,8 +94,7 @@ function App() {
           }
         />
 
-
-<Route
+        <Route
           path="/imprimedevis/:devisId"
           element={
             <PrivateRoute>
@@ -104,10 +105,9 @@ function App() {
           }
         />
 
-
-
-
         <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="/reset-password-request" element={<ResetPasswordRequest />} />
+        <Route path="/reset-password/:token" element={<ResetPassword />} />
       </Routes>
     </Router>
   );

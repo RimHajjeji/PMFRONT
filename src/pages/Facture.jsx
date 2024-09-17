@@ -154,10 +154,10 @@ const Facture = () => {
     <div className="wrapperF">
       <div className="facture-containerF">
         <div className="headerF">
-          <div className="logoF">
+          <div className="logoFac">
             <img src="/assets/logo.png" alt="Logo" />
           </div>
-          <div className="company-infoF">
+          <div className="company-infoFac">
             <strong>SIEGE SOCIAL</strong>
             <br />
             Libreville-Gabon-B.P.8357
@@ -171,7 +171,7 @@ const Facture = () => {
         <div className="separatorF"></div>
 
         <form onSubmit={handleSubmit}>
-          <div className="client-infoF">
+          <div className="client-infoFac">
             <div className="left-sectionF">
               <strong>Facturé à</strong>
               <br />
@@ -294,7 +294,7 @@ const Facture = () => {
               <div className="popup-contentF">
                 <h3>Ajouter un véhicule</h3>
                 <label>
-                  Tarif Journalier:
+                  Tarif Journalier :
                   <input
                     type="number"
                     className="input-daily-rate"
@@ -304,7 +304,7 @@ const Facture = () => {
                   />
                 </label>
                 <label>
-                  Nombre de jours:
+                  Nombre de jours :
                   <input
                     type="number"
                     className="input-days-rented"

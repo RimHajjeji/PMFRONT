@@ -1,13 +1,13 @@
 /* General styles for the Facture component */
 .wrapperF {
-  padding: 20px;
+  padding: 30px 60px;
 }
 
 .facture-containerF {
   background: #f9f9f9;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 20px 60px;
   max-width: 1200px;
   margin: 0 auto;
 }
@@ -16,26 +16,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
-.logoF img {
-  width: 100px;
+.logoFac img {
+  width: 160px;
+  height: 105px;
 }
 
-.company-infoF {
+.company-infoFac {
   text-align: right;
+  line-height: 1.4;
 }
 
 .separatorF {
   border-top: 2px solid #d1d1d1;
-  margin: 20px 0;
+  margin: 20px -40px;
 }
 
-.client-infoF {
+.client-infoFac {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 80px;
 }
 
 .left-sectionF, .right-sectionF {
@@ -47,14 +49,18 @@
   margin-bottom: 10px;
 }
 
+
+.left-sectionF strong {
+  font-size: 17px;
+}
 .highlighted-textF {
-  color: #2d8b43;
+  color: #24B4DE;
   font-weight: bold;
 }
 
 .highlighted-text-largeF {
   font-size: 24px;
-  color: #2d8b43;
+  color: #24B4DE;
   text-align: center;
   display: block;
 }
@@ -75,6 +81,7 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 10px;
+  outline: none;
 }
 
 .input-billing-period-start,
@@ -85,6 +92,7 @@
   border-radius: 4px;
   margin-bottom: 10px;
   display: inline-block;
+  outline: none;
 }
 
 .vehicle-selectionF h3,
@@ -114,7 +122,6 @@
   background-color: #f9f9f9;
 }
 
-.popupF,
 .discount-popupF {
   position: fixed;
   top: 50%;
@@ -123,6 +130,18 @@
   background: #fff;
   padding: 20px;
   border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+}
+
+.popupF{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   z-index: 100;
 }
@@ -136,13 +155,14 @@
 .discount-popup-contentF input {
   width: 80%;
   padding: 6px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   border: 1px solid #ddd;
-  border-radius: 3px;
+  border-radius: 10px;
+  outline: none;
 }
 
 .submit-btnF {
-  background-color: #4CAF50;
+  background-color: #24B4DE;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -151,7 +171,7 @@
 }
 
 .submit-btnF:hover {
-  background-color: #45a049;
+  background-color: #1d94b7;
 }
 
 .total-sectionF {
@@ -164,7 +184,7 @@
 }
 
 .total-sectionF button {
-  background-color: #007bff;
+  background-color: #24B4DE;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -173,5 +193,5 @@
 }
 
 .total-sectionF button:hover {
-  background-color: #0056b3;
+  background-color: #24B4DE;
 }
