@@ -27,6 +27,9 @@ const Imprimefact = () => {
     // Helper function to safely format numbers
     const formatNumber = (number) => number ? number.toLocaleString() : 'N/A';
 
+    // Calculate discount percentage if a discount is applied
+    const discountPercentage = invoice.remise && invoice.totalTTC ? ((invoice.remise / invoice.totalTTC) * 100).toFixed(2) : null;
+
     // Format the vehicle details into the table
     const vehicleRows = invoice.vehicles.map((vehicle, index) => (
         <tr key={index}>
@@ -71,6 +74,8 @@ const Imprimefact = () => {
                 <div>
                     <strong>Nom:</strong> {`${invoice.client?.firstName || 'N/A'} ${invoice.client?.lastName || 'N/A'}`}<br />
                     <strong>Numéro de Téléphone:</strong> {invoice.client?.phone || 'N/A'}<br />
+                    <strong>Code client:</strong> {invoice.client?.codeClient|| 'N/A'}<br />
+                    <strong>Type Client:</strong> {invoice.client?.typeClient || 'N/A'}<br />
                     <strong>Email:</strong> {invoice.client?.email || 'N/A'}
                 </div>
             </section>
@@ -104,8 +109,8 @@ const Imprimefact = () => {
                 <div><strong>TVA 18%:</strong> {formatNumber(invoice.tva)} CFA</div>
                 <div><strong>CSS 1%:</strong> {formatNumber(invoice.css)} CFA</div>
                 <div><strong>Total TTC:</strong> {formatNumber(invoice.totalTTC)} CFA</div>
-                {invoice.remise > 0 && (
-                    <div><strong>Remise -15%:</strong> {formatNumber(invoice.remise)} CFA</div>
+                {invoice.remise > 0 && discountPercentage && (
+                    <div><strong>Remise ({discountPercentage}%):</strong> {formatNumber(invoice.remise)} CFA</div>
                 )}
                 <div><strong>Total Net:</strong> {formatNumber(invoice.totalNet)} CFA</div>
             </section>

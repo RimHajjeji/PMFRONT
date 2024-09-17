@@ -1,3 +1,4 @@
+// src/components/Facture.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +9,6 @@ const Facture = () => {
   const [categories, setCategories] = useState([]);
   const [selectedClient, setSelectedClient] = useState(null);
   const [issuedBy, setIssuedBy] = useState("");
-  const [invoiceNumber, setInvoiceNumber] = useState("");
   const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
   const [billingPeriod, setBillingPeriod] = useState({
     startDate: "",
@@ -23,29 +23,33 @@ const Facture = () => {
   const [daysRented, setDaysRented] = useState("");
   const [isDiscountPopupOpen, setIsDiscountPopupOpen] = useState(false);
   const [remise, setRemise] = useState(null);
+  const [discountPercentage, setDiscountPercentage] = useState(0);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchClients = async () => {
-      const response = await axios.get("http://localhost:5000/api/clients");
-      setClients(response.data);
+      try {
+        const response = await axios.get("http://localhost:5000/api/clients");
+        setClients(response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des clients:", error);
+        alert("Erreur lors de la récupération des clients.");
+      }
     };
 
     const fetchCategories = async () => {
-      const response = await axios.get("http://localhost:5000/api/categories/categories");
-      setCategories(response.data);
-    };
-
-    const fetchInvoiceNumber = async () => {
-      const response = await axios.get("http://localhost:5000/api/invoices");
-      const nextInvoiceNumber = response.data.length + 1;
-      setInvoiceNumber(nextInvoiceNumber.toString().padStart(7, "0"));
+      try {
+        const response = await axios.get("http://localhost:5000/api/categories/categories");
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories:", error);
+        alert("Erreur lors de la récupération des catégories.");
+      }
     };
 
     fetchClients();
     fetchCategories();
-    fetchInvoiceNumber();
   }, []);
 
   const handleClientSelect = (clientId) => {
@@ -56,7 +60,7 @@ const Facture = () => {
   const handleCategorySelect = (categoryId) => {
     const category = categories.find((cat) => cat._id === categoryId);
     setSelectedCategory(categoryId);
-    setVehicles(category.vehicles);
+    setVehicles(category ? category.vehicles : []);
   };
 
   const handleVehicleSelect = (index) => {
@@ -71,15 +75,23 @@ const Facture = () => {
       return;
     }
 
-    const montant = dailyRate * daysRented;
+    const dailyRateNumber = Number(dailyRate);
+    const daysRentedNumber = Number(daysRented);
+
+    if (isNaN(dailyRateNumber) || isNaN(daysRentedNumber)) {
+      alert("Les champs Tarif Journalier et Nombre de jours doivent être des nombres.");
+      return;
+    }
+
+    const montant = dailyRateNumber * daysRentedNumber;
 
     setRentedVehicles([
       ...rentedVehicles,
       {
         marque: selectedVehicle.marque,
         modele: selectedVehicle.modele,
-        dailyRate,
-        daysRented,
+        dailyRate: dailyRateNumber,
+        daysRented: daysRentedNumber,
         montant,
       },
     ]);
@@ -108,8 +120,9 @@ const Facture = () => {
     return calculateTotalHT() + calculateTVA() + calculateCSS();
   };
 
+  // Updated remise calculation based on entered percentage
   const calculateRemise = () => {
-    return calculateTotalTTC() * 0.15;
+    return calculateTotalTTC() * (discountPercentage / 100);
   };
 
   const calculateTotalNet = () => {
@@ -121,7 +134,12 @@ const Facture = () => {
   };
 
   const handleDiscountYes = () => {
-    setRemise(calculateRemise());
+    if (discountPercentage < 0 || discountPercentage > 100) {
+      alert("Le pourcentage de remise doit être entre 0 et 100.");
+      return;
+    }
+    const remiseCalculated = calculateRemise();
+    setRemise(remiseCalculated);
     setIsDiscountPopupOpen(false);
   };
 
@@ -131,23 +149,60 @@ const Facture = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!selectedClient) {
+      alert("Veuillez sélectionner un client.");
+      return;
+    }
+
+    if (!issuedBy) {
+      alert("Veuillez indiquer qui a émis la facture.");
+      return;
+    }
+
+    if (!billingPeriod.startDate || !billingPeriod.endDate) {
+      alert("Veuillez indiquer la période de facturation.");
+      return;
+    }
+
+    if (rentedVehicles.length === 0) {
+      alert("Veuillez ajouter au moins un véhicule loué.");
+      return;
+    }
+
     const totalHT = calculateTotalHT();
+    const tva = calculateTVA();
+    const css = calculateCSS();
+    const totalTTC = calculateTotalTTC();
+    const remiseAmount = remise || 0;
+    const totalNet = calculateTotalNet();
+
     const newInvoice = {
       clientId: selectedClient._id,
       issuedBy,
       billingPeriod,
       vehicles: rentedVehicles,
       totalHT,
-      tva: calculateTVA(),
-      css: calculateCSS(),
-      totalTTC: calculateTotalTTC(),
-      remise: remise || 0,
-      totalNet: calculateTotalNet(),
+      tva,
+      css,
+      totalTTC,
+      remise: remiseAmount,
+      discountPercentage,
+      totalNet,
     };
 
-    await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
-    alert("Facture créée avec succès");
-    navigate('/dashboard'); // Redirection vers le tableau de bord après la création
+    try {
+      const response = await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
+      alert("Facture créée avec succès. Numéro de facture: " + response.data.invoice.invoiceNumber);
+      navigate('/dashboard'); // Redirection vers le tableau de bord après la création
+    } catch (error) {
+      console.error("Erreur lors de la création de la facture:", error);
+      if (error.response && error.response.data && error.response.data.error) {
+        alert("Erreur: " + error.response.data.error);
+      } else {
+        alert("Une erreur est survenue lors de la création de la facture.");
+      }
+    }
   };
 
   return (
@@ -177,7 +232,11 @@ const Facture = () => {
               <br />
               <br />
               <strong className="highlighted-textF">Le Locataire:</strong>
-              <select className="client-select" onChange={(e) => handleClientSelect(e.target.value)} required>
+              <select
+                className="client-select"
+                onChange={(e) => handleClientSelect(e.target.value)}
+                required
+              >
                 <option value="">Sélectionner un client</option>
                 {clients.map((client) => (
                   <option key={client._id} value={client._id}>
@@ -186,16 +245,22 @@ const Facture = () => {
                 ))}
               </select>
               <br />
-              <strong>N° de Téléphone:</strong> {selectedClient?.phone}
+              <strong>N° de Téléphone:</strong> {selectedClient?.phone || "N/A"}
               <br />
-              <strong>Email:</strong> {selectedClient?.email}
+              <br />
+              <strong>code client:</strong> {selectedClient?.codeClient || "N/A"}
+              <br />
+              <br />
+              <strong>Type client:</strong> {selectedClient?.typeClient || "N/A"}
+              <br />
+              <strong>Email:</strong> {selectedClient?.email || "N/A"}
               <br />
             </div>
 
             <div className="right-sectionF">
               <strong className="highlighted-text-largeF">FACTURE</strong>
               <br />
-              <strong>Facture N°:</strong> {invoiceNumber}
+              <strong>Facture N°:</strong> {/* Invoice Number will be generated by backend */}
               <br />
               <strong>Etablie Par:</strong>
               <input
@@ -280,9 +345,9 @@ const Facture = () => {
                   <tr key={index}>
                     <td>{vehicle.marque}</td>
                     <td>{vehicle.modele}</td>
-                    <td>{vehicle.dailyRate}</td>
+                    <td>{vehicle.dailyRate.toFixed(2)}</td>
                     <td>{vehicle.daysRented}</td>
-                    <td>{vehicle.montant}</td>
+                    <td>{vehicle.montant.toFixed(2)}</td>
                   </tr>
                 ))}
               </tbody>
@@ -301,6 +366,8 @@ const Facture = () => {
                     value={dailyRate}
                     onChange={(e) => setDailyRate(e.target.value)}
                     required
+                    min="0"
+                    step="0.01"
                   />
                 </label>
                 <label>
@@ -311,10 +378,11 @@ const Facture = () => {
                     value={daysRented}
                     onChange={(e) => setDaysRented(e.target.value)}
                     required
+                    min="1"
                   />
                 </label>
-                <button onClick={handleAddVehicle}>Ajouter</button>
-                <button onClick={() => setIsPopupOpen(false)}>Annuler</button>
+                <button type="button" onClick={handleAddVehicle}>Ajouter</button>
+                <button type="button" onClick={() => setIsPopupOpen(false)}>Annuler</button>
               </div>
             </div>
           )}
@@ -322,9 +390,21 @@ const Facture = () => {
           {isDiscountPopupOpen && (
             <div className="discount-popupF">
               <div className="discount-popup-contentF">
-                <p>Voulez-vous appliquer une remise de 15%?</p>
-                <button onClick={handleDiscountYes}>Oui</button>
-                <button onClick={handleDiscountNo}>Non</button>
+                <p>Voulez-vous appliquer une remise ?</p>
+                <label>
+                  Pourcentage de Remise:
+                  <input
+                    type="number"
+                    className="input-discount-percentage"
+                    value={discountPercentage}
+                    onChange={(e) => setDiscountPercentage(Number(e.target.value))}
+                    required
+                    min="0"
+                    max="100"
+                  />
+                </label>
+                <button type="button" onClick={handleDiscountYes}>Appliquer</button>
+                <button type="button" onClick={handleDiscountNo}>Annuler</button>
               </div>
             </div>
           )}
@@ -338,9 +418,9 @@ const Facture = () => {
             <br />
             <strong>Total TTC:</strong> {calculateTotalTTC().toFixed(2)} FCFA
             <br />
-            {remise && (
+            {remise !== null && (
               <>
-                <strong>Remise (15%):</strong> {remise.toFixed(2)} FCFA
+                <strong>Remise ({discountPercentage}%):</strong> {remise.toFixed(2)} FCFA
                 <br />
               </>
             )}
