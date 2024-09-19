@@ -66,7 +66,7 @@ const TableDevis = () => {
                     <tbody>
                         {filteredDevis.map((devi) => (
                             <tr key={devi._id}>
-                                <td>{devi.quoteNumber}</td>
+                                <td>{devi.devisNumber}</td>
                                 <td>{devi.client.firstName} {devi.client.lastName}</td>
                                 <td>{devi.client.phone}</td>
                                 <td>{devi.client.email}</td>
