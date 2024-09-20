@@ -10,7 +10,9 @@ const AddMaterial = () => {
         marque: "",
         modele: "",
         couleur: "",
-        plaque: ""
+        plaque: "",
+        gps: false, // New field for GPS
+        gpsCode: "" // New field for GPS code
     });
 
     useEffect(() => {
@@ -28,7 +30,7 @@ const AddMaterial = () => {
             .then((response) => {
                 setCategories([...categories, response.data]);
                 setNewCategory("");
-                document.getElementById("addCategoryModal").style.display = "none"; // Hide popup after addition
+                document.getElementById("addCategoryModal").style.display = "none";
             })
             .catch((error) => {
                 console.error("There was an error adding the category!", error);
@@ -38,26 +40,32 @@ const AddMaterial = () => {
     const handleAddVehicle = (categoryId) => {
         axios.post(`http://localhost:5000/api/categories/add-vehicle/${categoryId}`, vehicle)
             .then((response) => {
-                setCategories(categories.map(cat => cat._id === categoryId ? response.data : cat));
-                setVehicle({ marque: "", modele: "", couleur: "", plaque: "" });
+                // Update categories state
+                setCategories(categories.map(cat => 
+                    cat._id === categoryId ? response.data : cat
+                ));
+    
+                // Update selected category locally
+                if (selectedCategory && selectedCategory._id === categoryId) {
+                    setSelectedCategory(prev => ({
+                        ...prev,
+                        vehicles: [...prev.vehicles, response.data.vehicles[response.data.vehicles.length - 1]] // Add the new vehicle
+                    }));
+                }
+    
+                // Clear the vehicle input fields
+                setVehicle({ marque: "", modele: "", couleur: "", plaque: "", gps: false, gpsCode: "" });
             })
             .catch((error) => {
                 console.error("There was an error adding the vehicle!", error);
             });
     };
+    
 
     const handleDeleteVehicle = (categoryId, vehicleId) => {
         axios.delete(`http://localhost:5000/api/categories/delete-vehicle/${categoryId}/${vehicleId}`)
             .then((response) => {
-                // Update the categories and immediately remove the deleted vehicle from the UI
-                setCategories(categories.map(cat => {
-                    if (cat._id === categoryId) {
-                        return response.data; // Replace the updated category data after deletion
-                    }
-                    return cat;
-                }));
-
-                // If the currently selected category was updated, make sure to update it in state as well
+                setCategories(categories.map(cat => cat._id === categoryId ? response.data : cat));
                 if (selectedCategory && selectedCategory._id === categoryId) {
                     setSelectedCategory(response.data);
                 }
@@ -132,6 +140,22 @@ const AddMaterial = () => {
                         value={vehicle.plaque}
                         onChange={(e) => setVehicle({ ...vehicle, plaque: e.target.value })}
                     />
+                    <label>
+                        GPS disponible:
+                        <input 
+                            type="checkbox" 
+                            checked={vehicle.gps}
+                            onChange={(e) => setVehicle({ ...vehicle, gps: e.target.checked })}
+                        />
+                    </label>
+                    {vehicle.gps && (
+                        <input 
+                            type="text" 
+                            placeholder="Code GPS" 
+                            value={vehicle.gpsCode}
+                            onChange={(e) => setVehicle({ ...vehicle, gpsCode: e.target.value })}
+                        />
+                    )}
                     <button onClick={() => handleAddVehicle(selectedCategory._id)}>Ajouter véhicule</button>
                     
                     <h3>Liste des véhicules pour la catégorie: {selectedCategory.name}</h3>
@@ -142,6 +166,8 @@ const AddMaterial = () => {
                                 <th>Modéle</th>
                                 <th>Couleur</th>
                                 <th>Plaque</th>
+                                <th>GPS</th>
+                                <th>Code GPS</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -152,6 +178,8 @@ const AddMaterial = () => {
                                     <td>{veh.modele}</td>
                                     <td>{veh.couleur}</td>
                                     <td>{veh.plaque}</td>
+                                    <td>{veh.gps ? "Oui" : "Non"}</td>
+                                    <td>{veh.gpsCode || "-"}</td>
                                     <td>
                                         <button onClick={() => handleDeleteVehicle(selectedCategory._id, veh._id)}>
                                             Supprimer
