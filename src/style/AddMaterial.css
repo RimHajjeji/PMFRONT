@@ -235,3 +235,25 @@
 .vehicle-tableM tr:hover {
     background-color: #ddd; /* Hover effect */
 }
+.vehicle-tableM button {
+    padding: 10px 20px;
+    background-color: #e74c3c; /* Red color for the delete button */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
+
+.vehicle-tableM button:hover {
+    background-color: #c0392b; /* Darker red on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+
+.vehicle-tableM button:focus {
+    outline: none;
+    background-color: #c0392b; /* Keep the hover color when focused */
+    box-shadow: 0 0 5px rgba(192, 57, 43, 0.5); /* Add a focus shadow */
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import '../style/AddMaterial.css';
-
+import { MdDeleteForever } from "react-icons/md";
 const AddMaterial = () => {
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState("");
@@ -182,7 +182,8 @@ const AddMaterial = () => {
                                     <td>{veh.gpsCode || "-"}</td>
                                     <td>
                                         <button onClick={() => handleDeleteVehicle(selectedCategory._id, veh._id)}>
-                                            Supprimer
+                                        <MdDeleteForever />
+
                                         </button>
                                     </td>
                                 </tr>
