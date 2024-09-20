@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import '../style/AddMaterial.css' ;
+import '../style/AddMaterial.css';
 
 const AddMaterial = () => {
     const [categories, setCategories] = useState([]);
@@ -28,7 +28,7 @@ const AddMaterial = () => {
             .then((response) => {
                 setCategories([...categories, response.data]);
                 setNewCategory("");
-                document.getElementById("addCategoryModal").style.display = "none"; // Masquer le popup après ajout
+                document.getElementById("addCategoryModal").style.display = "none"; // Hide popup after addition
             })
             .catch((error) => {
                 console.error("There was an error adding the category!", error);
@@ -43,6 +43,27 @@ const AddMaterial = () => {
             })
             .catch((error) => {
                 console.error("There was an error adding the vehicle!", error);
+            });
+    };
+
+    const handleDeleteVehicle = (categoryId, vehicleId) => {
+        axios.delete(`http://localhost:5000/api/categories/delete-vehicle/${categoryId}/${vehicleId}`)
+            .then((response) => {
+                // Update the categories and immediately remove the deleted vehicle from the UI
+                setCategories(categories.map(cat => {
+                    if (cat._id === categoryId) {
+                        return response.data; // Replace the updated category data after deletion
+                    }
+                    return cat;
+                }));
+
+                // If the currently selected category was updated, make sure to update it in state as well
+                if (selectedCategory && selectedCategory._id === categoryId) {
+                    setSelectedCategory(response.data);
+                }
+            })
+            .catch((error) => {
+                console.error("There was an error deleting the vehicle!", error);
             });
     };
 
@@ -121,6 +142,7 @@ const AddMaterial = () => {
                                 <th>Modéle</th>
                                 <th>Couleur</th>
                                 <th>Plaque</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -130,6 +152,11 @@ const AddMaterial = () => {
                                     <td>{veh.modele}</td>
                                     <td>{veh.couleur}</td>
                                     <td>{veh.plaque}</td>
+                                    <td>
+                                        <button onClick={() => handleDeleteVehicle(selectedCategory._id, veh._id)}>
+                                            Supprimer
+                                        </button>
+                                    </td>
                                 </tr>
                             ))}
                         </tbody>
