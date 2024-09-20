@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import '../style/AddMaterial.css';
 import { MdDeleteForever } from "react-icons/md";
+
 const AddMaterial = () => {
     const [categories, setCategories] = useState([]);
     const [newCategory, setNewCategory] = useState("");
@@ -11,9 +12,10 @@ const AddMaterial = () => {
         modele: "",
         couleur: "",
         plaque: "",
-        gps: false, // New field for GPS
-        gpsCode: "" // New field for GPS code
+        gps: false, 
+        gpsCode: ""
     });
+    const [searchQuery, setSearchQuery] = useState(""); // Search query state
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/categories/categories")
@@ -40,20 +42,17 @@ const AddMaterial = () => {
     const handleAddVehicle = (categoryId) => {
         axios.post(`http://localhost:5000/api/categories/add-vehicle/${categoryId}`, vehicle)
             .then((response) => {
-                // Update categories state
                 setCategories(categories.map(cat => 
                     cat._id === categoryId ? response.data : cat
                 ));
     
-                // Update selected category locally
                 if (selectedCategory && selectedCategory._id === categoryId) {
                     setSelectedCategory(prev => ({
                         ...prev,
-                        vehicles: [...prev.vehicles, response.data.vehicles[response.data.vehicles.length - 1]] // Add the new vehicle
+                        vehicles: [...prev.vehicles, response.data.vehicles[response.data.vehicles.length - 1]]
                     }));
                 }
     
-                // Clear the vehicle input fields
                 setVehicle({ marque: "", modele: "", couleur: "", plaque: "", gps: false, gpsCode: "" });
             })
             .catch((error) => {
@@ -74,6 +73,12 @@ const AddMaterial = () => {
                 console.error("There was an error deleting the vehicle!", error);
             });
     };
+
+    // Filter vehicles based on the search query
+    const filteredVehicles = selectedCategory?.vehicles.filter(vehicle =>
+        vehicle.marque.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        vehicle.modele.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     return (
         <div className="add-materialM">
@@ -159,6 +164,16 @@ const AddMaterial = () => {
                     <button onClick={() => handleAddVehicle(selectedCategory._id)}>Ajouter véhicule</button>
                     
                     <h3>Liste des véhicules pour la catégorie: {selectedCategory.name}</h3>
+
+                    {/* Search bar for vehicles */}
+                    <input 
+                        type="text"
+                        placeholder="Rechercher par marque ou modèle"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        className="search-bar"
+                    />
+
                     <table className="vehicle-tableM">
                         <thead>
                             <tr>
@@ -172,7 +187,7 @@ const AddMaterial = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {selectedCategory.vehicles.map((veh, index) => (
+                            {filteredVehicles.map((veh, index) => (
                                 <tr key={index}>
                                     <td>{veh.marque}</td>
                                     <td>{veh.modele}</td>
@@ -182,8 +197,7 @@ const AddMaterial = () => {
                                     <td>{veh.gpsCode || "-"}</td>
                                     <td>
                                         <button onClick={() => handleDeleteVehicle(selectedCategory._id, veh._id)}>
-                                        <MdDeleteForever />
-
+                                            <MdDeleteForever />
                                         </button>
                                     </td>
                                 </tr>
