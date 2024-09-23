@@ -24,13 +24,11 @@ const Imprimefact = () => {
         return <div>Loading...</div>;
     }
 
-    // Helper function to safely format numbers
     const formatNumber = (number) => number ? number.toLocaleString() : 'N/A';
 
-    // Calculate discount percentage if a discount is applied
+    // Calculer le pourcentage de remise si une remise est appliquée
     const discountPercentage = invoice.remise && invoice.totalTTC ? ((invoice.remise / invoice.totalTTC) * 100).toFixed(2) : null;
 
-    // Format the vehicle details into the table
     const vehicleRows = invoice.vehicles.map((vehicle, index) => (
         <tr key={index}>
             <td>{index + 1}</td>
@@ -41,7 +39,6 @@ const Imprimefact = () => {
         </tr>
     ));
 
-    // Print the invoice
     const handlePrint = () => {
         window.print();
     };
@@ -54,40 +51,32 @@ const Imprimefact = () => {
                         <img src="/assets/logo.png" alt="Logo" />
                     </div>
                     <div className="company-infoF">
-                        <strong>SIEGE SOCIAL</strong><br />
-                        Libreville-Gabon-B.P.8357<br />
-                        Blvd Triomphale(Immeuble Centre Guido)<br />
-                        Tél: 011 70 75 15 / 060 47 34 10
+                        <h1>FACTURE</h1>
                     </div>
                 </div>
                 <div className="separatorF"></div>
-                <h1>FACTURE</h1>
-                <div>
-                    <strong>Facture N°:</strong> {invoice.invoiceNumber}<br />
-                    <strong>Établie par:</strong> {invoice.issuedBy}<br />
-                    <strong>Date:</strong> {new Date(invoice.date).toLocaleDateString()}
+                
+                <div className="client-info-box">
+                    <p><strong>Nom :</strong> {`${invoice.client?.firstName || 'N/A'} ${invoice.client?.lastName || 'N/A'}`}</p>
+                    <p><strong>Téléphone :</strong> {invoice.client?.phone || 'N/A'}</p>
+                    <p><strong>Code Client :</strong> {invoice.client?.codeClient || 'N/A'}</p>
+                    <p><strong>Type Client :</strong> {invoice.client?.typeClient || 'N/A'}</p>
+                    <p><strong>Email :</strong> {invoice.client?.email || 'N/A'}</p>
+                    <p><strong>NIF :</strong> {invoice.client?.nif || 'N/A'}</p>
+                    <p><strong>RCCM :</strong> {invoice.client?.rccm || 'N/A'}</p>
+                    <p><strong>Représentant(e) Autorisé(e) :</strong> {invoice.client?.representant || 'N/A'}</p>
+                    <p><strong>Adresse :</strong> Libreville - Gabon</p>
                 </div>
+                
+                <table className="invoice-info-table">
+                    <tbody>
+                        <tr>
+                            <td><strong>Numéro de Facture :</strong> {invoice.invoiceNumber}</td>
+                            <td><strong>Date :</strong> {new Date(invoice.date).toLocaleDateString()}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </header>
-
-            <section className="print-client-info">
-                <h2>Le Locataire:</h2>
-                <div>
-                    <strong>Nom:</strong> {`${invoice.client?.firstName || 'N/A'} ${invoice.client?.lastName || 'N/A'}`}<br />
-                    <strong>Numéro de Téléphone:</strong> {invoice.client?.phone || 'N/A'}<br />
-                    <strong>Code client:</strong> {invoice.client?.codeClient|| 'N/A'}<br />
-                    <strong>Type Client:</strong> {invoice.client?.typeClient || 'N/A'}<br />
-                    <strong>Email:</strong> {invoice.client?.email || 'N/A'}
-                </div>
-            </section>
-
-            <section className="billing-period">
-                <h3>Période de facturation:</h3>
-                <div>
-                    {invoice.billingPeriod ? (
-                        `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
-                    ) : 'N/A'}
-                </div>
-            </section>
 
             <table className="print-table">
                 <thead>
@@ -104,28 +93,73 @@ const Imprimefact = () => {
                 </tbody>
             </table>
 
-            <section className="print-totals">
-                <div><strong>Total HT:</strong> {formatNumber(invoice.totalHT)} CFA</div>
-                <div><strong>TVA 18%:</strong> {formatNumber(invoice.tva)} CFA</div>
-                <div><strong>CSS 1%:</strong> {formatNumber(invoice.css)} CFA</div>
-                <div><strong>Total TTC:</strong> {formatNumber(invoice.totalTTC)} CFA</div>
-                {invoice.remise > 0 && discountPercentage && (
-                    <div><strong>Remise ({discountPercentage}%):</strong> {formatNumber(invoice.remise)} CFA</div>
-                )}
-                <div><strong>Total Net:</strong> {formatNumber(invoice.totalNet)} CFA</div>
+            <section className="billing-period">
+                
+                <div>
+                    <h3>Période Locative:</h3>
+                    {invoice.billingPeriod ? (
+                        `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
+                    ) : 'N/A'}
+                </div>
             </section>
 
+            <div className="financial-tables">
+                <table className="left-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>TVA 18%</td>
+                            <td>{formatNumber(invoice.tva)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>CSS 1%</td>
+                            <td>{formatNumber(invoice.css)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>Total TTC</td>
+                            <td>{formatNumber(invoice.totalTTC)} CFA</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table className="right-table">
+                    <thead>
+                        <tr>
+                            {/* Ajouter le pourcentage de remise dans l'en-tête du tableau */}
+                            <th>Remise {discountPercentage ? `(${discountPercentage}%)` : ''}</th>
+                            <th>Total Net</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {/* Afficher la valeur finale de la remise dans la cellule du tableau */}
+                            <td>{formatNumber(invoice.remise)} CFA</td>
+                            <td>{formatNumber(invoice.totalNet)} CFA</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
             <footer className="print-footer">
-                <p>Mode de paiement: {invoice.paymentMode || 'Virement bancaire'}</p>
-                <p>N° de compte: 41093410011 | PREMIUM MOTORS | BGFI BANK GABON</p>
-                <p>Conditions et modalités de paiement:</p>
-                <ul>
-                    <li>Le paiement est dû dans 15 jours</li>
-                    <li>Tout retard de paiement entraînera des pénalités.</li>
-                </ul>
+                <p>BICIG GABON Compte N°40001 09070 10038300 50 137</p>
+                <p>BGFIBANK Compte N°40003 04105 41093410011 33</p>
+                <p className="signature-section">
+                    <span className="left-signature">Le Service de Location</span>
+                    <span className="right-signature">Le Client " Bon pour Accord "</span>
+                </p>
             </footer>
 
-            {/* Print button */}
+            <div className="blue-strip">
+                <p>PREMIUM MOTORS, Société par Actions Simplifiée avec Conseil d'Administration au Capital de 20.000.000 Fcfa<br></br>
+                Siège social : Boulevard Triomphal, Centre Guido / Tél. : (+241) 11707515 - 011760568 - BP : 8357 Libreville<br></br>
+                Mail : commercial@premiummotorscars.com - Site web : www.premiummotorscars.com / RCCM : GA-LBV-04-2022. B16-00059 - NIF : 20220101016209 A</p>
+            </div>
+
             <div className="print-button-container">
                 <button onClick={handlePrint} className="print-button">
                     Imprimer

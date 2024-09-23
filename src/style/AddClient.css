@@ -106,6 +106,7 @@
     font-weight: bold;
     color: #3F3D56;
     margin-bottom: 20px;
+    margin-left: -10px;
 }
 
 .search-bar-containerC {
@@ -140,19 +141,19 @@
 
 .client-tableC {
     margin-left: 30px;
-    width: 95%;
+    width: 100%;
     border-collapse: collapse;
     text-align: left;
     font-size: 18px;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.145);
-    margin-bottom: 80px; /* Ensure table itself has bottom margin */
+    margin-bottom: 25px; /* Ensure table itself has bottom margin */
 }
 
 .client-tableC th, .client-tableC td {
     border: 1px solid #ddd;
-    padding: 10px;
+    padding: 12px;
 }
 
 .client-tableC th {
@@ -161,4 +162,39 @@
 
 .client-tableC tr:hover {
     background-color: #ddd; /* Hover effect */
+}
+
+
+.pagination2 {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+    margin-left: 700px;
+    margin-bottom: 40px;
+}
+
+.pagination2 li {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination2 li a {
+    padding: 8px 14px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #a4acb5;
+    text-decoration: none;
+}
+
+.pagination2 li.active a {
+    background-color: #a4acb5;
+    color: #ffffff;
+    border: 1px solid #a4acb5;
+}
+
+.pagination2 li a:hover {
+    background-color: #f3f3f3;
+    border-color: #bec3c8;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaSearch } from 'react-icons/fa'; // Import the search icon
+import { FaSearch } from 'react-icons/fa';
+import ReactPaginate from 'react-paginate';
 import '../style/AddClient.css';
 
 const AddClient = () => {
@@ -11,10 +12,12 @@ const AddClient = () => {
         lastName: '',
         phone: '',
         email: '',
-        codeClient: '', // Added "code client"
-        typeClient: '' // Added "type client"
+        codeClient: '',
+        typeClient: ''
     });
     const [searchTerm, setSearchTerm] = useState('');
+    const [currentPage, setCurrentPage] = useState(0); // État pour la page actuelle
+    const clientsPerPage = 5; // Nombre de clients par page
 
     const toggleForm = () => setShowForm(!showForm);
 
@@ -32,8 +35,8 @@ const AddClient = () => {
                 lastName: '',
                 phone: '',
                 email: '',
-                codeClient: '', // Reset "code client"
-                typeClient: '' // Reset "type client"
+                codeClient: '',
+                typeClient: ''
             });
             setShowForm(false);
         } catch (error) {
@@ -58,10 +61,20 @@ const AddClient = () => {
         fetchClients();
     }, []);
 
+    // Filtrer les clients en fonction du terme de recherche
     const filteredClients = clients.filter(client =>
         client.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         client.lastName.toLowerCase().includes(searchTerm.toLowerCase())
     );
+
+    // Pagination : calculer les clients pour la page actuelle
+    const offset = currentPage * clientsPerPage;
+    const currentPageClients = filteredClients.slice(offset, offset + clientsPerPage);
+
+    // Gestion du changement de page
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     return (
         <div className="add-client-pageC">
@@ -105,7 +118,7 @@ const AddClient = () => {
                             onChange={handleChange}
                             required
                         />
-                        {/* New fields for "code client" and "type client" */}
+                        {/* Champs pour "code client" et "type client" */}
                         <input
                             type="text"
                             name="codeClient"
@@ -152,9 +165,9 @@ const AddClient = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {filteredClients.map((client, index) => (
+                        {currentPageClients.map((client, index) => (
                             <tr key={client._id}>
-                                <td>{index + 1}</td>
+                                <td>{offset + index + 1}</td> {/* Index ajusté avec offset */}
                                 <td>{client.firstName}</td>
                                 <td>{client.lastName}</td>
                                 <td>{client.phone}</td>
@@ -165,6 +178,19 @@ const AddClient = () => {
                         ))}
                     </tbody>
                 </table>
+                {/* Pagination */}
+                <ReactPaginate
+                    previousLabel={'Précédent'}
+                    nextLabel={'Suivant'}
+                    breakLabel={'...'}
+                    breakClassName={'break-me'}
+                    pageCount={Math.ceil(filteredClients.length / clientsPerPage)}
+                    marginPagesDisplayed={2}
+                    pageRangeDisplayed={5}
+                    onPageChange={handlePageClick}
+                    containerClassName={'pagination2'}
+                    activeClassName={'active'}
+                />
             </div>
         </div>
     );

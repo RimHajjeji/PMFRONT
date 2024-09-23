@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
+import ReactPaginate from 'react-paginate'; // Import ReactPaginate
 import "../style/Dashboard.css"; // Assurez-vous que ce fichier CSS existe et correspond à vos besoins.
 
 const Dashboard = () => {
     const [invoices, setInvoices] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const [currentPage, setCurrentPage] = useState(0); // État pour la page actuelle
+    const invoicesPerPage = 6; // Nombre de factures par page
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -24,6 +28,7 @@ const Dashboard = () => {
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
+        setCurrentPage(0); // Réinitialiser à la première page lors de la recherche
     };
 
     const handlePrint = (invoiceId) => {
@@ -39,6 +44,15 @@ const Dashboard = () => {
             .toLowerCase()
             .includes(searchTerm.toLowerCase())
     );
+
+    // Pagination : calculer les factures pour la page actuelle
+    const offset = currentPage * invoicesPerPage;
+    const currentPageInvoices = filteredInvoices.slice(offset, offset + invoicesPerPage);
+
+    // Gestion du changement de page
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     return (
         <div className="dashboard-container-wrapper">
@@ -81,7 +95,7 @@ const Dashboard = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {filteredInvoices.map((invoice) => (
+                                    {currentPageInvoices.map((invoice) => (
                                         <tr key={invoice._id}>
                                             <td>{invoice.invoiceNumber}</td>
                                             <td>{invoice.client.firstName} {invoice.client.lastName}</td>
@@ -98,6 +112,20 @@ const Dashboard = () => {
                                 </tbody>
                             </table>
                         </div>
+
+                        {/* Pagination */}
+                        <ReactPaginate
+                            previousLabel={'Précédent'}
+                            nextLabel={'Suivant'}
+                            breakLabel={'...'}
+                            breakClassName={'break-me'}
+                            pageCount={Math.ceil(filteredInvoices.length / invoicesPerPage)}
+                            marginPagesDisplayed={2}
+                            pageRangeDisplayed={5}
+                            onPageChange={handlePageClick}
+                            containerClassName={'pagination1'}
+                            activeClassName={'active'}
+                        />
                     </div>
                 </div>
             </div>
