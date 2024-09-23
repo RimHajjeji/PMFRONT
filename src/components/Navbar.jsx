@@ -81,6 +81,7 @@ const Navbar = () => {
                         <div className="settings-buttons">
                             <button type="submit">Modifier Profile</button>
                             <button type="button" onClick={() => setShowSettings(false)}>Annuler</button>
+                            
                         </div>
                     </form>
                 </div>
