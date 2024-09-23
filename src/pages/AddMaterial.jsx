@@ -204,6 +204,7 @@ const AddMaterial = () => {
                             ))}
                         </tbody>
                     </table>
+                    
                 </div>
             )}
         </div>
