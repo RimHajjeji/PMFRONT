@@ -2,81 +2,130 @@
 .devis-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
-    background-color: #f9f9f9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px 40px;
     border-radius: 8px;
 }
 
 /* Header styling */
-.devis-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+.devis-section {
+    margin-top: 30px;
+    text-align: center; /* Centrage du titre */
 }
 
-.devis-header h3 {
-    font-size: 24px;
-    color: #333;
+.devis-section h3 {
+    font-size: 35px;
+    color: #2C3E50;
+    margin-bottom: 40px;
+    margin-top: 30px;
 }
 
-/* Search input styling */
-.devis-search input {
-    padding: 8px 12px;
+/* Search bar styling */
+.devis-search-bar {
+    position: relative;
+    margin-bottom: 40px;
+    text-align: center; /* Centrage du search bar */
+}
+
+.devis-search-bar input {
+    width: 50%;
+    padding: 12px 40px 12px 12px; /* Padding modifié pour l'icône */
+    font-size: 15px;
     border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombrage */
+    outline: none;
 }
 
-/* Table container */
-.devis-table-container {
-    overflow-x: auto;
+/* Search icon styling */
+.devis-search-icon {
+    position: absolute;
+    right: 273px; /* Positionner l'icône à droite dans le champ */
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #858585; /* Couleur de l'icône */
+    pointer-events: none; /* Ne pas bloquer les clics */
 }
 
 /* Table styling */
 .devis-table {
-    width: 100%;
+    margin-left: 30px;
+    width: 95%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-}
-
-.devis-table thead {
-    background-color: #f1f1f1;
+    text-align: left;
+    font-size: 18px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.145);
+    margin-bottom: 40px;
 }
 
 .devis-table th, .devis-table td {
-    padding: 12px 15px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-    font-size: 14px;
+    border: 1px solid #ddd;
+    padding: 10px;
 }
 
 .devis-table th {
-    font-weight: bold;
+    background-color: #d4f0f8;
     color: #333;
 }
 
-/* Hover effect on rows */
-.devis-table tbody tr:hover {
-    background-color: #f5f5f5;
+.devis-table td {
+    text-align: left;
+    border-bottom: 1px solid #ddd;
 }
 
-/* Print button styling */
+.devis-table tr:hover {
+    background-color: #ddd; /* Effet de survol */
+}
+
+/* Button styling */
 .devis-print-button {
-    padding: 6px 10px;
-    background-color: #007bff;
-    color: #fff;
+    background-color: #24B4DE;
+    color: white; 
+    padding: 7px 16px;
+    font-size: 14px;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .devis-print-button:hover {
-    background-color: #0056b3;
+    background-color: #1d94b7;
+    transform: scale(1.02);
 }
+
+.pagination4 {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+    margin-right: 5%;
+}
+
+.pagination4 li {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination4 li a {
+    padding: 8px 14px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #a4acb5;
+    text-decoration: none;
+}
+
+.pagination4 li.active a {
+    background-color: #a4acb5;
+    color: #ffffff;
+    border: 1px solid #a4acb5;
+}
+
+.pagination4 li a:hover {
+    background-color: #f3f3f3;
+    border-color: #bec3c8;
+}
+

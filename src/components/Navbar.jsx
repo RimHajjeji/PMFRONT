@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoMdLogOut } from 'react-icons/io';
 import { MdOutlineSettings } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,23 @@ const Navbar = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
+    // Fetch admin email when settings are shown
+    useEffect(() => {
+        if (showSettings) {
+            fetch('http://localhost:5000/api/admin/profile', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then(response => response.json())
+            .then(data => {
+                setEmail(data.email);
+            })
+            .catch(error => console.error('Error fetching admin details:', error));
+        }
+    }, [showSettings]);
+
     const handleLogout = () => {
         localStorage.removeItem('token');
         navigate('/login');
@@ -19,7 +36,7 @@ const Navbar = () => {
     const handleSettingsSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('/api/admin/update', {
+            const response = await fetch('http://localhost:5000/api/admin/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

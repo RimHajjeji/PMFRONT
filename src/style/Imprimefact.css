@@ -1,15 +1,17 @@
-/* General print container styles */
-.print-container {
-    width: 80%;
-    margin: 20px auto;
+/* Ajustement global de la taille et des marges */
+.print-area {
+    width: 190mm; /* Largeur optimisée pour A4 */
+    height: 277mm; /* Hauteur optimisée pour A4 */
+    margin: 5mm auto; /* Marges réduites */
     font-family: Arial, sans-serif;
-    border: 1px solid #ccc;
-    padding: 30px;
+    padding: 10px 25px 0px 35px; /* Réduction du padding */
+    box-sizing: border-box;
 }
 
+/* En-tête et informations principales */
 .print-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px; 
 }
 
 .headerF {
@@ -19,57 +21,190 @@
 }
 
 .logoF img {
-    height: 60px;
+    height: 75px; /* Taille réduite de l'image */
+    width: 115px; /* Taille réduite de l'image */
+}
+
+.company-infoF h1 {
+    color: #24B4DE;
 }
 
 .company-infoF {
-    font-size: 14px;
+    font-size: 14px; /* Réduction de la taille de la police */
     text-align: right;
 }
 
-.print-client-info, .billing-period {
-    margin-bottom: 20px;
+.separatorF {
+    border-top: 1px solid #ccc;
+    margin-top: 5px; /* Réduction des marges */
+    margin-bottom: 5px; /* Réduction des marges */
+}
+
+/* Informations client */
+.client-info-box {
+    border: 1px solid #aaaaaa;
+    padding: 5px 10px; /* Réduction du padding */
+    border-radius: 5px; /* Bordure plus petite */
+    width: 30%; /* Réduction de la largeur */
+    float: right;
+    margin-bottom: 30px; /* Réduction de la marge */
+    margin-top: 30px;
+    text-align: left;  
+    font-size: 11px;
+}
+
+.print-header:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Table d'informations */
+.invoice-info-table {
+    width: 70%;
+    border-collapse: collapse;
+    margin-bottom: 20px; /* Réduction de la marge */
+    margin-left: 100px;
+    font-size: 11px; /* Taille de police réduite */
+}
+
+.invoice-info-table th {
+    height: 18px; /* Hauteur des th ajustée */
+    border: 1px solid #ccc; /* Bordure pour uniformité */
+    padding: 5px; /* Réduction du padding pour correspondre à la hauteur */
+    text-align: left;
+}
+
+.invoice-info-table td {
+    border: 1px solid #ccc;
+    padding: 5px; /* Réduction du padding */
+    text-align: left;
 }
 
 .print-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 30px;
-    font-size: 14px;
+    margin-bottom: 30px; /* Réduction de la marge */
+    font-size: 11px; /* Taille de police réduite */
 }
 
-.print-table th, .print-table td {
+.print-table th, .left-table th, .right-table th {
+    height: 18px; /* Hauteur des th ajustée */
+    border: 1px solid #ccc; /* Bordure pour uniformité */
+    padding: 5px; /* Réduction du padding pour correspondre à la hauteur */
+    text-align: left;
+}
+
+.print-table td {
     border: 1px solid #ccc;
-    padding: 10px;
+    padding: 5px; /* Réduction du padding */
     text-align: left;
 }
 
 .print-table th {
-    background-color: #f5f5f5;
+    color: black;
+    background-color: #24B4DE;
+    border-left: none; /* Suppression de la bordure gauche */
+    border-right: none; /* Suppression de la bordure droite */
 }
 
-.print-totals {
-    margin-top: 20px;
-    font-weight: bold;
-    font-size: 16px;
+/* Période locative */
+.billing-period {
+    margin-bottom: 30px; /* Réduction de la marge */
+    text-align: center;
+    font-size: 12px; /* Taille de police réduite */
+    line-height: 0.7;
 }
 
+/* Tables financières */
+.financial-tables {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px; /* Réduction de la marge */
+    font-size: 11px; /* Taille de police réduite */
+}
+
+.left-table, .right-table {
+    width: 45%;
+    border-collapse: collapse;
+}
+
+.left-table th, .right-table th {
+  background-color: #24B4DE;
+}
+
+.left-table td, .right-table td {
+    border: 1px solid #ccc;
+    padding: 5px; /* Réduction du padding */
+}
+
+/* Pied de page */
 .print-footer {
-    margin-top: 30px;
-    font-size: 14px;
+    margin-top: 10px; /* Réduction de la marge */
+    font-size: 10px; /* Taille de police réduite */
+    text-align: left;
 }
 
-.print-footer ul {
-    list-style-type: disc;
-    padding-left: 20px;
+/* Section de signature */
+.signature-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px; /* Réduction de la marge */
+    margin-bottom: 110px; /* Réduction de la marge */
+    font-weight: bold;
+    text-align: center;
 }
 
-/* Hide everything except the print area when printing */
+.left-signature, .right-signature {
+    text-decoration: underline;
+    width: 45%;
+}
+
+.blue-strip {
+    background-color: #21a3cb;
+    color: white;
+    padding: 5px; /* Réduction du padding */
+    text-align: center;
+    margin-top: 10px; /* Réduction de la marge */
+    width: 100%; /* Ajustement pour éviter le dépassement */
+    margin-left: 0; /* Centrage du bandeau */
+    font-size: 9px; /* Taille de police réduite */
+    line-height: 1.3;
+}
+
+.print-button {
+    margin-top: 40px;
+    margin-left: 300px;
+    background-color: white;
+    color: black; 
+    padding: 7px 16px; /* Padding for size */
+    font-size: 14px; /* Font size */
+    border: 2px solid black; /* Ajouter une bordure noire */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition effect */
+}
+
+.print-button:hover {
+    background-color: #f4f3f3;
+    transform: scale(1.02);
+}
+
+/* Additional styles */
+.hidden-print {
+    display: none;
+}
+
 @media print {
+    .hidden-print {
+        display: none; /* Ensure it's hidden during print */
+    }
+
+    /* Other existing print styles */
     body * {
         visibility: hidden;
     }
-    
+
     .print-area, .print-area * {
         visibility: visible;
     }
@@ -78,10 +213,24 @@
         position: absolute;
         left: 0;
         top: 0;
-        width: 100%;
+        width: 190mm; /* Largeur optimisée pour A4 */
+        height: 277mm; /* Hauteur optimisée pour A4 */
+        margin: 5mm auto; /* Marges réduites */
+        box-sizing: border-box;
+    }
+
+    .print-table, .invoice-info-table, .financial-tables, .signature-section {
+        page-break-inside: avoid; /* Évite la coupure à l'intérieur de ces sections */
     }
 
     .print-button-container {
         display: none;
     }
+
+    /* Conserver les couleurs à l'impression */
+    * {
+        -webkit-print-color-adjust: exact; /* Conserve les couleurs */
+        print-color-adjust: exact; /* Conserve les couleurs */
+    }
 }
+

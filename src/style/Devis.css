@@ -1,101 +1,218 @@
+/* General styles */
 .wrapperD {
-    padding: 20px;
-  }
-  
-  .devis-containerD {
-    max-width: 900px;
-    margin: 0 auto;
-    background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-  }
-  
-  .headerD {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .company-infoD {
-    text-align: right;
-  }
-  
-  .separatorD {
-    height: 2px;
-    background-color: #ccc;
-    margin: 20px 0;
-  }
-  
-  .client-infoD {
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .vehicle-selectionD, .vehicle-listD, .totalsD {
-    margin-top: 20px;
-  }
-  
-  .vehicle-tableD {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .vehicle-tableD th, .vehicle-tableD td {
-    border: 1px solid #ccc;
-    padding: 8px;
-    text-align: left;
-  }
-  
-  .total-rowD {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
-  }
-  
-  .remise-buttonD {
-    margin-left: 10px;
-  }
-  
-  .submit-buttonD {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #24B4DE;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .submit-buttonD:hover {
-    background-color: #1A8CB8;
-  }
-  
-  .popupD {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    z-index: 1000;
-  }
-  
-  .popup-contentD {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .popup-contentD button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #24B4DE;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .logoD img {
-    width: 150px;
-  }
-  
+  padding: 30px 60px;
+  font-family: 'Roboto', sans-serif;
+  background: #f8f9fa; /* Arrière-plan doux pour la page */
+  color: #333; /* Couleur de texte par défaut */
+}
+
+/* Container */
+.devis-containerD {
+  background: #ffffff;
+  padding: 30px 50px;
+  border-radius: 12px; /* Arrondi plus doux */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Ombre douce pour un effet flottant */
+  max-width: 1200px; /* Limiter la largeur maximale */
+  margin: 0 auto; /* Centrer le conteneur */
+}
+
+/* Header */
+.headerD {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px; /* Espacement augmenté */
+}
+
+.logoD img {
+  width: 140px; /* Augmenter la taille du logo */
+  height: auto;
+}
+
+.company-infoD {
+  text-align: right; /* Aligner le texte à droite */
+}
+
+.highlighted-text-largeD {
+  font-size: 34px;
+  color: #2c3e50;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Separator */
+.separatorD {
+  height: 2px;
+  background: #e9ecef; /* Couleur plus douce */
+  margin: 30px 0;
+}
+
+/* Client Info */
+.client-infoD {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px; /* Plus d'espace entre les sections */
+}
+
+.left-sectionD, .right-sectionD {
+  width: 48%; /* Ajuster la largeur pour éviter les débordements */
+}
+
+.left-sectionD select,
+.right-sectionD input {
+  width: calc(100% - 10px); /* Ajuster la largeur pour tenir compte du padding */
+}
+
+.highlighted-textD {
+  color: #007bff; /* Couleur plus vive */
+}
+
+/* Inputs */
+.client-select,
+.input-issued-by,
+.input-billing-period-start,
+.input-billing-period-end,
+.input-daily-rate,
+.input-days-rented,
+.input-discount-percentage {
+  width: 100%;
+  padding: 10px 15px; /* Plus de rembourrage pour une meilleure expérience utilisateur */
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px; /* Arrondi doux */
+  font-size: 14px;
+  transition: border-color 0.3s ease; /* Transition plus douce */
+}
+
+.client-select:focus,
+.input-issued-by:focus,
+.input-billing-period-start:focus,
+.input-billing-period-end:focus,
+.input-daily-rate:focus,
+.input-days-rented:focus,
+.input-discount-percentage:focus {
+  border-color: #007bff; /* Couleur de la bordure au focus */
+  outline: none;
+}
+
+/* Selects */
+.category-select,
+.vehicle-select {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s ease;
+}
+
+.category-select:focus,
+.vehicle-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Vehicle List */
+.vehicle-listD {
+  margin-bottom: 30px;
+}
+
+.vehicle-tableD {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background: #ffffff;
+  border: 1px solid #dee2e6; /* Ajouter une bordure autour du tableau */
+}
+
+.vehicle-tableD th,
+.vehicle-tableD td {
+  border: 1px solid #dee2e6;
+  padding: 12px;
+  text-align: left;
+}
+
+.vehicle-tableD th {
+  background: #007bff; /* Couleur d'en-tête plus visible */
+  color: white;
+  font-weight: bold; /* Texte en gras pour l'en-tête */
+}
+
+.vehicle-tableD tr:nth-child(even) {
+  background: #f2f2f2; /* Alternance de couleur pour les lignes */
+}
+
+/* Popups */
+.popupD {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.popup-contentD {
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  width: 400px;
+}
+
+.popup-contentD h3 {
+  margin-bottom: 20px;
+  font-size: 22px;
+  color: #007bff;
+}
+
+/* Total Section */
+.total-sectionD {
+  margin-top: 20px;
+  font-size: 18px; /* Augmenter la taille de police */
+  line-height: 1.6;
+  color: #333333;
+}
+
+.total-sectionD strong {
+  color: #2980b9; /* Couleur forte pour les totaux */
+}
+
+/* Buttons */
+.submit-btnF,
+.button-apply-discount {
+  padding: 12px 25px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: inline-block;
+}
+
+.submit-btnF:hover,
+.button-apply-discount:hover {
+  background: #0056b3; /* Couleur plus foncée au survol */
+}
+
+button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0056b3;
+}

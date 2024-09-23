@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import axios from "axios";
 import '../style/AddMaterial.css';
 import { MdDeleteForever } from "react-icons/md";
+import ReactPaginate from 'react-paginate'; // Importer ReactPaginate
 
 const AddMaterial = () => {
     const [categories, setCategories] = useState([]);
@@ -16,6 +17,8 @@ const AddMaterial = () => {
         gpsCode: ""
     });
     const [searchQuery, setSearchQuery] = useState(""); // Search query state
+    const [currentPage, setCurrentPage] = useState(0); // État pour la page actuelle
+    const vehiclesPerPage = 6; // Nombre de véhicules par page
 
     useEffect(() => {
         axios.get("http://localhost:5000/api/categories/categories")
@@ -59,7 +62,6 @@ const AddMaterial = () => {
                 console.error("There was an error adding the vehicle!", error);
             });
     };
-    
 
     const handleDeleteVehicle = (categoryId, vehicleId) => {
         axios.delete(`http://localhost:5000/api/categories/delete-vehicle/${categoryId}/${vehicleId}`)
@@ -74,11 +76,20 @@ const AddMaterial = () => {
             });
     };
 
-    // Filter vehicles based on the search query
+    // Filtrer les véhicules en fonction de la requête de recherche
     const filteredVehicles = selectedCategory?.vehicles.filter(vehicle =>
         vehicle.marque.toLowerCase().includes(searchQuery.toLowerCase()) ||
         vehicle.modele.toLowerCase().includes(searchQuery.toLowerCase())
     );
+
+    // Pagination : calculer les véhicules pour la page actuelle
+    const offset = currentPage * vehiclesPerPage;
+    const currentPageVehicles = filteredVehicles?.slice(offset, offset + vehiclesPerPage) || [];
+
+    // Gestion du changement de page
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     return (
         <div className="add-materialM">
@@ -119,7 +130,7 @@ const AddMaterial = () => {
             </div>
 
             {selectedCategory && (
-                <div className="vehicle-formM">
+                <div className="vehicleformulaire">
                     <h2>Ajouter un véhicule à la catégorie: {selectedCategory.name}</h2>
                     <input 
                         type="text" 
@@ -145,8 +156,8 @@ const AddMaterial = () => {
                         value={vehicle.plaque}
                         onChange={(e) => setVehicle({ ...vehicle, plaque: e.target.value })}
                     />
-                    <label>
-                        GPS disponible:
+                    <label className="gps">
+                        <p>GPS disponible :</p>
                         <input 
                             type="checkbox" 
                             checked={vehicle.gps}
@@ -161,11 +172,18 @@ const AddMaterial = () => {
                             onChange={(e) => setVehicle({ ...vehicle, gpsCode: e.target.value })}
                         />
                     )}
-                    <button onClick={() => handleAddVehicle(selectedCategory._id)}>Ajouter véhicule</button>
+                    <input 
+                        type="submit" 
+                        value="Ajouter véhicule" 
+                        onClick={(e) => {
+                            e.preventDefault(); 
+                            handleAddVehicle(selectedCategory._id);
+                        }}
+                    />
                     
                     <h3>Liste des véhicules pour la catégorie: {selectedCategory.name}</h3>
 
-                    {/* Search bar for vehicles */}
+                    {/* Barre de recherche pour les véhicules */}
                     <input 
                         type="text"
                         placeholder="Rechercher par marque ou modèle"
@@ -174,7 +192,7 @@ const AddMaterial = () => {
                         className="search-bar"
                     />
 
-                    <table className="vehicle-tableM">
+                    <table className="vehicletableMaterial">
                         <thead>
                             <tr>
                                 <th>Marque</th>
@@ -187,7 +205,7 @@ const AddMaterial = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {filteredVehicles.map((veh, index) => (
+                            {currentPageVehicles.map((veh, index) => (
                                 <tr key={index}>
                                     <td>{veh.marque}</td>
                                     <td>{veh.modele}</td>
@@ -204,11 +222,25 @@ const AddMaterial = () => {
                             ))}
                         </tbody>
                     </table>
-                    
+
+                    {/* Pagination */}
+                    <ReactPaginate
+                        previousLabel={'Précédent'}
+                        nextLabel={'Suivant'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={Math.ceil((filteredVehicles?.length || 0) / vehiclesPerPage)}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
+                        onPageChange={handlePageClick}
+                        containerClassName={'pagination3'}
+                        activeClassName={'active'}
+                    />
                 </div>
             )}
         </div>
     );
-};
+}
+
 
 export default AddMaterial;
