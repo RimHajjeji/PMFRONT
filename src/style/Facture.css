@@ -3,6 +3,8 @@
   padding: 30px 60px;
   font-family: 'Arial', sans-serif; /* Changement de la police pour un look plus moderne */
   background: #f1f1f1; /* Arrière-plan doux pour la page */
+  line-height: 2;
+  font-size: 18px;
 }
 
 .invoice__container {
@@ -22,7 +24,7 @@
 
 .invoice__logo img {
   width: 120px;
-  height: auto;
+  height: 80px;
 }
 
 .invoice__title {
@@ -37,6 +39,7 @@
   height: 1px;
   background: #e0e0e0; /* Couleur plus douce */
   margin: 20px 0;
+  margin-top: -15px;
 }
 
 /* Client Info */
@@ -114,7 +117,7 @@
 .invoice__table th,
 .invoice__table td {
   border: 1px solid #ddd;
-  padding: 12px;
+  padding: 6px;
   text-align: left; /* Alignement à gauche pour un texte plus lisible */
 }
 
@@ -140,23 +143,133 @@
   justify-content: center;
 }
 
+.invoice__popup--discount{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .invoice__popup-content {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 400px; /* Plus large pour plus de confort */
+  width: 550px; /* Plus large pour plus de confort */
+  height: 410px;
+  box-sizing: border-box; /* Pour inclure le padding dans la largeur totale */
+  margin-left: 150px;
 }
 
-.invoice__popup-content h3 {
-  margin-bottom: 20px;
-  font-size: 20px;
-  color: #2980b9;
+.invoice__popup-contentF {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 550px; /* Plus large pour plus de confort */
+  box-sizing: border-box; /* Pour inclure le padding dans la largeur totale */
+  margin-left: 150px;
 }
 
-.invoice__popup--discount .invoice__popup-content {
-  width: 350px;
+
+.invoice__popup-content h3{
+  color: #3498db;
+  font-size: 25px;
+  margin-top: 10px;
 }
+
+.invoice__popup-contentF h3 {
+  color: #3498db;
+  font-size: 25px;
+  margin-top: 10px;
+}
+
+/* Uniformiser l'espacement interne */
+.invoice__popup-content h3,
+.invoice__popup-content p,
+.invoice__popup-content input,
+.invoice__popup-content button {
+  margin-bottom: 15px; /* Espacement uniforme en bas */
+  width: 100%; /* Pour aligner les éléments uniformément */
+  box-sizing: border-box; /* Assurer que les paddings et bordures ne débordent pas */
+ 
+}
+
+/* Uniformiser l'espacement interne */
+.invoice__popup-contentF h3,
+.invoice__popup-contentF p,
+.invoice__popup-contentF input,
+.invoice__popup-contentF button {
+  margin-bottom: 15px; /* Espacement uniforme en bas */
+  width: 100%; /* Pour aligner les éléments uniformément */
+  box-sizing: border-box; /* Assurer que les paddings et bordures ne débordent pas */
+ 
+}
+
+.invoice__popup-content input,
+.invoice__popup-content button {
+  padding: 12px; /* Espacement interne uniforme */
+}
+
+.invoice__popup-contentF input,
+.invoice__popup-contentF button {
+  padding: 12px; /* Espacement interne uniforme */
+}
+
+.invoice__popup-content button {
+  background-color: #1d5d87;
+  color: white;
+  border-radius: 8px;
+  font-size: 15px;
+  border: none;
+}
+
+.invoice__popup-contentF button {
+  background-color: #1d5d87;
+  color: white;
+  border-radius: 8px;
+  font-size: 15px;
+  border: none;
+}
+
+
+/* Retirer le dernier espacement */
+.invoice__popup-content h3:last-child,
+.invoice__popup-content p:last-child,
+.invoice__popup-content input:last-child,
+.invoice__popup-content button:last-child {
+  margin-bottom: 0;
+}
+
+/* Retirer le dernier espacement */
+.invoice__popup-contentF h3:last-child,
+.invoice__popup-contentF p:last-child,
+.invoice__popup-contentF input:last-child,
+.invoice__popup-contentF button:last-child {
+  margin-bottom: 0;
+}
+
+.btnfacture1{
+  margin-top: 20px;
+}
+
+.btnfacture2{
+  margin-top: 0px;
+}
+
+.btnfacture3{
+  margin-top: 20px;
+}
+
+.btnfacture4{
+  margin-top: 0px;
+}
+
 
 /* Total */
 .invoice__total {
@@ -170,8 +283,7 @@
   color: #2980b9; /* Couleur forte pour les totaux */
 }
 
-/* Buttons */
-.invoice__btn-submit {
+.invoice__btn-submit{
   padding: 12px 25px; /* Boutons plus grands pour une meilleure accessibilité */
   background: #2980b9;
   color: white;
@@ -180,23 +292,9 @@
   font-size: 16px;
   cursor: pointer;
   transition: background 0.3s ease;
+  margin-top: 10px;
 }
 
 .invoice__btn-submit:hover {
   background: #3498db;
-}
-
-button {
-  margin-top: 10px;
-  padding: 8px 15px;
-  background: #3498db;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-button:hover {
-  background: #2980b9;
 }

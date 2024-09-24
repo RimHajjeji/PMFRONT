@@ -370,8 +370,8 @@ const Devis = () => {
                       min="1"
                     />
                   </label>
-                  <button type="button" onClick={handleAddVehicle}>Ajouter</button>
-                  <button type="button" onClick={() => setIsPopupOpen(false)}>Annuler</button>
+                  <button className="btndevis1" type="button" onClick={handleAddVehicle}>Ajouter</button>
+                  <button className="btndevis2" type="button" onClick={() => setIsPopupOpen(false)}>Annuler</button>
                 </div>
               </div>
             )}
@@ -392,8 +392,8 @@ const Devis = () => {
                       max="100"
                     />
                   </label>
-                  <button type="button" onClick={handleDiscountYes}>Appliquer</button>
-                  <button type="button" onClick={handleDiscountNo}>Annuler</button>
+                  <button className="btndevis3" type="button" onClick={handleDiscountYes}>Appliquer</button>
+                  <button className="btndevis4" type="button" onClick={handleDiscountNo}>Annuler</button>
                 </div>
               </div>
             )}
@@ -415,15 +415,13 @@ const Devis = () => {
               )}
               <strong>Total Net:</strong> {calculateTotalNet().toFixed(2)} FCFA
               <br />
-              <button type="button" onClick={handleDiscountPopup}>Appliquer une remise</button>
+              <button type="button" className="invoice__btn-submit" onClick={handleDiscountPopup}>Appliquer une remise</button>
             </div>
-    
-            <button type="submit" className="submit-btnF">Créer Devis</button>
+            <button type="submit" className="invoice__btn-submit">Créer Devis</button>
           </form>
         </div>
       </div>
     );
-    
 };
 
 export default Devis;

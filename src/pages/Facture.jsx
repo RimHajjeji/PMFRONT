@@ -372,15 +372,15 @@ const Facture = () => {
                     min="1"
                   />
                 </label>
-                <button type="button" onClick={handleAddVehicle}>Ajouter</button>
-                <button type="button" onClick={() => setIsPopupOpen(false)}>Annuler</button>
+                <button className="btnfacture1" type="button" onClick={handleAddVehicle}>Ajouter</button>
+                <button className="btnfacture2" type="button" onClick={() => setIsPopupOpen(false)}>Annuler</button>
               </div>
             </div>
           )}
 
           {isDiscountPopupOpen && (
             <div className="invoice__popup--discount">
-              <div className="invoice__popup-content">
+              <div className="invoice__popup-contentF">
                 <p>Voulez-vous appliquer une remise ?</p>
                 <label>
                   Pourcentage de Remise:
@@ -394,8 +394,8 @@ const Facture = () => {
                     max="100"
                   />
                 </label>
-                <button type="button" onClick={handleDiscountYes}>Appliquer</button>
-                <button type="button" onClick={handleDiscountNo}>Annuler</button>
+                <button className="btnfacture3" type="button" onClick={handleDiscountYes}>Appliquer</button>
+                <button className="btnfacture4" type="button" onClick={handleDiscountNo}>Annuler</button>
               </div>
             </div>
           )}
@@ -417,10 +417,9 @@ const Facture = () => {
             )}
             <strong>Total Net:</strong> {calculateTotalNet().toFixed(2)} FCFA
             <br />
-            <button type="button" onClick={handleDiscountPopup}>Appliquer une remise</button>
+            <button type="button" className="invoice__btn-submit" onClick={handleDiscountPopup}>Appliquer une remise</button>
           </div>
-
-          <button type="submit" className="invoice__btn-submit">Créer Facture</button>
+            <button type="submit" className="invoice__btn-submit">Créer Facture</button>
         </form>
       </div>
     </div>
