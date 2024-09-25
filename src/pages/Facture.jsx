@@ -419,6 +419,7 @@ const Facture = () => {
             <br />
             <button type="button" className="invoice__btn-submit" onClick={handleDiscountPopup}>Appliquer une remise</button>
           </div>
+
             <button type="submit" className="invoice__btn-submit">Créer Facture</button>
         </form>
       </div>
