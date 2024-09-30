@@ -66,11 +66,11 @@ const Login = () => {
                     </div>
                     <button type="submit" className="login-button">Se Connecter</button>
                 </form>
-                <div className="signup-prompt">
+               {/*  <div className="signup-prompt">
                     <p>
                         Vous n'avez pas de compte? <Link to="/signup" className="signup-link">S'inscrire</Link>
                     </p>
-                </div>
+                </div>*/}
             </div>
         </div>
     );
