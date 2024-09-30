@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-import '../style/AddMaterial.css';
 import { MdDeleteForever } from "react-icons/md";
 import ReactPaginate from 'react-paginate'; // Importer ReactPaginate
+import { toast, ToastContainer } from 'react-toastify'; // Importer react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Importer le fichier CSS pour react-toastify
+import '../style/AddMaterial.css';
 
 const AddMaterial = () => {
     const [categories, setCategories] = useState([]);
@@ -27,6 +29,7 @@ const AddMaterial = () => {
             })
             .catch((error) => {
                 console.error("There was an error retrieving the categories!", error);
+                toast.error("Erreur lors de la récupération des catégories.");
             });
     }, []);
 
@@ -36,13 +39,20 @@ const AddMaterial = () => {
                 setCategories([...categories, response.data]);
                 setNewCategory("");
                 document.getElementById("addCategoryModal").style.display = "none";
+                toast.success("Catégorie ajoutée avec succès !");
             })
             .catch((error) => {
                 console.error("There was an error adding the category!", error);
+                toast.error("Erreur lors de l'ajout de la catégorie.");
             });
     };
 
     const handleAddVehicle = (categoryId) => {
+        // Validation des champs
+        if (!validateVehicleForm()) {
+            return;
+        }
+
         axios.post(`http://localhost:5000/api/categories/add-vehicle/${categoryId}`, vehicle)
             .then((response) => {
                 setCategories(categories.map(cat => 
@@ -57,9 +67,11 @@ const AddMaterial = () => {
                 }
     
                 setVehicle({ marque: "", modele: "", couleur: "", plaque: "", gps: false, gpsCode: "" });
+                toast.success("Véhicule ajouté avec succès !");
             })
             .catch((error) => {
                 console.error("There was an error adding the vehicle!", error);
+                toast.error("Erreur lors de l'ajout du véhicule.");
             });
     };
 
@@ -70,10 +82,45 @@ const AddMaterial = () => {
                 if (selectedCategory && selectedCategory._id === categoryId) {
                     setSelectedCategory(response.data);
                 }
+                toast.success("Véhicule supprimé avec succès !");
             })
             .catch((error) => {
                 console.error("There was an error deleting the vehicle!", error);
+                toast.error("Erreur lors de la suppression du véhicule.");
             });
+    };
+
+    // Fonction pour valider le formulaire des véhicules
+    const validateVehicleForm = () => {
+        // Expressions régulières pour la validation
+        const alphanumericRegex = /^[a-zA-Z0-9]+$/; // Lettres et chiffres
+        const lettersOnlyRegex = /^[a-zA-Z]+$/; // Uniquement des lettres
+
+        // Vérification pour la marque (lettres et chiffres)
+        if (!alphanumericRegex.test(vehicle.marque)) {
+            toast.error("La marque doit contenir uniquement des lettres et des chiffres.");
+            return false;
+        }
+
+        // Vérification pour le modèle (lettres et chiffres)
+        if (!alphanumericRegex.test(vehicle.modele)) {
+            toast.error("Le modèle doit contenir uniquement des lettres et des chiffres.");
+            return false;
+        }
+
+        // Vérification pour la plaque (lettres et chiffres)
+        if (!alphanumericRegex.test(vehicle.plaque)) {
+            toast.error("La plaque doit contenir uniquement des lettres et des chiffres.");
+            return false;
+        }
+
+        // Vérification pour la couleur (lettres uniquement)
+        if (!lettersOnlyRegex.test(vehicle.couleur)) {
+            toast.error("La couleur doit contenir uniquement des lettres.");
+            return false;
+        }
+
+        return true;
     };
 
     // Filtrer les véhicules en fonction de la requête de recherche
@@ -93,6 +140,9 @@ const AddMaterial = () => {
 
     return (
         <div className="add-materialM">
+            {/* ToastContainer avec position au milieu en haut */}
+            <ToastContainer position="bottom-right" autoClose={5000} />
+            
             <h1 className="titleM">Véhicules du service location courte durée</h1>
 
             <div className="add-categoryM">
@@ -241,6 +291,5 @@ const AddMaterial = () => {
         </div>
     );
 }
-
 
 export default AddMaterial;

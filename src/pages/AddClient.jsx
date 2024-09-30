@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 import ReactPaginate from 'react-paginate';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../style/AddClient.css';
 
 const AddClient = () => {
@@ -25,8 +27,46 @@ const AddClient = () => {
         setClientData({ ...clientData, [e.target.name]: e.target.value });
     };
 
+    // Fonctions de validation
+    const validateForm = () => {
+        const nameRegex = /^[a-zA-Z]+$/;
+        const phoneRegex = /^[0-9]+$/;
+        const codeClientRegex = /^[a-zA-Z0-9]+$/;
+
+        if (!nameRegex.test(clientData.firstName)) {
+            toast.error("Le prénom ne doit contenir que des lettres.");
+            return false;
+        }
+
+        if (!nameRegex.test(clientData.lastName)) {
+            toast.error("Le nom ne doit contenir que des lettres.");
+            return false;
+        }
+
+        if (!phoneRegex.test(clientData.phone)) {
+            toast.error("Le numéro de téléphone ne doit contenir que des chiffres.");
+            return false;
+        }
+
+        if (!codeClientRegex.test(clientData.codeClient)) {
+            toast.error("Le code client doit contenir des lettres et des chiffres.");
+            return false;
+        }
+
+        if (!nameRegex.test(clientData.typeClient)) {
+            toast.error("Le type de client ne doit contenir que des lettres.");
+            return false;
+        }
+
+        return true;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) {
+            return; // Ne pas envoyer le formulaire si la validation échoue
+        }
+
         try {
             const response = await axios.post('http://localhost:5000/api/clients/add', clientData);
             setClients([...clients, response.data]);
@@ -39,8 +79,10 @@ const AddClient = () => {
                 typeClient: ''
             });
             setShowForm(false);
+            toast.success("Client ajouté avec succès !");
         } catch (error) {
             console.error('Error adding client', error);
+            toast.error("Erreur lors de l'ajout du client.");
         }
     };
 
@@ -55,6 +97,7 @@ const AddClient = () => {
                 setClients(response.data);
             } catch (error) {
                 console.error('Error fetching clients', error);
+                toast.error("Erreur lors de la récupération des clients.");
             }
         };
 
@@ -78,6 +121,8 @@ const AddClient = () => {
 
     return (
         <div className="add-client-pageC">
+            {/* ToastContainer avec position au milieu en haut */}
+            <ToastContainer position="bottom-right" autoClose={5000} />
             <h1 className="titleC">Ajouter des clients</h1>
             <button className="btn-toggle-formC" onClick={toggleForm}>
                 Ajouter Client
@@ -118,7 +163,6 @@ const AddClient = () => {
                             onChange={handleChange}
                             required
                         />
-                        {/* Champs pour "code client" et "type client" */}
                         <input
                             type="text"
                             name="codeClient"
@@ -167,7 +211,7 @@ const AddClient = () => {
                     <tbody>
                         {currentPageClients.map((client, index) => (
                             <tr key={client._id}>
-                                <td>{offset + index + 1}</td> {/* Index ajusté avec offset */}
+                                <td>{offset + index + 1}</td>
                                 <td>{client.firstName}</td>
                                 <td>{client.lastName}</td>
                                 <td>{client.phone}</td>
@@ -178,7 +222,6 @@ const AddClient = () => {
                         ))}
                     </tbody>
                 </table>
-                {/* Pagination */}
                 <ReactPaginate
                     previousLabel={'Précédent'}
                     nextLabel={'Suivant'}
