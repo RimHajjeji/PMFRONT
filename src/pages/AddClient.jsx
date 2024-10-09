@@ -68,7 +68,7 @@ const AddClient = () => {
         }
 
         try {
-            const response = await axios.post('https://envoices.premiummotorscars.com:5000:/api/clients/add', clientData);
+            const response = await axios.post('https://envoices.premiummotorscars.com/api/clients/add', clientData);
             setClients([...clients, response.data]);
             setClientData({
                 firstName: '',
