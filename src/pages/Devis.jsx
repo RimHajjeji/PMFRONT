@@ -30,7 +30,7 @@ const Devis = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clients");
+        const response = await axios.get("https://envoices.premiummotorscars.com/api/clients");
         setClients(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des clients:", error);
@@ -40,7 +40,7 @@ const Devis = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/categories/categories");
+        const response = await axios.get("https://envoices.premiummotorscars.com/api/categories/categories");
         setCategories(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des catégories:", error);
@@ -192,7 +192,7 @@ const Devis = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/devis/add", newDevis);
+      const response = await axios.post("https://envoices.premiummotorscars.com/api/devis/add", newDevis);
       alert("Devis créée avec succès. Numéro de Devis: " + response.data.devis.devisNumber);
       navigate('/table-devis'); // Redirection vers le tableau de bord après la création
     } catch (error) {

@@ -14,7 +14,7 @@ const Navbar = () => {
     // Fetch admin email when settings are shown
     useEffect(() => {
         if (showSettings) {
-            fetch('http://localhost:5000/api/admin/profile', {
+            fetch('https://envoices.premiummotorscars.com/api/admin/profile', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const Navbar = () => {
     const handleSettingsSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/api/admin/update', {
+            const response = await fetch('https://envoices.premiummotorscars.com/api/admin/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

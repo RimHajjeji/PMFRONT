@@ -30,7 +30,7 @@ const Facture = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clients");
+        const response = await axios.get("https://envoices.premiummotorscars.com/api/clients");
         setClients(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des clients:", error);
@@ -40,7 +40,7 @@ const Facture = () => {
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/categories/categories");
+        const response = await axios.get("https://envoices.premiummotorscars.com/api/categories/categories");
         setCategories(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des catégories:", error);
@@ -192,7 +192,7 @@ const Facture = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
+      const response = await axios.post("https://envoices.premiummotorscars.com/api/invoices/add", newInvoice);
       alert("Facture créée avec succès. Numéro de facture: " + response.data.invoice.invoiceNumber);
       navigate('/dashboard'); // Redirection vers le tableau de bord après la création
     } catch (error) {

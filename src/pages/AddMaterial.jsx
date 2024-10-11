@@ -23,7 +23,7 @@ const AddMaterial = () => {
     const vehiclesPerPage = 6; // Nombre de véhicules par page
 
     useEffect(() => {
-        axios.get("http://localhost:5000/api/categories/categories")
+        axios.get("https://envoices.premiummotorscars.com/api/categories/categories")
             .then((response) => {
                 setCategories(response.data);
             })
@@ -34,7 +34,7 @@ const AddMaterial = () => {
     }, []);
 
     const handleAddCategory = () => {
-        axios.post("http://localhost:5000/api/categories/add-category", { name: newCategory })
+        axios.post("https://envoices.premiummotorscars.com/api/categories/add-category", { name: newCategory })
             .then((response) => {
                 setCategories([...categories, response.data]);
                 setNewCategory("");
@@ -53,7 +53,7 @@ const AddMaterial = () => {
             return;
         }
 
-        axios.post(`http://localhost:5000/api/categories/add-vehicle/${categoryId}`, vehicle)
+        axios.post(`https://envoices.premiummotorscars.com/api/categories/add-vehicle/${categoryId}`, vehicle)
             .then((response) => {
                 setCategories(categories.map(cat => 
                     cat._id === categoryId ? response.data : cat
@@ -76,7 +76,7 @@ const AddMaterial = () => {
     };
 
     const handleDeleteVehicle = (categoryId, vehicleId) => {
-        axios.delete(`http://localhost:5000/api/categories/delete-vehicle/${categoryId}/${vehicleId}`)
+        axios.delete(`https://envoices.premiummotorscars.com/api/categories/delete-vehicle/${categoryId}/${vehicleId}`)
             .then((response) => {
                 setCategories(categories.map(cat => cat._id === categoryId ? response.data : cat));
                 if (selectedCategory && selectedCategory._id === categoryId) {
