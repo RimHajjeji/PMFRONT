@@ -58,6 +58,16 @@
     cursor: pointer;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: transform 0.2s ease-in-out;
+           
+    
+    /* Empêche le dépassement  texte */
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    
+    /* Optionnel : Ajout des ellipses si nécessaire */
+    /* overflow: hidden;
+    text-overflow: ellipsis; */
 }
 
 .category-cardM:hover {
