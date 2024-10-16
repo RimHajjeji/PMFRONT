@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import axios from "axios";
 import { MdDeleteForever } from "react-icons/md";
 import ReactPaginate from 'react-paginate';
@@ -48,10 +48,6 @@ const AddMaterial = () => {
     };
 
     const handleAddVehicle = (categoryId) => {
-        if (!validateVehicleForm()) {
-            return;
-        }
-
         axios.post(`https://envoices.premiummotorscars.com/api/categories/add-vehicle/${categoryId}`, vehicle)
             .then((response) => {
                 setCategories(categories.map(cat =>
@@ -87,27 +83,6 @@ const AddMaterial = () => {
                 console.error("Erreur lors de la suppression du véhicule !", error);
                 toast.error("Erreur lors de la suppression du véhicule.");
             });
-    };
-
-    const validateVehicleForm = () => {
-        if (vehicle.marque.trim() === "") {
-            toast.error("La marque est obligatoire.");
-            return false;
-        }
-        if (vehicle.modele.trim() === "") {
-            toast.error("Le modèle est obligatoire.");
-            return false;
-        }
-        if (vehicle.plaque.trim() === "") {
-            toast.error("La plaque est obligatoire.");
-            return false;
-        }
-        if (vehicle.couleur.trim() === "") {
-            toast.error("La couleur est obligatoire.");
-            return false;
-        }
-
-        return true;
     };
 
     const filteredVehicles = selectedCategory?.vehicles.filter(vehicle =>
@@ -228,26 +203,27 @@ const AddMaterial = () => {
                         <thead>
                             <tr>
                                 <th>Marque</th>
-                                <th>Modèle</th>
+                                <th>Modéle</th>
                                 <th>Couleur</th>
                                 <th>Plaque</th>
                                 <th>GPS</th>
-                                <th>Supprimer</th>
+                                <th>Code GPS</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {currentPageVehicles.map(vehicle => (
-                                <tr key={vehicle._id}>
-                                    <td>{vehicle.marque}</td>
-                                    <td>{vehicle.modele}</td>
-                                    <td>{vehicle.couleur}</td>
-                                    <td>{vehicle.plaque}</td>
-                                    <td>{vehicle.gps ? `Oui (${vehicle.gpsCode})` : "Non"}</td>
+                            {currentPageVehicles.map((veh, index) => (
+                                <tr key={index}>
+                                    <td>{veh.marque}</td>
+                                    <td>{veh.modele}</td>
+                                    <td>{veh.couleur}</td>
+                                    <td>{veh.plaque}</td>
+                                    <td>{veh.gps ? "Oui" : "Non"}</td>
+                                    <td>{veh.gpsCode || "-"}</td>
                                     <td>
-                                        <MdDeleteForever
-                                            className="delete-icon"
-                                            onClick={() => handleDeleteVehicle(selectedCategory._id, vehicle._id)}
-                                        />
+                                        <button onClick={() => handleDeleteVehicle(selectedCategory._id, veh._id)}>
+                                            <MdDeleteForever />
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -256,17 +232,21 @@ const AddMaterial = () => {
 
                     {/* Pagination */}
                     <ReactPaginate
-                        previousLabel={"Précédent"}
-                        nextLabel={"Suivant"}
-                        pageCount={Math.ceil(filteredVehicles.length / vehiclesPerPage)}
+                        previousLabel={'Précédent'}
+                        nextLabel={'Suivant'}
+                        breakLabel={'...'}
+                        breakClassName={'break-me'}
+                        pageCount={Math.ceil((filteredVehicles?.length || 0) / vehiclesPerPage)}
+                        marginPagesDisplayed={2}
+                        pageRangeDisplayed={5}
                         onPageChange={handlePageClick}
-                        containerClassName={"pagination"}
-                        activeClassName={"active"}
+                        containerClassName={'pagination3'}
+                        activeClassName={'active'}
                     />
                 </div>
             )}
         </div>
     );
-};
+}
 
 export default AddMaterial;
