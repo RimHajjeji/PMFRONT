@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import { FaSearch } from 'react-icons/fa';
 import ReactPaginate from 'react-paginate';
@@ -27,46 +27,9 @@ const AddClient = () => {
         setClientData({ ...clientData, [e.target.name]: e.target.value });
     };
 
-    // Fonctions de validation
-    const validateForm = () => {
-        const nameRegex = /^[a-zA-Z]+$/;
-        const phoneRegex = /^[0-9]+$/;
-        const codeClientRegex = /^[a-zA-Z0-9]+$/;
-
-        if (!nameRegex.test(clientData.firstName)) {
-            toast.error("Le prénom ne doit contenir que des lettres.");
-            return false;
-        }
-
-        if (!nameRegex.test(clientData.lastName)) {
-            toast.error("Le nom ne doit contenir que des lettres.");
-            return false;
-        }
-
-        if (!phoneRegex.test(clientData.phone)) {
-            toast.error("Le numéro de téléphone ne doit contenir que des chiffres.");
-            return false;
-        }
-
-        if (!codeClientRegex.test(clientData.codeClient)) {
-            toast.error("Le code client doit contenir des lettres et des chiffres.");
-            return false;
-        }
-
-        if (!nameRegex.test(clientData.typeClient)) {
-            toast.error("Le type de client ne doit contenir que des lettres.");
-            return false;
-        }
-
-        return true;
-    };
-
+    // Retirer la validation
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) {
-            return; // Ne pas envoyer le formulaire si la validation échoue
-        }
-
         try {
             const response = await axios.post('https://envoices.premiummotorscars.com/api/clients/add', clientData);
             setClients([...clients, response.data]);
