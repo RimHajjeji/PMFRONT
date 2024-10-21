@@ -14,19 +14,22 @@ const Navbar = () => {
     // Fetch admin email when settings are shown
     useEffect(() => {
         if (showSettings) {
+            const token = localStorage.getItem('token'); // Récupérer le token du localStorage
             fetch('https://envoices.premiummotorscars.com/api/admin/profile', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-auth-token': token, // Inclure le token dans les headers
                 },
             })
             .then(response => response.json())
             .then(data => {
-                setEmail(data.email);
+                setEmail(data.email); // Mettre à jour l'email avec les données reçues
             })
             .catch(error => console.error('Error fetching admin details:', error));
         }
     }, [showSettings]);
+    
 
     const handleLogout = () => {
         localStorage.removeItem('token');
@@ -35,15 +38,17 @@ const Navbar = () => {
 
     const handleSettingsSubmit = async (e) => {
         e.preventDefault();
+        const token = localStorage.getItem('token'); // Récupérer le token
         try {
             const response = await fetch('https://envoices.premiummotorscars.com/api/admin/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-auth-token': token, // Inclure le token dans les headers
                 },
-                body: JSON.stringify({ email, password }),
+                body: JSON.stringify({ email, password }), // Envoyer les données mises à jour
             });
-
+    
             if (response.ok) {
                 alert('Email and password updated successfully!');
                 setShowSettings(false);
@@ -54,6 +59,7 @@ const Navbar = () => {
             console.error('Error updating settings:', error);
         }
     };
+    
 
     return (
         <header className="navbar">
