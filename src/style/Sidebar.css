@@ -15,7 +15,7 @@
 
 .sidebar .logoS {
     width: 100%;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     display: flex;
     justify-content: center; /* Center the logo at the top */
 }
@@ -36,7 +36,7 @@
 .sidebar .menu-item {
     width: 100%;
     padding: 10px 0;
-    margin: 15px 0; /* Add spacing between items */
+    margin: 12px 0; /* Add spacing between items */
     display: flex;
     align-items: center;
     cursor: pointer;

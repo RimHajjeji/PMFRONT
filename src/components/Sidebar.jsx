@@ -29,6 +29,12 @@ const Sidebar = () => {
                     <FaUser className="icon" />
                     <span className="text">Ajouter Client</span>
                 </div>
+
+                <div className="menu-item" onClick={() => navigate('/facture_devis')}>
+                    <FaUser className="icon" />
+                    <span className="text">Factures et Devis</span>
+                </div>
+
                 <div className="menu-item" onClick={() => navigate('/add-material')}>
                 <FaCar
                 className="icon" />
@@ -37,13 +43,13 @@ const Sidebar = () => {
                 <div className="menu-item" onClick={() => navigate('/facture')}>
                 <FaFileInvoiceDollar 
                 className="icon" />
-                    <span className="text">Facture</span>
+                    <span className="text">Créer Facture</span>
                 </div>
 
                 <div className="menu-item" onClick={() => navigate('/devis')}>
                 <IoIosPaper
                 className="icon" />
-                    <span className="text">Devis</span>
+                    <span className="text">Créer Devis</span>
                 </div>
                 <div className="menu-item" onClick={() => navigate('/table-devis')}>
                 <MdLocalPrintshop 

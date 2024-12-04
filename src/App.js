@@ -12,6 +12,7 @@ import Devis from './pages/Devis';
 import Layout from './components/Layout'; 
 import Imprimefact from './pages/Imprimefact'; 
 import Imprimedevis from './pages/Imprimedevis';
+import Facture_Devis from './pages/Facture_Devis';
 
 
 function App() {
@@ -47,6 +48,16 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <AddClient />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/facture_devis"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <Facture_Devis />
               </Layout>
             </PrivateRoute>
           }
