@@ -15,7 +15,7 @@ const Navbar = () => {
     useEffect(() => {
         if (showSettings) {
             const token = localStorage.getItem('token'); // Récupérer le token du localStorage
-            fetch('https://envoices.premiummotorscars.com/api/admin/profile', {
+            fetch('http://localhost:5000/api/admin/profile', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ const Navbar = () => {
         e.preventDefault();
         const token = localStorage.getItem('token'); // Récupérer le token
         try {
-            const response = await fetch('https://envoices.premiummotorscars.com/api/admin/update', {
+            const response = await fetch('http://localhost:5000/api/admin/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

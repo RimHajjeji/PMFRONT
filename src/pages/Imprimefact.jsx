@@ -10,7 +10,7 @@ const Imprimefact = () => {
     useEffect(() => {
         const fetchInvoice = async () => {
             try {
-                const response = await axios.get(`https://envoices.premiummotorscars.com/api/invoices/${invoiceId}`);
+                const response = await axios.get(`http://localhost:5000/api/invoices/${invoiceId}`);
                 setInvoice(response.data);
             } catch (error) {
                 console.error("Error fetching invoice:", error);

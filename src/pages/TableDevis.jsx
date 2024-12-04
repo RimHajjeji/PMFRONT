@@ -16,7 +16,7 @@ const TableDevis = () => {
     useEffect(() => {
         const fetchDevis = async () => {
             try {
-                const response = await axios.get("https://envoices.premiummotorscars.com/api/devis");
+                const response = await axios.get("http://localhost:5000/api/devis");
                 setDevis(response.data);
             } catch (error) {
                 console.error("Error fetching devis:", error);

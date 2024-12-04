@@ -16,7 +16,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchInvoices = async () => {
             try {
-                const response = await axios.get("https://envoices.premiummotorscars.com/api/invoices");
+                const response = await axios.get("http://localhost:5000/api/invoices");
                 setInvoices(response.data);
             } catch (error) {
                 console.error("Error fetching invoices:", error);

@@ -10,7 +10,7 @@ const Imprimedevis = () => {
     useEffect(() => {
         const fetchDevis = async () => {
             try {
-                const response = await axios.get(`https://envoices.premiummotorscars.com/api/devis/${devisId}`);
+                const response = await axios.get(`http://localhost:5000/api/devis/${devisId}`);
                 setDevis(response.data);
             } catch (error) {
                 console.error("Error fetching quote:", error);
