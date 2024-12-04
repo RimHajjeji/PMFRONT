@@ -3,6 +3,7 @@ import React from 'react';
 import { FaUser } from "react-icons/fa";
 import { FaHouse } from "react-icons/fa6";
 import { FaCar } from "react-icons/fa6";
+import { FaFileInvoice } from "react-icons/fa";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { IoIosPaper } from "react-icons/io";
 import { MdLocalPrintshop } from "react-icons/md";
@@ -31,7 +32,7 @@ const Sidebar = () => {
                 </div>
 
                 <div className="menu-item" onClick={() => navigate('/facture_devis')}>
-                    <FaUser className="icon" />
+                    <FaFileInvoice className="icon" />
                     <span className="text">Factures et Devis</span>
                 </div>
 
