@@ -61,7 +61,7 @@ const TableDevis = () => {
                 <div className="devis-search-bar">
                     <input 
                         type="text" 
-                        placeholder="Rechercher par nom..." 
+                        placeholder="Rechercher par nom du client..." 
                         value={searchTerm}
                         onChange={handleSearch}
                     />

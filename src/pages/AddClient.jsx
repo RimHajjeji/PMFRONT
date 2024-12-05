@@ -153,7 +153,7 @@ const AddClient = () => {
                     <input
                         type="text"
                         className="search-barC"
-                        placeholder="Rechercher par nom..."
+                        placeholder="Rechercher par nom du client..."
                         value={searchTerm}
                         onChange={handleSearchChange}
                     />
