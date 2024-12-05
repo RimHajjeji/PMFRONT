@@ -1,4 +1,3 @@
-// src/components/Facture.jsx
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -28,6 +27,8 @@ const Facture = () => {
   const [fraisKilometrage, setFraisKilometrage] = useState(0);
   const [fraisLivraison, setFraisLivraison] = useState(0);
   const [fraisChauffeur, setFraisChauffeur] = useState(0);
+  const [acompte, setAcompte] = useState(0); // Nouveau champ
+  const [montantRemboursement, setMontantRemboursement] = useState(0); // Nouveau champ
 
   const navigate = useNavigate();
 
@@ -109,31 +110,25 @@ const Facture = () => {
   };
 
   const calculateTotalHTFrais = () => {
-    // Calcule le total de la location des véhicules
     const totalLocation = rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
-  
-    // Ajoute les frais supplémentaires
     const totalFraisSupplémentaires = Number(fraisCarburant) + Number(fraisKilometrage) + Number(fraisLivraison) + Number(fraisChauffeur);
-  
-    // Retourne la somme totale avec les frais
     return totalLocation + totalFraisSupplémentaires;
   };
-  
 
   const calculateTotalHT = () => {
     return rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
   };
 
   const calculateTVA = () => {
-    return calculateTotalHT() * 0.18;
+    return calculateTotalHTFrais() * 0.18;
   };
 
   const calculateCSS = () => {
-    return calculateTotalHT() * 0.01;
+    return calculateTotalHTFrais() * 0.01;
   };
 
   const calculateTotalTTC = () => {
-    return calculateTotalHT() + calculateTVA() + calculateCSS();
+    return calculateTotalHTFrais() + calculateTVA() + calculateCSS();
   };
 
   const calculateRemise = () => {
@@ -143,6 +138,7 @@ const Facture = () => {
   const calculateTotalNet = () => {
     return remise ? calculateTotalTTC() - remise : calculateTotalTTC();
   };
+
 
   const handleDiscountPopup = () => {
     setIsDiscountPopupOpen(true);
@@ -206,6 +202,8 @@ const Facture = () => {
       remise: remiseAmount,
       discountPercentage,
       totalNet,
+      acompte,
+      montantRemboursement,
       fraisSupplementaires: {
         fraisCarburant,
         fraisKilometrage,
@@ -217,7 +215,7 @@ const Facture = () => {
     try {
       const response = await axios.post("http://localhost:5000/api/invoices/add", newInvoice);
       alert("Facture créée avec succès. Numéro de facture: " + response.data.invoice.invoiceNumber);
-      navigate('/dashboard'); // Redirection vers le tableau de bord après la création
+      navigate('/dashboard');
     } catch (error) {
       console.error("Erreur lors de la création de la facture:", error);
       if (error.response && error.response.data && error.response.data.error) {
@@ -229,14 +227,6 @@ const Facture = () => {
   };
 
   return (
-    
-        
-
-
-
-
-
-
         <div className="invoice">
       <div className="invoice__container">
         <div className="invoice__header">
@@ -431,54 +421,7 @@ const Facture = () => {
             </div>
           )}
 
-          <div className="invoice__total">
-          <strong>Total DES LOCATION :</strong> {calculateTotalHT().toFixed(2)} FCFA
-          <br />
-          <strong>Total HT + Frais supplementaires:</strong> {calculateTotalHTFrais().toFixed(2)} FCFA
-          <br />
-            <strong>TVA (18%):</strong> {calculateTVA().toFixed(2)} FCFA
-            <br />
-            <strong>CSS (1%):</strong> {calculateCSS().toFixed(2)} FCFA
-            <br />
-            <strong>Total TTC:</strong> {calculateTotalTTC().toFixed(2)} FCFA
-            <br />
-            {remise !== null && (
-              <>
-                <strong>Remise ({discountPercentage}%):</strong> {remise.toFixed(2)} FCFA
-                <br />
-              </>
-            )}
-            <strong>Total Net:</strong> {calculateTotalNet().toFixed(2)} FCFA
-            <br />
-            <button type="button" className="invoice__btn-submit" onClick={handleDiscountPopup}>Appliquer une remise</button>
-          
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        {/* Frais Supplémentaires */}
-        <div className="frais-supplementaires">
+<div className="frais-supplementaires">
           <h3>Frais Supplémentaires</h3>
           <label>
             Frais de carburant:
@@ -516,15 +459,54 @@ const Facture = () => {
               min="0"
             />
           </label>
+          <h3>Autres Montants</h3>
+          <label>
+            Acompte:
+            <input
+              type="number"
+              value={acompte}
+              onChange={(e) => setAcompte(e.target.value)}
+              min="0"
+            />
+          </label>
+          <label>
+            Montant Remboursement:
+            <input
+              type="number"
+              value={montantRemboursement}
+              onChange={(e) => setMontantRemboursement(e.target.value)}
+              min="0"
+            />
+          </label>
         </div>
 
+          <div className="invoice__total">
+          <strong>Total DES LOCATION :</strong> {calculateTotalHT().toFixed(2)} FCFA
+          <br />
+          <strong>Total HT + Frais supplementaires:</strong> {calculateTotalHTFrais().toFixed(2)} FCFA
+          <br />
+            <strong>TVA (18%):</strong> {calculateTVA().toFixed(2)} FCFA
+            <br />
+            <strong>CSS (1%):</strong> {calculateCSS().toFixed(2)} FCFA
+            <br />
+            <strong>Total TTC:</strong> {calculateTotalTTC().toFixed(2)} FCFA
+            <br />
+            {remise !== null && (
+              <>
+                <strong>Remise ({discountPercentage}%):</strong> {remise.toFixed(2)} FCFA
+                <br />
+              </>
+            )}
+            <strong>Total Net:</strong> {calculateTotalNet().toFixed(2)} FCFA
+            <br />
+            <button type="button" className="invoice__btn-submit" onClick={handleDiscountPopup}>Appliquer une remise</button>
+          
+            </div>
         {/* Submit Button */}
         <button type="submit" className="invoice__btn-submit">Créer Facture</button>
         </form>
       </div>
-    </div>
-   
-    
+    </div>  
   );
 };
 
