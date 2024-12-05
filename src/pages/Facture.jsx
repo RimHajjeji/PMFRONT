@@ -24,6 +24,10 @@ const Facture = () => {
   const [isDiscountPopupOpen, setIsDiscountPopupOpen] = useState(false);
   const [remise, setRemise] = useState(null);
   const [discountPercentage, setDiscountPercentage] = useState(0);
+  const [fraisCarburant, setFraisCarburant] = useState(0);
+  const [fraisKilometrage, setFraisKilometrage] = useState(0);
+  const [fraisLivraison, setFraisLivraison] = useState(0);
+  const [fraisChauffeur, setFraisChauffeur] = useState(0);
 
   const navigate = useNavigate();
 
@@ -104,6 +108,18 @@ const Facture = () => {
     setVehicles([]);
   };
 
+  const calculateTotalHTFrais = () => {
+    // Calcule le total de la location des véhicules
+    const totalLocation = rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
+  
+    // Ajoute les frais supplémentaires
+    const totalFraisSupplémentaires = Number(fraisCarburant) + Number(fraisKilometrage) + Number(fraisLivraison) + Number(fraisChauffeur);
+  
+    // Retourne la somme totale avec les frais
+    return totalLocation + totalFraisSupplémentaires;
+  };
+  
+
   const calculateTotalHT = () => {
     return rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
   };
@@ -120,7 +136,6 @@ const Facture = () => {
     return calculateTotalHT() + calculateTVA() + calculateCSS();
   };
 
-  // Updated remise calculation based on entered percentage
   const calculateRemise = () => {
     return calculateTotalTTC() * (discountPercentage / 100);
   };
@@ -170,6 +185,7 @@ const Facture = () => {
       return;
     }
 
+    const totalHTFrais = calculateTotalHTFrais();
     const totalHT = calculateTotalHT();
     const tva = calculateTVA();
     const css = calculateCSS();
@@ -182,6 +198,7 @@ const Facture = () => {
       issuedBy,
       billingPeriod,
       vehicles: rentedVehicles,
+      totalHTFrais,
       totalHT,
       tva,
       css,
@@ -189,6 +206,12 @@ const Facture = () => {
       remise: remiseAmount,
       discountPercentage,
       totalNet,
+      fraisSupplementaires: {
+        fraisCarburant,
+        fraisKilometrage,
+        fraisLivraison,
+        fraisChauffeur,
+      },
     };
 
     try {
@@ -206,7 +229,15 @@ const Facture = () => {
   };
 
   return (
-    <div className="invoice">
+    
+        
+
+
+
+
+
+
+        <div className="invoice">
       <div className="invoice__container">
         <div className="invoice__header">
           <div className="invoice__logo">
@@ -401,8 +432,10 @@ const Facture = () => {
           )}
 
           <div className="invoice__total">
-            <strong>Total HT:</strong> {calculateTotalHT().toFixed(2)} FCFA
-            <br />
+          <strong>Total DES LOCATION :</strong> {calculateTotalHT().toFixed(2)} FCFA
+          <br />
+          <strong>Total HT + Frais supplementaires:</strong> {calculateTotalHTFrais().toFixed(2)} FCFA
+          <br />
             <strong>TVA (18%):</strong> {calculateTVA().toFixed(2)} FCFA
             <br />
             <strong>CSS (1%):</strong> {calculateCSS().toFixed(2)} FCFA
@@ -418,14 +451,81 @@ const Facture = () => {
             <strong>Total Net:</strong> {calculateTotalNet().toFixed(2)} FCFA
             <br />
             <button type="button" className="invoice__btn-submit" onClick={handleDiscountPopup}>Appliquer une remise</button>
-          </div>
+          
+            </div>
 
-            <button type="submit" className="invoice__btn-submit">Créer Facture</button>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        {/* Frais Supplémentaires */}
+        <div className="frais-supplementaires">
+          <h3>Frais Supplémentaires</h3>
+          <label>
+            Frais de carburant:
+            <input
+              type="number"
+              value={fraisCarburant}
+              onChange={(e) => setFraisCarburant(e.target.value)}
+              min="0"
+            />
+          </label>
+          <label>
+            Frais de kilométrage:
+            <input
+              type="number"
+              value={fraisKilometrage}
+              onChange={(e) => setFraisKilometrage(e.target.value)}
+              min="0"
+            />
+          </label>
+          <label>
+            Frais de livraison:
+            <input
+              type="number"
+              value={fraisLivraison}
+              onChange={(e) => setFraisLivraison(e.target.value)}
+              min="0"
+            />
+          </label>
+          <label>
+            Frais de chauffeur:
+            <input
+              type="number"
+              value={fraisChauffeur}
+              onChange={(e) => setFraisChauffeur(e.target.value)}
+              min="0"
+            />
+          </label>
+        </div>
+
+        {/* Submit Button */}
+        <button type="submit" className="invoice__btn-submit">Créer Facture</button>
         </form>
       </div>
     </div>
+   
+    
   );
 };
-  
 
 export default Facture;
