@@ -136,7 +136,9 @@ const Facture = () => {
   };
 
   const calculateTotalNet = () => {
-    return remise ? calculateTotalTTC() - remise : calculateTotalTTC();
+    const totalTTC = calculateTotalTTC();
+    const deduction = (remise || 0) + (acompte || 0) + (montantRemboursement || 0);
+    return totalTTC - deduction;
   };
 
 
@@ -378,8 +380,7 @@ const Facture = () => {
                     value={dailyRate}
                     onChange={(e) => setDailyRate(e.target.value)}
                     required
-                    min="0"
-                    step="0.01"
+                   
                   />
                 </label>
                 <label>
@@ -411,8 +412,7 @@ const Facture = () => {
                     value={discountPercentage}
                     onChange={(e) => setDiscountPercentage(Number(e.target.value))}
                     required
-                    min="0"
-                    max="100"
+                   
                   />
                 </label>
                 <button className="btnfacture3" type="button" onClick={handleDiscountYes}>Appliquer</button>
@@ -429,7 +429,7 @@ const Facture = () => {
               type="number"
               value={fraisCarburant}
               onChange={(e) => setFraisCarburant(e.target.value)}
-              min="0"
+             
             />
           </label>
           <label>
@@ -461,23 +461,23 @@ const Facture = () => {
           </label>
           <h3>Autres Montants</h3>
           <label>
-            Acompte:
-            <input
-              type="number"
-              value={acompte}
-              onChange={(e) => setAcompte(e.target.value)}
-              min="0"
-            />
-          </label>
-          <label>
-            Montant Remboursement:
-            <input
-              type="number"
-              value={montantRemboursement}
-              onChange={(e) => setMontantRemboursement(e.target.value)}
-              min="0"
-            />
-          </label>
+  Acompte:
+  <input
+    type="number"
+    value={acompte}
+    onChange={(e) => setAcompte(parseFloat(e.target.value) )}
+   min="0"
+  />
+</label>
+<label>
+  Montant Remboursement:
+  <input
+    type="number"
+    value={montantRemboursement}
+    onChange={(e) => setMontantRemboursement(parseFloat(e.target.value))}
+    min="0"
+  />
+</label>
         </div>
 
           <div className="invoice__total">
