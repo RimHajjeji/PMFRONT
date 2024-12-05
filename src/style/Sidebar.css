@@ -36,7 +36,7 @@
 .sidebar .menu-item {
     width: 100%;
     padding: 10px 0;
-    margin: 12px 0; /* Add spacing between items */
+    margin: 13px 0; /* Add spacing between items */
     display: flex;
     align-items: center;
     cursor: pointer;

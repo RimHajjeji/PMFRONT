@@ -13,7 +13,8 @@ import Layout from './components/Layout';
 import Imprimefact from './pages/Imprimefact'; 
 import Imprimedevis from './pages/Imprimedevis';
 import Facture_Devis from './pages/Facture_Devis';
-
+import DevisClient from './pages/DevisClient';
+import FacturesClient from './pages/FacturesClient';
 
 function App() {
   return (
@@ -58,6 +59,26 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <Facture_Devis />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/factures_client/:clientId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <FacturesClient />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+         <Route
+          path="/devis_client"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <DevisClient />
               </Layout>
             </PrivateRoute>
           }
