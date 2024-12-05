@@ -298,3 +298,66 @@
 .invoice__btn-submit:hover {
   background: #3498db;
 }
+
+/* Style général pour la section des frais supplémentaires */
+.factu-frais-supplementaires {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.factu-frais-supplementaires h3 {
+  color: #1d94b7;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  border-bottom: 2px solid #1d94b7;
+  padding-bottom: 5px;
+}
+
+.factu-frais-supplementaires label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+}
+
+.factu-frais-supplementaires input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #fff;
+}
+
+.factu-autres-montants h3 {
+  color: #1d94b7;
+  margin-top: 20px;
+  font-size: 1.5em;
+  border-bottom: 2px solid #1d94b7;
+  padding-bottom: 5px;
+}
+
+.factu-autres-montants label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.factu-autres-montants input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #fff;
+}
+

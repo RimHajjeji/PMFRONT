@@ -421,64 +421,66 @@ const Facture = () => {
             </div>
           )}
 
-<div className="frais-supplementaires">
-          <h3>Frais Supplémentaires</h3>
-          <label>
-            Frais de carburant:
-            <input
-              type="number"
-              value={fraisCarburant}
-              onChange={(e) => setFraisCarburant(e.target.value)}
-             
-            />
-          </label>
-          <label>
-            Frais de kilométrage:
-            <input
-              type="number"
-              value={fraisKilometrage}
-              onChange={(e) => setFraisKilometrage(e.target.value)}
-              min="0"
-            />
-          </label>
-          <label>
-            Frais de livraison:
-            <input
-              type="number"
-              value={fraisLivraison}
-              onChange={(e) => setFraisLivraison(e.target.value)}
-              min="0"
-            />
-          </label>
-          <label>
-            Frais de chauffeur:
-            <input
-              type="number"
-              value={fraisChauffeur}
-              onChange={(e) => setFraisChauffeur(e.target.value)}
-              min="0"
-            />
-          </label>
-          <h3>Autres Montants</h3>
-          <label>
-  Acompte:
-  <input
-    type="number"
-    value={acompte}
-    onChange={(e) => setAcompte(parseFloat(e.target.value) )}
-   min="0"
-  />
-</label>
-<label>
-  Montant Remboursement:
-  <input
-    type="number"
-    value={montantRemboursement}
-    onChange={(e) => setMontantRemboursement(parseFloat(e.target.value))}
-    min="0"
-  />
-</label>
-        </div>
+<div className="factu-frais-supplementaires">
+  <h3>Frais Supplémentaires</h3>
+  <label>
+    Frais de carburant:
+    <input
+      type="number"
+      value={fraisCarburant}
+      onChange={(e) => setFraisCarburant(e.target.value)}
+    />
+  </label>
+  <label>
+    Frais de kilométrage:
+    <input
+      type="number"
+      value={fraisKilometrage}
+      onChange={(e) => setFraisKilometrage(e.target.value)}
+      min="0"
+    />
+  </label>
+  <label>
+    Frais de livraison:
+    <input
+      type="number"
+      value={fraisLivraison}
+      onChange={(e) => setFraisLivraison(e.target.value)}
+      min="0"
+    />
+  </label>
+  <label>
+    Frais de chauffeur:
+    <input
+      type="number"
+      value={fraisChauffeur}
+      onChange={(e) => setFraisChauffeur(e.target.value)}
+      min="0"
+    />
+  </label>
+</div>
+
+<div className="factu-autres-montants">
+  <h3>Autres Montants</h3>
+  <label>
+    Acompte:
+    <input
+      type="number"
+      value={acompte}
+      onChange={(e) => setAcompte(parseFloat(e.target.value) )}
+      min="0"
+    />
+  </label>
+  <label>
+    Montant Remboursement:
+    <input
+      type="number"
+      value={montantRemboursement}
+      onChange={(e) => setMontantRemboursement(parseFloat(e.target.value) )}
+      min="0"
+    />
+  </label>
+</div>
 
           <div className="invoice__total">
           <strong>Total DES LOCATION :</strong> {calculateTotalHT().toFixed(2)} FCFA
