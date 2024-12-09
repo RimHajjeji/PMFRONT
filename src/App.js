@@ -15,6 +15,7 @@ import Imprimedevis from './pages/Imprimedevis';
 import Facture_Devis from './pages/Facture_Devis';
 import DevisClient from './pages/DevisClient';
 import FacturesClient from './pages/FacturesClient';
+import ModifFacture from './pages/ModifFacture';
 
 function App() {
   return (
@@ -69,6 +70,16 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <FacturesClient />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/modif_facture/:invoiceId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <ModifFacture />
               </Layout>
             </PrivateRoute>
           }

@@ -30,6 +30,10 @@ const FactureClient = () => {
         navigate(`/imprimefact/${invoiceId}`);
     };
 
+    const handleModifierFacture = (invoiceId) => {
+        navigate(`/modif_facture/${invoiceId}`); // Redirection vers la page de modification
+    };
+
     if (loading) {
         return <div>Chargement des factures...</div>;
     }
@@ -70,7 +74,7 @@ const FactureClient = () => {
                                 <td>
                                     <button
                                         className="modifier-facture-button"
-                                        onClick={() => alert("Modifier facture")}
+                                        onClick={() => handleModifierFacture(facture._id)}
                                     >
                                         Modifier facture
                                     </button>
@@ -80,7 +84,7 @@ const FactureClient = () => {
                                         className="Historique-modif-button"
                                         onClick={() => alert("Voir modifications")}
                                     >
-                                        Modifications précedentes 
+                                        Modifications précédentes 
                                     </button>
                                 </td>
                             </tr>
