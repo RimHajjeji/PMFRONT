@@ -58,6 +58,7 @@ const Imprimefact = () => {
                 
                 <div className="client-info-box">
                     <p><strong>Nom :</strong> {`${invoice.client?.firstName || 'N/A'} ${invoice.client?.lastName || 'N/A'}`}</p>
+                    <p><strong>Cree par :</strong> {invoice.issuedBy || 'N/A'}</p>
                     <p><strong>Téléphone :</strong> {invoice.client?.phone || 'N/A'}</p>
                     <p><strong>Code Client :</strong> {invoice.client?.codeClient || 'N/A'}</p>
                     <p><strong>Type Client :</strong> {invoice.client?.typeClient || 'N/A'}</p>
