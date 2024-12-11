@@ -46,6 +46,21 @@ const Facture = () => {
       }
     };
 
+    const fetchAdminDetails = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/admin/profile", {
+          headers: {
+            "x-auth-token": localStorage.getItem("token"), // Utilise le token stocké localement
+          },
+        });
+        const { nom, prenom } = response.data;
+        setIssuedBy(`${nom} ${prenom}`); // Combine le nom et le prénom
+      } catch (error) {
+        console.error("Erreur lors de la récupération des détails de l'admin :", error);
+        alert("Impossible de récupérer les informations de l'utilisateur connecté.");
+      }
+    };
+
     const fetchCategories = async () => {
       try {
         const response = await axios.get("http://localhost:5000/api/categories/categories");
@@ -55,7 +70,7 @@ const Facture = () => {
         alert("Erreur lors de la récupération des catégories.");
       }
     };
-
+    fetchAdminDetails();
     fetchClients();
     fetchCategories();
   }, []);
@@ -294,14 +309,13 @@ const Facture = () => {
               <strong>Facture N°:</strong> {/* Numéro généré par le backend */}
               <br />
               <strong>Etablie Par:</strong>
-              <input
-                type="text"
-                className="invoice__input--issued-by"
-                value={issuedBy}
-                onChange={(e) => setIssuedBy(e.target.value)}
-                required
-              />
-              <br />
+            <input
+                  type="text"
+                   className="invoice__input--issued-by"
+                    value={issuedBy}
+                     readOnly // Rendre le champ non modifiable
+                      />
+                      <br />
               <strong>Date:</strong> {date}
               <br />
               <strong>Période de Facturation:</strong>
