@@ -29,6 +29,9 @@ const Facture = () => {
   const [fraisChauffeur, setFraisChauffeur] = useState(0);
   const [acompte, setAcompte] = useState(0); // Nouveau champ
   const [montantRemboursement, setMontantRemboursement] = useState(0); // Nouveau champ
+  const [selectedTarifType, setSelectedTarifType] = useState("");
+  const [selectedDurationType, setSelectedDurationType] = useState("");
+
 
   const navigate = useNavigate();
 
@@ -75,21 +78,27 @@ const Facture = () => {
   };
 
   const handleAddVehicle = () => {
-    if (!dailyRate || !daysRented || !selectedVehicle) {
+    if (
+      !dailyRate ||
+      !daysRented ||
+      !selectedVehicle ||
+      !selectedTarifType ||
+      !selectedDurationType
+    ) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
     }
-
+  
     const dailyRateNumber = Number(dailyRate);
     const daysRentedNumber = Number(daysRented);
-
+  
     if (isNaN(dailyRateNumber) || isNaN(daysRentedNumber)) {
       alert("Les champs Tarif Journalier et Nombre de jours doivent être des nombres.");
       return;
     }
-
+  
     const montant = dailyRateNumber * daysRentedNumber;
-
+  
     setRentedVehicles([
       ...rentedVehicles,
       {
@@ -98,16 +107,21 @@ const Facture = () => {
         dailyRate: dailyRateNumber,
         daysRented: daysRentedNumber,
         montant,
+        tarifType: selectedTarifType,
+        durationType: selectedDurationType,
       },
     ]);
-
+  
     setIsPopupOpen(false);
     setDailyRate("");
     setDaysRented("");
     setSelectedVehicle("");
     setSelectedCategory("");
+    setSelectedTarifType("");
+    setSelectedDurationType("");
     setVehicles([]);
   };
+  
 
   const calculateTotalHTFrais = () => {
     const totalLocation = rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
@@ -345,15 +359,41 @@ const Facture = () => {
           <div className="invoice__vehicle-list">
             <h3>Véhicules Loués</h3>
             <table className="invoice__table">
-              <thead>
-                <tr>
-                  <th>Marque</th>
-                  <th>Modèle</th>
-                  <th>Tarif Journalier</th>
-                  <th>Nombre de Jours</th>
-                  <th>Montant</th>
-                </tr>
-              </thead>
+            <thead>
+  <tr>
+    <th>Marque</th>
+    <th>Modèle</th>
+    <th>
+      Type de Tarif
+      <select
+        onChange={(e) => setSelectedTarifType(e.target.value)}
+        defaultValue=""
+      >
+        <option value="" disabled>
+          Choisissez
+        </option>
+        <option value="journalier">Tarif journalier</option>
+        <option value="hebdomadaire">Tarif hebdomadaire</option>
+        <option value="mensuel">Tarif mensuel</option>
+      </select>
+    </th>
+    <th>
+      Type de Durée
+      <select
+        onChange={(e) => setSelectedDurationType(e.target.value)}
+        defaultValue=""
+      >
+        <option value="" disabled>
+          Choisissez
+        </option>
+        <option value="jours">Nombres de jours</option>
+        <option value="semaines">Nombres de semaines</option>
+        <option value="mois">Nombres de mois</option>
+      </select>
+    </th>
+    <th>Montant</th>
+  </tr>
+</thead>
               <tbody>
                 {rentedVehicles.map((vehicle, index) => (
                   <tr key={index}>
