@@ -5,6 +5,7 @@ import ReactPaginate from 'react-paginate';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../style/AddClient.css';
+import { FaEdit } from 'react-icons/fa';
 
 const AddClient = () => {
     const [showForm, setShowForm] = useState(false);
@@ -169,6 +170,7 @@ const AddClient = () => {
                             <th>Email</th>
                             <th>Code Client</th>
                             <th>Type Client</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -181,6 +183,13 @@ const AddClient = () => {
                                 <td>{client.email}</td>
                                 <td>{client.codeClient}</td>
                                 <td>{client.typeClient}</td>
+                                <td>
+                                    <FaEdit
+                                        className="edit-icon"
+                                        onClick={() => window.location.href = `/modif-client/${client._id}`}
+                                        title="Modifier le client"
+                                    />
+                                </td>
                             </tr>
                         ))}
                     </tbody>

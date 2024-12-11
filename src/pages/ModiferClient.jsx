@@ -41,7 +41,7 @@ const ModifierClient = () => {
         try {
             await axios.put(`http://localhost:5000/api/clients/${clientId}`, clientData);
             toast.success("Client modifié avec succès !");
-            setTimeout(() => navigate('/clients'), 2000); // Redirection après 2 secondes
+            setTimeout(() => navigate('/add-client'), 2000); // Redirection vers add-client après 2 secondes
         } catch (error) {
             console.error("Erreur lors de la modification du client:", error);
             toast.error("Erreur lors de la modification du client.");
@@ -108,33 +108,3 @@ const ModifierClient = () => {
 };
 
 export default ModifierClient;
-
-// Backend route for updating a client by ID
-const express = require("express");
-const router = express.Router();
-const Client = require("../models/Client");
-
-// Update a client by ID
-router.put("/:clientId", async (req, res) => {
-    const { clientId } = req.params;
-    const { firstName, lastName, phone, email, codeClient, typeClient } = req.body;
-
-    try {
-        const updatedClient = await Client.findByIdAndUpdate(
-            clientId,
-            { firstName, lastName, phone, email, codeClient, typeClient },
-            { new: true }
-        );
-
-        if (!updatedClient) {
-            return res.status(404).json({ error: "Client introuvable." });
-        }
-
-        res.status(200).json(updatedClient);
-    } catch (error) {
-        console.error("Erreur lors de la mise à jour du client:", error);
-        res.status(500).json({ error: "Erreur interne du serveur." });
-    }
-});
-
-module.exports = router;
