@@ -92,13 +92,13 @@
 }
 
 .client-table-containerC {
-    width: 100%;
-    max-width: 1000px; /* Increased the maximum width */
+    width: 95%;
     margin-top: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-bottom: 50px; /* Added bottom margin for spacing below the table */
+  
 }
 
 .client-table-titleC {
@@ -140,7 +140,6 @@
 }
 
 .client-tableC {
-    margin-left: 30px;
     width: 100%;
     border-collapse: collapse;
     text-align: left;
@@ -197,4 +196,21 @@
 .pagination2 li a:hover {
     background-color: #f3f3f3;
     border-color: #bec3c8;
+}
+
+.edit-icon {
+    color: #24B4DE;
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    display: flex; /* Pour centrer */
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* S'assurer qu'il prend tout l'espace disponible verticalement */
+    margin-left: 15px;
+}
+
+.edit-icon:hover {
+    transform: scale(1.2);
+    color: #1d94b7;
 }
