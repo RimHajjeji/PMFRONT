@@ -372,9 +372,9 @@ const Facture = () => {
         <option value="" disabled>
           Choisissez
         </option>
-        <option value="journalier">Tarif journalier</option>
-        <option value="hebdomadaire">Tarif hebdomadaire</option>
-        <option value="mensuel">Tarif mensuel</option>
+        <option value=" Tarif journalier">Tarif journalier</option>
+        <option value=" Tarif hebdomadaire">Tarif hebdomadaire</option>
+        <option value=" Tarif mensuel">Tarif mensuel</option>
       </select>
     </th>
     <th>
@@ -386,9 +386,9 @@ const Facture = () => {
         <option value="" disabled>
           Choisissez
         </option>
-        <option value="jours">Nombres de jours</option>
-        <option value="semaines">Nombres de semaines</option>
-        <option value="mois">Nombres de mois</option>
+        <option value="Nombres de jours">Nombres de jours</option>
+        <option value="Nombres de semaines">Nombres de semaines</option>
+        <option value="Nombres de mois">Nombres de mois</option>
       </select>
     </th>
     <th>Montant</th>
