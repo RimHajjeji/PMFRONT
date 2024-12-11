@@ -413,7 +413,7 @@ const Facture = () => {
               <div className="invoice__popup-content">
                 <h3>Ajouter un véhicule</h3>
                 <label>
-                  Tarif Journalier :
+                  Tarif en CFA :
                   <input
                     type="number"
                     className="invoice__input--daily-rate"
@@ -424,7 +424,7 @@ const Facture = () => {
                   />
                 </label>
                 <label>
-                  Nombre de jours :
+                  la Duree :
                   <input
                     type="number"
                     className="invoice__input--days-rented"
