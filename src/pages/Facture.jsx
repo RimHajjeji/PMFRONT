@@ -81,9 +81,7 @@ const Facture = () => {
     if (
       !dailyRate ||
       !daysRented ||
-      !selectedVehicle ||
-      !selectedTarifType ||
-      !selectedDurationType
+      !selectedVehicle
     ) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
@@ -99,6 +97,10 @@ const Facture = () => {
   
     const montant = dailyRateNumber * daysRentedNumber;
   
+    // Retain the previously selected tarifType and durationType if not explicitly changed
+    const appliedTarifType = selectedTarifType || (rentedVehicles.length > 0 ? rentedVehicles[0].tarifType : "");
+    const appliedDurationType = selectedDurationType || (rentedVehicles.length > 0 ? rentedVehicles[0].durationType : "");
+  
     setRentedVehicles([
       ...rentedVehicles,
       {
@@ -107,8 +109,8 @@ const Facture = () => {
         dailyRate: dailyRateNumber,
         daysRented: daysRentedNumber,
         montant,
-        tarifType: selectedTarifType,
-        durationType: selectedDurationType,
+        tarifType: appliedTarifType,
+        durationType: appliedDurationType,
       },
     ]);
   
@@ -117,10 +119,11 @@ const Facture = () => {
     setDaysRented("");
     setSelectedVehicle("");
     setSelectedCategory("");
-    setSelectedTarifType("");
-    setSelectedDurationType("");
+    setSelectedTarifType(appliedTarifType); // Pre-fill the tarifType for the next vehicle
+    setSelectedDurationType(appliedDurationType); // Pre-fill the durationType for the next vehicle
     setVehicles([]);
   };
+  
   
 
   const calculateTotalHTFrais = () => {
@@ -372,9 +375,9 @@ const Facture = () => {
         <option value="" disabled>
           Choisissez
         </option>
-        <option value="journalier">Tarif journalier</option>
-        <option value="hebdomadaire">Tarif hebdomadaire</option>
-        <option value="mensuel">Tarif mensuel</option>
+        <option value=" Tarif journalier">Tarif journalier</option>
+        <option value=" Tarif hebdomadaire">Tarif hebdomadaire</option>
+        <option value=" Tarif mensuel">Tarif mensuel</option>
       </select>
     </th>
     <th>
@@ -386,9 +389,9 @@ const Facture = () => {
         <option value="" disabled>
           Choisissez
         </option>
-        <option value="jours">Nombres de jours</option>
-        <option value="semaines">Nombres de semaines</option>
-        <option value="mois">Nombres de mois</option>
+        <option value="Nombres de jours">Nombres de jours</option>
+        <option value="Nombres de semaines">Nombres de semaines</option>
+        <option value="Nombres de mois">Nombres de mois</option>
       </select>
     </th>
     <th>Montant</th>
