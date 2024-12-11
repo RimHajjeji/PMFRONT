@@ -426,36 +426,40 @@ const Facture = () => {
           </div>
 
           {isPopupOpen && (
-            <div className="invoice__popup">
-              <div className="invoice__popup-content">
-                <h3>Ajouter un véhicule</h3>
-                <label>
-                  Tarif en CFA :
-                  <input
-                    type="number"
-                    className="invoice__input--daily-rate"
-                    value={dailyRate}
-                    onChange={(e) => setDailyRate(e.target.value)}
-                    required
-                   
-                  />
-                </label>
-                <label>
-                  la Duree :
-                  <input
-                    type="number"
-                    className="invoice__input--days-rented"
-                    value={daysRented}
-                    onChange={(e) => setDaysRented(e.target.value)}
-                    required
-                    min="1"
-                  />
-                </label>
-                <button className="btnfacture1" type="button" onClick={handleAddVehicle}>Ajouter</button>
-                <button className="btnfacture2" type="button" onClick={() => setIsPopupOpen(false)}>Annuler</button>
-              </div>
-            </div>
-          )}
+  <div className="invoice__popup">
+    <div className="invoice__popup-content">
+      <h3>Ajouter un véhicule</h3>
+      <label>
+        {selectedTarifType || "Tarif"} :
+        <input
+          type="number"
+          className="invoice__input--daily-rate"
+          value={dailyRate}
+          onChange={(e) => setDailyRate(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        {selectedDurationType || "Durée"} :
+        <input
+          type="number"
+          className="invoice__input--days-rented"
+          value={daysRented}
+          onChange={(e) => setDaysRented(e.target.value)}
+          required
+          min="1"
+        />
+      </label>
+      <button className="btnfacture1" type="button" onClick={handleAddVehicle}>
+        Ajouter
+      </button>
+      <button className="btnfacture2" type="button" onClick={() => setIsPopupOpen(false)}>
+        Annuler
+      </button>
+    </div>
+  </div>
+)}
+
 
           {isDiscountPopupOpen && (
             <div className="invoice__popup--discount">
