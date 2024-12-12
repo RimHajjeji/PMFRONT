@@ -1,14 +1,13 @@
 /* General styles */
-.wrapperD {
+.devis {
   padding: 30px 60px;
   font-family: 'Arial', sans-serif; /* Changement de la police pour un look plus moderne */
   background: #f1f1f1; /* Arrière-plan doux pour la page */
-  line-height: 2; /* Espacement des lignes pour chaque paragraphe */
+  line-height: 2;
   font-size: 18px;
 }
 
-/* Container */
-.devis-containerD {
+.devis__containerD {
   background: #ffffff;
   padding: 30px 50px;
   border-radius: 10px; /* Arrondi plus doux */
@@ -16,19 +15,19 @@
 }
 
 /* Header */
-.headerD {
+.devis__headerD {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px; /* Espacement augmenté */
+  align-items: center; /* Centrer les éléments verticalement */
+  margin-bottom: 20px;
 }
 
-.logoD img {
-  width: 120px; /* Augmenter la taille du logo */
+.devis__logoD img {
+  width: 120px;
   height: 80px;
 }
 
-.highlighted-text-largeD {
+.devis__titleD {
   font-size: 32px;
   color: #333333;
   text-transform: uppercase;
@@ -36,7 +35,7 @@
 }
 
 /* Separator */
-.separatorD {
+.devis__separatorD {
   height: 1px;
   background: #e0e0e0; /* Couleur plus douce */
   margin: 20px 0;
@@ -44,35 +43,28 @@
 }
 
 /* Client Info */
-.client-infoD {
+.devis__client-infoD {
   display: flex;
   justify-content: space-between;
   margin-bottom: 30px; /* Plus d'espace entre les sections */
 }
 
-.left-sectionD, .right-sectionD {
-  width: 45%; /* Ajuster la largeur pour éviter les débordements */
+.devis__client-detailsD, .devis__detailsD {
+  width: 45%;
 }
 
-.left-sectionD select,
-.right-sectionD input {
-  width: calc(100% - 10px); /* Ajuster la largeur pour tenir compte du padding */
-}
-
-
-.highlighted-textD {
+.devis__client-highlightD {
   color: #3498db; /* Couleur plus vive pour mettre en valeur les informations */
-  font-weight: bold; /* Couleur plus vive */
+  font-weight: bold; /* Texte en gras pour la mise en valeur */
 }
 
 /* Inputs */
-.client-select,
-.input-issued-by,
-.input-billing-period-start,
-.input-billing-period-end,
-.input-daily-rate,
-.input-days-rented,
-.input-discount-percentage {
+.devis__input--issued-byD,
+.devis__input--period-startD,
+.devis__input--period-endD,
+.devis__input--daily-rateD,
+.devis__input--days-rentedD,
+.devis__input--discountD {
   width: 100%;
   padding: 10px; /* Plus de rembourrage pour une meilleure expérience utilisateur */
   margin-bottom: 15px;
@@ -81,20 +73,20 @@
   font-size: 14px;
 }
 
-.client-select:focus,
-.input-issued-by:focus,
-.input-billing-period-start:focus,
-.input-billing-period-end:focus,
-.input-daily-rate:focus,
-.input-days-rented:focus,
-.input-discount-percentage:focus {
-  border-color: #007bff; /* Couleur de la bordure au focus */
+.devis__input--issued-byD:focus,
+.devis__input--period-startD:focus,
+.devis__input--period-endD:focus,
+.devis__input--daily-rateD:focus,
+.devis__input--days-rentedD:focus,
+.devis__input--discountD:focus {
+  border-color: #2980b9; /* Couleur de la bordure au focus */
   outline: none;
 }
 
 /* Selects */
-.category-select,
-.vehicle-select {
+.devis__select--clientD,
+.devis__select--categoryD,
+.devis__select--vehicleD {
   width: 100%;
   padding: 10px;
   margin-bottom: 15px;
@@ -103,42 +95,43 @@
   font-size: 14px;
 }
 
-.category-select:focus,
-.vehicle-select:focus {
-  border-color: #007bff;
+.devis__select--clientD:focus,
+.devis__select--categoryD:focus,
+.devis__select--vehicleD:focus {
+  border-color: #2980b9;
   outline: none;
 }
 
 /* Vehicle List */
-.vehicle-listD {
-  margin-bottom: 30px;
+.devis__vehicle-listD {
+  margin-bottom: 30px; /* Plus d'espace pour la liste des véhicules */
 }
 
-.vehicle-tableD {
+.devis__tableD {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
   background: #ffffff;
 }
 
-.vehicle-tableD th,
-.vehicle-tableD td {
+.devis__tableD th,
+.devis__tableD td {
   border: 1px solid #ddd;
   padding: 6px;
-  text-align: left;
+  text-align: left; /* Alignement à gauche pour un texte plus lisible */
 }
 
-.vehicle-tableD th {
+.devis__tableD th {
   background: #2980b9; /* Couleur d'en-tête plus visible */
-  color: white; /* Texte en gras pour l'en-tête */
+  color: white;
 }
 
-.vehicle-tableD tr:nth-child(even) {
+.devis__tableD td {
   background: #f9f9f9; /* Alternance de couleur pour les lignes */
 }
 
 /* Popups */
-.popupD {
+.devis__popupD {
   position: fixed;
   top: 0;
   left: 0;
@@ -150,7 +143,7 @@
   justify-content: center;
 }
 
-.discount-popupD{
+.devis__popup--discountD{
   position: fixed;
   top: 0;
   left: 0;
@@ -162,7 +155,7 @@
   justify-content: center;
 }
 
-.popup-contentD {
+.devis__popup-contentD {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -173,7 +166,7 @@
   margin-left: 150px;
 }
 
-.discount-popup-contentD{
+.devis__popup-contentD {
   background: #fff;
   padding: 20px;
   border-radius: 10px;
@@ -183,50 +176,52 @@
   margin-left: 150px;
 }
 
-.popup-contentD h3 {
+
+.devis__popup-contentD h3{
   color: #3498db;
   font-size: 25px;
   margin-top: 10px;
 }
 
-.discount-popup-contentD h3{
+.devis__popup-contentD h3 {
   color: #3498db;
   font-size: 25px;
   margin-top: 10px;
 }
 
 /* Uniformiser l'espacement interne */
-.popup-contentD h3,
-.popup-contentD p,
-.popup-contentD input,
-.popup-contentD button {
+.devis__popup-contentD h3,
+.devis__popup-contentD p,
+.devis__popup-contentD input,
+.devis__popup-contentD button {
   margin-bottom: 15px; /* Espacement uniforme en bas */
   width: 100%; /* Pour aligner les éléments uniformément */
   box-sizing: border-box; /* Assurer que les paddings et bordures ne débordent pas */
-
+ 
 }
 
 /* Uniformiser l'espacement interne */
-.discount-popup-contentD h3,
-.discount-popup-contentD p,
-.discount-popup-contentD input,
-.discount-popup-contentD button {
+.devis__popup-contentD h3,
+.devis__popup-contentD p,
+.devis__popup-contentD input,
+.devis__popup-contentD button {
   margin-bottom: 15px; /* Espacement uniforme en bas */
   width: 100%; /* Pour aligner les éléments uniformément */
   box-sizing: border-box; /* Assurer que les paddings et bordures ne débordent pas */
+ 
 }
 
-.popup-contentD input,
-.popup-contentD button {
+.devis__popup-contentD input,
+.devis__popup-contentD button {
   padding: 12px; /* Espacement interne uniforme */
 }
 
-.discount-popup-contentD input,
-.discount-popup-contentD button {
+.devis__popup-contentD input,
+.devis__popup-contentD button {
   padding: 12px; /* Espacement interne uniforme */
 }
 
-.popup-contentD button {
+.devis__popup-contentD button {
   background-color: #1d5d87;
   color: white;
   border-radius: 8px;
@@ -234,27 +229,28 @@
   border: none;
 }
 
-.discount-popup-contentD button {
+.devis__popup-contentD button {
   background-color: #1d5d87;
   color: white;
   border-radius: 8px;
   font-size: 15px;
   border: none;
 }
+
 
 /* Retirer le dernier espacement */
-.popup-contentD h3:last-child,
-.popup-contentD p:last-child,
-.popup-contentD input:last-child,
-.popup-contentD button:last-child {
+.devis__popup-contentD h3:last-child,
+.devis__popup-contentD p:last-child,
+.devis__popup-contentD input:last-child,
+.devis__popup-contentD button:last-child {
   margin-bottom: 0;
 }
 
 /* Retirer le dernier espacement */
-.discount-popup-contentD h3:last-child,
-.discount-popup-contentD p:last-child,
-.discount-popup-contentD input:last-child,
-.discount-popup-contentD button:last-child {
+.devis__popup-contentD h3:last-child,
+.devis__popup-contentD p:last-child,
+.devis__popup-contentD input:last-child,
+.devis__popup-contentD button:last-child {
   margin-bottom: 0;
 }
 
@@ -275,19 +271,19 @@
 }
 
 
-/* Total Section */
-.total-sectionD {
+/* Total */
+.devis__totalD {
   margin-top: 20px;
   font-size: 18px; /* Augmenter la taille de police */
   line-height: 1.6;
   color: #333333;
 }
 
-.total-sectionD strong {
+.devis__totalD strong {
   color: #2980b9; /* Couleur forte pour les totaux */
 }
 
-.invoice__btn-submit{
+.devis__btn-submitD{
   padding: 12px 25px; /* Boutons plus grands pour une meilleure accessibilité */
   background: #2980b9;
   color: white;
@@ -299,6 +295,69 @@
   margin-top: 10px;
 }
 
-.invoice__btn-submit:hover {
+.devis__btn-submitD:hover {
   background: #3498db;
 }
+
+/* Style général pour la section des frais supplémentaires */
+.devis-frais-supplementaires {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.devis-frais-supplementaires h3 {
+  color: #1d94b7;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+  border-bottom: 2px solid #1d94b7;
+  padding-bottom: 5px;
+}
+
+.devis-frais-supplementaires label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 1em;
+  color: #333;
+}
+
+.devis-frais-supplementaires input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #fff;
+}
+
+.devis-autres-montants h3 {
+  color: #1d94b7;
+  margin-top: 20px;
+  font-size: 1.5em;
+  border-bottom: 2px solid #1d94b7;
+  padding-bottom: 5px;
+}
+
+.devis-autres-montants label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  font-weight: bold;
+  color: #333;
+}
+
+.devis-autres-montants input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+  background-color: #fff;
+}
+
