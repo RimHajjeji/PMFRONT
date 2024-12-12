@@ -7,11 +7,29 @@ import "../style/Dashboard.css"; // Assurez-vous que ce fichier CSS existe et co
 
 const Dashboard = () => {
     const [invoices, setInvoices] = useState([]);
+    const [userInfo, setUserInfo] = useState({ nom: '', prenom: '' }); // État pour les informations de l'utilisateur
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(0); // État pour la page actuelle
     const invoicesPerPage = 6; // Nombre de factures par page
 
     const navigate = useNavigate();
+
+    // Récupérer les données de l'utilisateur connecté
+    useEffect(() => {
+        const fetchUserInfo = async () => {
+            try {
+                const token = localStorage.getItem("token"); // Assurez-vous que le token est stocké dans le localStorage
+                const response = await axios.get("http://localhost:5000/api/admin/profile", {
+                    headers: { "x-auth-token": token },
+                });
+                setUserInfo(response.data);
+            } catch (error) {
+                console.error("Error fetching user info:", error);
+            }
+        };
+
+        fetchUserInfo();
+    }, []);
 
     useEffect(() => {
         const fetchInvoices = async () => {
@@ -60,7 +78,7 @@ const Dashboard = () => {
                 <div className="dashboard-content-wrapper">
                     <div className="welcome-card">
                         <div className="welcome-text">
-                            <h5>Bienvenue Admin! 🎉</h5>
+                            <h5>Bienvenue {userInfo.nom} {userInfo.prenom}! 🎉</h5>
                         </div>
                         <div className="welcome-image">
                             <img src="/assets/admindash.png" alt="Man working on laptop" />
