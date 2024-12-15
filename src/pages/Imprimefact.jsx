@@ -105,8 +105,47 @@ const Imprimefact = () => {
                             <th>Montant</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody>         
                         <tr>
+                            <td>Frais de Kilométrage</td>
+                            <td>{formatNumber(invoice.fraisSupplementaires.fraisKilometrage)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>Frais de Livraison</td>
+                            <td>{formatNumber(invoice.fraisSupplementaires.fraisLivraison)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>Frais de Chauffeur</td>
+                            <td>{formatNumber(invoice.fraisSupplementaires.fraisChauffeur)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>Frais de Carburant</td>
+                            <td>{formatNumber(invoice.fraisSupplementaires.fraisCarburant)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>Accompte</td>
+                            <td>{formatNumber(invoice.acompte)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>Montant Remboursement</td>
+                            <td>{formatNumber(invoice.montantRemboursement)} CFA</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <table className="right-table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Montant</th>
+                        </tr>
+                    </thead>
+                    <tbody>  
+                    <tr>
+                            <td>Total HT + Frais Supplémentaires</td>
+                            <td>{formatNumber(invoice.totalHTFrais)} CFA</td>
+                        </tr> 
+                    <tr>
                             <td>TVA 18%</td>
                             <td>{formatNumber(invoice.tva)} CFA</td>
                         </tr>
@@ -117,20 +156,13 @@ const Imprimefact = () => {
                         <tr>
                             <td>Total TTC</td>
                             <td>{formatNumber(invoice.totalTTC)} CFA</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <table className="right-table">
-                    <thead>
+                        </tr>      
                         <tr>
-                            <th>Remise {discountPercentage ? `(${discountPercentage}%)` : ''}</th>
-                            <th>Total Net</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
+                            <td>Remise {discountPercentage ? `(${discountPercentage}%)` : ''}</td>
                             <td>{formatNumber(invoice.remise)} CFA</td>
+                        </tr>
+                        <tr>
+                            <td>Total Net CFA</td>
                             <td>{formatNumber(invoice.totalNet)} CFA</td>
                         </tr>
                     </tbody>
