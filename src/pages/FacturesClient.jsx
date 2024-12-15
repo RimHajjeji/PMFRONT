@@ -4,38 +4,49 @@ import axios from "axios";
 import "../style/FacturesClient.css";
 
 const FactureClient = () => {
-    const { clientId } = useParams();
-    const [factures, setFactures] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { clientId } = useParams(); // Récupère l'ID du client depuis les paramètres de l'URL
+    const [factures, setFactures] = useState([]); // État pour les factures
+    const [client, setClient] = useState(null); // État pour les détails du client
+    const [loading, setLoading] = useState(true); // État de chargement
+    const [error, setError] = useState(null); // État d'erreur
     const navigate = useNavigate(); // Pour la navigation
 
+    // Fonction pour récupérer les factures et les détails du client
     useEffect(() => {
-        fetchFactures();
-    }, []);
+        const fetchFacturesEtClient = async () => {
+            try {
+                // Récupérer les factures du client
+                const facturesResponse = await axios.get(`http://localhost:5000/api/invoices/client/${clientId}`);
+                setFactures(facturesResponse.data.invoices);
 
-    const fetchFactures = async () => {
-        try {
-            const response = await axios.get(`http://localhost:5000/api/invoices/client/${clientId}`);
-            setFactures(response.data.invoices);
-            setLoading(false);
-        } catch (err) {
-            console.error("Erreur lors du chargement des factures :", err);
-            setError("Impossible de charger les factures.");
-            setLoading(false);
-        }
-    };
+                // Récupérer les détails du client
+                const clientResponse = await axios.get(`http://localhost:5000/api/clients/${clientId}`);
+                setClient(clientResponse.data); // Stocker les données du client dans l'état
 
+                setLoading(false);
+            } catch (err) {
+                console.error("Erreur lors du chargement des données :", err);
+                setError("Impossible de charger les données du client.");
+                setLoading(false);
+            }
+        };
+
+        fetchFacturesEtClient(); // Appel à la fonction de récupération
+    }, [clientId]);
+
+    // Fonction pour naviguer vers l'affichage d'une facture
     const handleVoirFacture = (invoiceId) => {
         navigate(`/imprimefact/${invoiceId}`);
     };
 
+    // Fonction pour naviguer vers la modification d'une facture
     const handleModifierFacture = (invoiceId) => {
-        navigate(`/modif_facture/${invoiceId}`); // Redirection vers la page de modification
+        navigate(`/modif_facture/${invoiceId}`);
     };
 
+    // Affichage du contenu en fonction de l'état de chargement ou d'erreur
     if (loading) {
-        return <div>Chargement des factures...</div>;
+        return <div>Chargement des données...</div>;
     }
 
     if (error) {
@@ -44,10 +55,16 @@ const FactureClient = () => {
 
     return (
         <div className="factures-client-page">
-            <h1 className="factures-client-title">Factures du Client</h1>
+            {/* Affiche le nom et le prénom du client si disponible */}
+            <h1 className="factures-client-title">
+                Factures du client : {client ? `${client.firstName || "Nom inconnu"} ${client.lastName || ""}` : "Nom inconnu"}
+            </h1>
+
+            {/* Affiche un message si aucune facture n'est trouvée */}
             {Array.isArray(factures) && factures.length === 0 ? (
                 <p>Aucune facture trouvée pour ce client.</p>
             ) : (
+                // Affiche la liste des factures sous forme de tableau
                 <table className="factures-client-table">
                     <thead>
                         <tr>
@@ -82,9 +99,9 @@ const FactureClient = () => {
                                 <td>
                                     <button
                                         className="Historique-modif-button"
-                                        onClick={() => alert("Voir modifications")}
+                                        onClick={() => navigate(`/historique_modifs/${facture._id}`)}
                                     >
-                                        Modifications précédentes 
+                                        Modifications précédentes
                                     </button>
                                 </td>
                             </tr>
