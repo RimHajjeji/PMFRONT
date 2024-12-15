@@ -11,13 +11,13 @@
 /* En-tête et informations principales */
 .print-header {
     text-align: center;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 .headerF {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Aligner les éléments en haut */
 }
 
 .logoF img {
@@ -40,16 +40,14 @@
     margin-bottom: 5px; /* Réduction des marges */
 }
 
-/* Informations client */
-.client-info-box {
+/* Informations client et autres informations en ligne */
+.client-info-box, .invoice-header {
     border: 1px solid #aaaaaa;
     padding: 5px 10px; /* Réduction du padding */
     border-radius: 5px; /* Bordure plus petite */
     width: 30%; /* Réduction de la largeur */
-    float: right;
     margin-bottom: 30px; /* Réduction de la marge */
-    margin-top: 30px;
-    text-align: left;  
+    text-align: left;
     font-size: 11px;
 }
 
@@ -59,7 +57,24 @@
     clear: both;
 }
 
-/* Table d'informations */
+/* Container pour les informations du numéro de facture, date, période locative */
+.invoice-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.invoice-header .date-info,
+.invoice-header .client-info {
+    width: 45%;
+}
+
+.invoice-header .date-info {
+    text-align: right; /* Aligner à droite */
+}
+
 .invoice-info-table {
     width: 70%;
     border-collapse: collapse;
@@ -81,6 +96,7 @@
     text-align: left;
 }
 
+/* Table d'informations */
 .print-table {
     width: 100%;
     border-collapse: collapse;
@@ -195,6 +211,9 @@
     display: none;
 }
 
+
+
+
 @media print {
     .hidden-print {
         display: none; /* Ensure it's hidden during print */
@@ -232,5 +251,5 @@
         -webkit-print-color-adjust: exact; /* Conserve les couleurs */
         print-color-adjust: exact; /* Conserve les couleurs */
     }
-}
 
+}

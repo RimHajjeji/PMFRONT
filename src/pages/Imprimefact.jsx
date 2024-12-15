@@ -26,7 +26,6 @@ const Imprimefact = () => {
 
     const formatNumber = (number) => number ? number.toLocaleString() : 'N/A';
 
-    // Calculer le pourcentage de remise si une remise est appliquée
     const discountPercentage = invoice.remise && invoice.totalTTC ? ((invoice.remise / invoice.totalTTC) * 100).toFixed(2) : null;
 
     const vehicleRows = invoice.vehicles.map((vehicle, index) => (
@@ -55,28 +54,32 @@ const Imprimefact = () => {
                     </div>
                 </div>
                 <div className="separatorF"></div>
-                
-                <div className="client-info-box">
-                    <p><strong>Nom :</strong> {`${invoice.client?.firstName || 'N/A'} ${invoice.client?.lastName || 'N/A'}`}</p>
-                    <p><strong>Etablie par :</strong> {invoice.issuedBy || 'N/A'}</p>
-                    <p><strong>Téléphone :</strong> {invoice.client?.phone || 'N/A'}</p>
-                    <p><strong>Code Client :</strong> {invoice.client?.codeClient || 'N/A'}</p>
-                    <p><strong>Type Client :</strong> {invoice.client?.typeClient || 'N/A'}</p>
-                    <p><strong>Email :</strong> {invoice.client?.email || 'N/A'}</p>
-                    <p><strong>NIF :</strong> {invoice.client?.nif || 'N/A'}</p>
-                    <p><strong>RCCM :</strong> {invoice.client?.rccm || 'N/A'}</p>
-                    <p><strong>Représentant(e) Autorisé(e) :</strong> {invoice.client?.representant || 'N/A'}</p>
-                    <p><strong>Adresse :</strong> Libreville - Gabon</p>
+
+                <div className="client-and-period-container">
+                    <div className="client-info-box">
+                        <p><strong>Nom :</strong> {`${invoice.client?.firstName || 'N/A'} ${invoice.client?.lastName || 'N/A'}`}</p>
+                        <p><strong>Etablie par :</strong> {invoice.issuedBy || 'N/A'}</p>
+                        <p><strong>Téléphone :</strong> {invoice.client?.phone || 'N/A'}</p>
+                        <p><strong>Code Client :</strong> {invoice.client?.codeClient || 'N/A'}</p>
+                        <p><strong>Type Client :</strong> {invoice.client?.typeClient || 'N/A'}</p>
+                        <p><strong>Email :</strong> {invoice.client?.email || 'N/A'}</p>
+                        <p><strong>NIF :</strong> {invoice.client?.nif || 'N/A'}</p>
+                        <p><strong>RCCM :</strong> {invoice.client?.rccm || 'N/A'}</p>
+                        <p><strong>Représentant(e) Autorisé(e) :</strong> {invoice.client?.representant || 'N/A'}</p>
+                        <p><strong>Adresse :</strong> Libreville - Gabon</p>
+                    </div>
+
+                    <div className="billing-info">
+                        <p><strong>Numéro de Facture :</strong> {invoice.invoiceNumber}</p>
+                        <p><strong>Date :</strong> {new Date(invoice.date).toLocaleDateString()}</p>
+                        <h3>Période Locative :</h3>
+                        <p>
+                            {invoice.billingPeriod ? (
+                                `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
+                            ) : 'N/A'}
+                        </p>
+                    </div>
                 </div>
-                
-                <table className="invoice-info-table">
-                    <tbody>
-                        <tr>
-                            <td><strong>Numéro de Facture :</strong> {invoice.invoiceNumber}</td>
-                            <td><strong>Date :</strong> {new Date(invoice.date).toLocaleDateString()}</td>
-                        </tr>
-                    </tbody>
-                </table>
             </header>
 
             <table className="print-table">
@@ -93,16 +96,6 @@ const Imprimefact = () => {
                     {vehicleRows}
                 </tbody>
             </table>
-
-            <section className="billing-period">
-                
-                <div>
-                    <h3>Période Locative:</h3>
-                    {invoice.billingPeriod ? (
-                        `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
-                    ) : 'N/A'}
-                </div>
-            </section>
 
             <div className="financial-tables">
                 <table className="left-table">
@@ -131,14 +124,12 @@ const Imprimefact = () => {
                 <table className="right-table">
                     <thead>
                         <tr>
-                            {/* Ajouter le pourcentage de remise dans l'en-tête du tableau */}
                             <th>Remise {discountPercentage ? `(${discountPercentage}%)` : ''}</th>
                             <th>Total Net</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            {/* Afficher la valeur finale de la remise dans la cellule du tableau */}
                             <td>{formatNumber(invoice.remise)} CFA</td>
                             <td>{formatNumber(invoice.totalNet)} CFA</td>
                         </tr>
@@ -169,6 +160,5 @@ const Imprimefact = () => {
         </div>
     );
 };
- 
 
 export default Imprimefact;
