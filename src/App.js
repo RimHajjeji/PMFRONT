@@ -17,6 +17,7 @@ import DevisClient from './pages/DevisClient';
 import FacturesClient from './pages/FacturesClient';
 import ModifFacture from './pages/ModifFacture';
 import ModiferClient from './pages/ModiferClient';
+import HistoriqueModifs from './pages/HistoriqueModifs';
 
 function App() {
   return (
@@ -81,6 +82,16 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <FacturesClient />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/historique_modifs/:invoiceId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <HistoriqueModifs />
               </Layout>
             </PrivateRoute>
           }

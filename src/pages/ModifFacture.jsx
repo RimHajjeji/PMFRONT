@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import "../style/ModifFacture.css";
 
 const ModifFacture = () => {
   const { invoiceId } = useParams(); // ID de la facture dans l'URL
@@ -97,11 +98,20 @@ const ModifFacture = () => {
 
   const calculateTotalHT = () => {
     return rentedVehicles.reduce((total, vehicle) => {
-      const dailyRate = Number(vehicle.dailyRate || 0);
-      const daysRented = Number(vehicle.daysRented || 0);
-      return total + dailyRate * daysRented;
+      const tarif = Number(vehicle.dailyRate || 0);
+      const duration = Number(vehicle.daysRented || 0);
+      return total + tarif * duration;
     }, 0);
   };
+
+  
+  useEffect(() => {
+    if (invoice) {
+      setValue("tarifType", invoice.vehicles[0]?.tarifType || "Taux Journalier");
+      setValue("durationType", invoice.vehicles[0]?.durationType || "Jours Loués");
+    }
+  }, [invoice, setValue]);
+  
 
   const calculateTVA = () => {
     return calculateTotalHTFrais() * 0.18;
@@ -189,285 +199,310 @@ const ModifFacture = () => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div>
-      <h1>Modifier la Facture #{invoice?.invoiceNumber}</h1>
-
-      {/* Sélection du client */}
-      <h2>Informations du Client</h2>
-      <div>
-        <label>Client :</label>
-        <select
-          value={selectedClient?._id || ""}
-          onChange={(e) => handleClientChange(e.target.value)}
-        >
-          <option value="">Sélectionnez un client</option>
-          {clients.map((client) => (
-            <option key={client._id} value={client._id}>
-              {client.firstName} {client.lastName}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Affichage des informations du client */}
-      {selectedClient && (
-        <div>
-          <div>
-            <label>Prénom :</label>
-            <input
-              type="text"
-              {...register("client.firstName")}
-              defaultValue={selectedClient.firstName}
-              readOnly
-            />
-          </div>
-          <div>
-            <label>Nom :</label>
-            <input
-              type="text"
-              {...register("client.lastName")}
-              defaultValue={selectedClient.lastName}
-              readOnly
-            />
-          </div>
-          <div>
-            <label>Email :</label>
-            <input
-              type="email"
-              {...register("client.email")}
-              defaultValue={selectedClient.email}
-              readOnly
-            />
-          </div>
-          <div>
-            <label>Téléphone :</label>
-            <input
-              type="text"
-              {...register("client.phone")}
-              defaultValue={selectedClient.phone}
-              readOnly
-            />
-          </div>
-          <div>
-            <label>Code Client :</label>
-            <input
-              type="text"
-              {...register("client.codeClient")}
-              defaultValue={selectedClient.codeClient}
-              readOnly
-            />
-          </div>
-          <div>
-            <label>Type de Client :</label>
-            <input
-              type="text"
-              {...register("client.typeClient")}
-              defaultValue={selectedClient.typeClient}
-              readOnly
-            />
-          </div>
+      <div className="modif-facture">
+        <h1 className="modif-facture-title">Modifier la Facture #{invoice?.invoiceNumber}</h1>
+    
+        {/* Sélection du client */}
+        <h2 className="modif-facture-client-info">Informations du Client</h2>
+        <div className="modif-facture-client-select">
+          <label className="modif-facture-label">Client :</label>
+          <select
+            className="modif-facture-select"
+            value={selectedClient?._id || ""}
+            onChange={(e) => handleClientChange(e.target.value)}
+          >
+            <option value="">Sélectionnez un client</option>
+            {clients.map((client) => (
+              <option key={client._id} value={client._id} className="modif-facture-client-option">
+                {client.firstName} {client.lastName}
+              </option>
+            ))}
+          </select>
         </div>
-      )}
-
-      {/* Formulaire de modification de la facture */}
-      <h2>Informations de la Facture</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <label>Date de Facturation :</label>
-          <input type="date" {...register("date")} readOnly />
-        </div>
-
-        <div>
-          <label>Émis Par :</label>
-          <input
-            {...register("issuedBy")}
-            defaultValue={invoice?.issuedBy}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Période de Facturation :</label>
-          <div>
-            <label>Début :</label>
-            <input type="date" {...register("billingPeriod.startDate")} />
+    
+        {/* Affichage des informations du client */}
+        {selectedClient && (
+          <div className="modif-facture-client-details">
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Prénom :</label>
+              <input
+                type="text"
+                className="modif-facture-input"
+                {...register("client.firstName")}
+                defaultValue={selectedClient.firstName}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Nom :</label>
+              <input
+                type="text"
+                className="modif-facture-input"
+                {...register("client.lastName")}
+                defaultValue={selectedClient.lastName}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Email :</label>
+              <input
+                type="email"
+                className="modif-facture-input"
+                {...register("client.email")}
+                defaultValue={selectedClient.email}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Téléphone :</label>
+              <input
+                type="text"
+                className="modif-facture-input"
+                {...register("client.phone")}
+                defaultValue={selectedClient.phone}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Code Client :</label>
+              <input
+                type="text"
+                className="modif-facture-input"
+                {...register("client.codeClient")}
+                defaultValue={selectedClient.codeClient}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Type de Client :</label>
+              <input
+                type="text"
+                className="modif-facture-input"
+                {...register("client.typeClient")}
+                defaultValue={selectedClient.typeClient}
+                readOnly
+              />
+            </div>
           </div>
-          <div>
-            <label>Fin :</label>
-            <input type="date" {...register("billingPeriod.endDate")} />
+        )}
+    
+        {/* Formulaire de modification de la facture */}
+        <h2 className="modif-facture-info">Informations de la Facture</h2>
+        <form className="modif-facture-form" onSubmit={handleSubmit(onSubmit)}>
+          <div className="modif-facture-field">
+            <label className="modif-facture-label">Date de Facturation :</label>
+            <input type="date" className="modif-facture-input" {...register("date")} readOnly />
           </div>
-        </div>
-
-        {/* Informations des véhicules facturés */}
-        <div>
-          <h3>Véhicules Facturés :</h3>
-          <table>
-            <thead>
-              <tr>
-                <th>Marque</th>
-                <th>Modèle</th>
-                <th>Taux Journalier</th>
-                <th>Jours Loués</th>
-                <th>Montant HT</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rentedVehicles.map((vehicle, index) => (
-                <tr key={index}>
-                  <td>
-                    <input
-                      type="text"
-                      {...register(`vehicles[${index}].marque`)}
-                      defaultValue={vehicle.marque}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      {...register(`vehicles[${index}].modele`)}
-                      defaultValue={vehicle.modele}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      {...register(`vehicles[${index}].dailyRate`, {
-                        valueAsNumber: true,
-                        onChange: () => setValue("totalHT", calculateTotalHT()),
-                      })}
-                      defaultValue={vehicle.dailyRate}
-                    />
-                  </td>
-                  <td>
-                    <input
-                      type="number"
-                      {...register(`vehicles[${index}].daysRented`, {
-                        valueAsNumber: true,
-                        onChange: () => setValue("totalHT", calculateTotalHT()),
-                      })}
-                      defaultValue={vehicle.daysRented}
-                    />
-                  </td>
-                  <td>
-                    {vehicle.dailyRate * vehicle.daysRented || 0}{" "}
-                    {/* Calcul automatique */}
-                  </td>
+    
+          <div className="modif-facture-field">
+            <label className="modif-facture-label">Émis Par :</label>
+            <input
+              className="modif-facture-input"
+              {...register("issuedBy")}
+              defaultValue={invoice?.issuedBy}
+              readOnly
+            />
+          </div>
+          <div className="modif-facture-billing-period">
+            <label className="modif-facture-label">Période de Facturation :</label>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Début :</label>
+              <input type="date" className="modif-facture-input" {...register("billingPeriod.startDate")} />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Fin :</label>
+              <input type="date" className="modif-facture-input" {...register("billingPeriod.endDate")} />
+            </div>
+          </div>
+    
+          {/* Informations des véhicules facturés */}
+          <div className="modif-facture-vehicles">
+            <h3 className="modif-facture-subtitle">Véhicules Facturés :</h3>
+            <table className="modif-facture-table">
+              <thead>
+                <tr>
+                  <th className="modif-facture-th">Marque</th>
+                  <th className="modif-facture-th">Modèle</th>
+                  <th className="modif-facture-th">{invoice?.vehicles[0]?.tarifType || "Tarif"}</th>
+                  <th className="modif-facture-th">{invoice?.vehicles[0]?.durationType || "Durée"}</th>
+                  <th className="modif-facture-th">Montant HT</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Nouveaux champs */}
-        <div>
-          <label>Frais Carburant :</label>
-          <input
-            type="number"
-            {...register("fraisCarburant")}
-            defaultValue={invoice?.fraisCarburant}
-          />
-        </div>
-        <div>
-          <label>Frais Kilométrage :</label>
-          <input
-            type="number"
-            {...register("fraisKilometrage")}
-            defaultValue={invoice?.fraisKilometrage}
-          />
-        </div>
-        <div>
-          <label>Frais Livraison :</label>
-          <input
-            type="number"
-            {...register("fraisLivraison")}
-            defaultValue={invoice?.fraisLivraison}
-          />
-        </div>
-        <div>
-          <label>Frais Chauffeur :</label>
-          <input
-            type="number"
-            {...register("fraisChauffeur")}
-            defaultValue={invoice?.fraisChauffeur}
-          />
-        </div>
-        <div>
-          <label>CSS :</label>
-          <input
-            type="number"
-            {...register("css")}
-            defaultValue={invoice?.css}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Total HT Frais :</label>
-          <input
-            type="number"
-            {...register("totalHTFrais")}
-            defaultValue={invoice?.totalHTFrais}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Acompte :</label>
-          <input
-            type="number"
-            {...register("acompte")}
-            defaultValue={invoice?.acompte}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Montant Remboursement :</label>
-          <input
-            type="number"
-            {...register("montantRemboursement")}
-            defaultValue={invoice?.montantRemboursement}
-          />
-        </div>
-
-        {/* Totaux de la facture */}
-
-        <div>
-          <label>Remise :</label>
-          <input
-            type="number"
-            {...register("remise")}
-            defaultValue={invoice?.remise}
-            readOnly
-          />
-        </div>
-        <div>
-          <label>Pourcentage de Réduction :</label>
-          <input
-            type="number"
-            {...register("discountPercentage")}
-            defaultValue={invoice?.discountPercentage}
-          />
-        </div>
-
-        <div>
-          <label>Total HT :</label>
-          <input type="number" {...register("totalHT")} readOnly />
-        </div>
-
-        <div>
-          <label>TVA :</label>
-          <input type="number" {...register("tva")} readOnly />
-        </div>
-
-        <div>
-          <label>Total TTC :</label>
-          <input type="number" {...register("totalTTC")} readOnly />
-        </div>
-        <div>
-          <label>Total Net :</label>
-          <input type="number" {...register("totalNet")} readOnly />
-        </div>
-        <button type="submit">Modifier</button>
-      </form>
-    </div>
-  );
+              </thead>
+              <tbody>
+                {rentedVehicles.map((vehicle, index) => (
+                  <tr key={index} className="modif-facture-row">
+                    <td>
+                      <input
+                        type="text"
+                        className="modif-facture-input"
+                        {...register(`vehicles[${index}].marque`)}
+                        defaultValue={vehicle.marque}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="text"
+                        className="modif-facture-input"
+                        {...register(`vehicles[${index}].modele`)}
+                        defaultValue={vehicle.modele}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className="modif-facture-input"
+                        {...register(`vehicles[${index}].dailyRate`, {
+                          valueAsNumber: true,
+                          onChange: () => setValue("totalHT", calculateTotalHT()),
+                        })}
+                        defaultValue={vehicle.dailyRate}
+                      />
+                    </td>
+                    <td>
+                      <input
+                        type="number"
+                        className="modif-facture-input"
+                        {...register(`vehicles[${index}].daysRented`, {
+                          valueAsNumber: true,
+                          onChange: () => setValue("totalHT", calculateTotalHT()),
+                        })}
+                        defaultValue={vehicle.daysRented}
+                      />
+                    </td>
+                    <td className="modif-facture-amount">
+                      {vehicle.dailyRate * vehicle.daysRented || 0} {/* Calcul automatique */}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+    
+          {/* Nouveaux champs */}
+          <div className="modif-facture-additional-fees">
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Frais Carburant :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("fraisCarburant")}
+                defaultValue={invoice?.fraisCarburant}
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Frais Kilométrage :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("fraisKilometrage")}
+                defaultValue={invoice?.fraisKilometrage}
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Frais Livraison :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("fraisLivraison")}
+                defaultValue={invoice?.fraisLivraison}
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Frais Chauffeur :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("fraisChauffeur")}
+                defaultValue={invoice?.fraisChauffeur}
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">CSS :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("css")}
+                defaultValue={invoice?.css}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Total HT Frais :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("totalHTFrais")}
+                defaultValue={invoice?.totalHTFrais}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Acompte :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("acompte")}
+                defaultValue={invoice?.acompte}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Montant Remboursement :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("montantRemboursement")}
+                defaultValue={invoice?.montantRemboursement}
+              />
+            </div>
+          </div>
+    
+          {/* Totaux de la facture */}
+    
+          <div className="modif-facture-totals">
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Remise :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("remise")}
+                defaultValue={invoice?.remise}
+                readOnly
+              />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Pourcentage de Réduction :</label>
+              <input
+                type="number"
+                className="modif-facture-input"
+                {...register("discountPercentage")}
+                defaultValue={invoice?.discountPercentage}
+              />
+            </div>
+    
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Total HT :</label>
+              <input type="number" className="modif-facture-input" {...register("totalHT")} readOnly />
+            </div>
+    
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">TVA :</label>
+              <input type="number" className="modif-facture-input" {...register("tva")} readOnly />
+            </div>
+    
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Total TTC :</label>
+              <input type="number" className="modif-facture-input" {...register("totalTTC")} readOnly />
+            </div>
+            <div className="modif-facture-field">
+              <label className="modif-facture-label">Total Net :</label>
+              <input type="number" className="modif-facture-input" {...register("totalNet")} readOnly />
+            </div>
+          </div>
+          <button type="submit" className="modif-facture-submit">Modifier</button>
+        </form>
+      </div>
+    );
 };
 
 export default ModifFacture;
