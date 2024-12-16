@@ -39,7 +39,10 @@ const Imprimefact = () => {
 
     
 
-    const discountPercentage = invoice.remise && invoice.totalTTC ? ((invoice.remise / invoice.totalTTC) * 100).toFixed(2) : null;
+    const discountPercentage = invoice && invoice.remise && invoice.totalTTC 
+    ? ((invoice.remise / invoice.totalTTC) * 100).toFixed(2) 
+    : null;
+
 
 
     const vehicleRows = invoice?.vehicles.map((vehicle, index) => (
@@ -87,7 +90,7 @@ const Imprimefact = () => {
                         <p><strong>Adresse :</strong> Libreville - Gabon</p>
                     </div>
 
-                    <div className="billing-info">
+                    <div className="billing-infoFACT">
                         <p><strong>Numéro de Facture :</strong> {invoice.invoiceNumber}</p>
                         <p><strong>Date :</strong> {new Date(invoice.date).toLocaleDateString()}</p>
                         <h3>Période Locative :</h3>
@@ -96,12 +99,7 @@ const Imprimefact = () => {
                                 `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
                             ) : 'N/A'}
                         </p>
-                    </div>
-                </div>
-            </header>
-
-            {/* Champ caution */}
-            <div className="caution-section">
+                        <div className="caution-section">
                 <label htmlFor="caution">Caution (en CFA) :</label>
                 <input
                     type="number"
@@ -112,6 +110,12 @@ const Imprimefact = () => {
                 />
                 <button onClick={handleUpdateCaution}>Mettre à jour la Caution</button>
             </div>
+                    </div>
+                </div>
+            </header>
+
+            {/* Champ caution */}
+           
 
             <table className="print-table">
                 <thead>

@@ -131,6 +131,9 @@
     font-size: 12px; /* Taille de police réduite */
     line-height: 0.7;
 }
+.billing-infoFACT{
+    margin-top: 2Opx;
+}
 
 /* Tables financières */
 .financial-tables {
@@ -215,6 +218,9 @@
 
 
 @media print {
+    .caution-section button {
+        display: none;
+    }
     .hidden-print {
         display: none; /* Ensure it's hidden during print */
     }
