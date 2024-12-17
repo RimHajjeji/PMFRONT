@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ReactPaginate from 'react-paginate'; // Import ReactPaginate
 import "../style/DevisClients.css";
 
 const DevisClients = () => {
@@ -9,6 +10,8 @@ const DevisClients = () => {
     const [client, setClient] = useState(null); // État pour les détails du client
     const [loading, setLoading] = useState(true); // État de chargement
     const [error, setError] = useState(null); // État d'erreur
+    const [currentPage, setCurrentPage] = useState(0); // Page actuelle
+    const devisPerPage = 5; // Nombre d'éléments à afficher par page
     const navigate = useNavigate(); // Pour la navigation
 
     // Fonction pour récupérer les devis et les détails du client
@@ -35,6 +38,15 @@ const DevisClients = () => {
 
         fetchDevisEtClient(); // Appel à la fonction de récupération
     }, [clientId]);
+
+    // Pagination : calculer les devis pour la page actuelle
+    const offset = currentPage * devisPerPage;
+    const currentPageDevis = devis.slice(offset, offset + devisPerPage);
+
+    // Fonction pour gérer le changement de page
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     // Fonction pour naviguer vers l'affichage d'un devis
     const handleVoirDevis = (devisId) => {
@@ -83,7 +95,7 @@ const DevisClients = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {devis.map((devisItem, index) => (
+                        {currentPageDevis.map((devisItem, index) => (
                             <tr key={devisItem._id}>
                                 <td>{index + 1}</td>
                                 <td>{devisItem.devisNumber}</td>
@@ -116,6 +128,20 @@ const DevisClients = () => {
                     </tbody>
                 </table>
             )}
+
+            {/* Pagination */}
+            <ReactPaginate
+                previousLabel={'Précédent'}
+                nextLabel={'Suivant'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={Math.ceil(devis.length / devisPerPage)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination8'}
+                activeClassName={'active'}
+            />
         </div>
     );
 };

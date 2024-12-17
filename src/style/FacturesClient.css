@@ -91,3 +91,36 @@
     background-color: #073462;
 }
 
+.pagination6 {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+    margin-left: 700px;
+    margin-bottom: 40px;
+}
+
+.pagination6 li {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination6 li a {
+    padding: 8px 14px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #a4acb5;
+    text-decoration: none;
+}
+
+.pagination6 li.active a {
+    background-color: #a4acb5;
+    color: #ffffff;
+    border: 1px solid #a4acb5;
+}
+
+.pagination6 li a:hover {
+    background-color: #f3f3f3;
+    border-color: #bec3c8;
+}

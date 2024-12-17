@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'; 
 import { useParams } from "react-router-dom"; 
 import axios from 'axios';
+import ReactPaginate from 'react-paginate'; // Import ReactPaginate
 import '../style/HistoriqueModifsDevis.css';
 
 const HistoriqueModifsDevis = () => {
@@ -8,6 +9,8 @@ const HistoriqueModifsDevis = () => {
   const [history, setHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(0); // Page actuelle
+  const historyPerPage = 5; // Nombre d'éléments à afficher par page
 
   useEffect(() => {
     if (!devisId) {
@@ -33,6 +36,15 @@ const HistoriqueModifsDevis = () => {
     fetchModificationHistory();
   }, [devisId]);
 
+  // Pagination : calculer les entrées pour la page actuelle
+  const offset = currentPage * historyPerPage;
+  const currentPageHistory = history.slice(offset, offset + historyPerPage);
+
+  // Fonction pour gérer le changement de page
+  const handlePageClick = ({ selected }) => {
+    setCurrentPage(selected);
+  };
+
   if (loading) {
     return <div className="loading">Chargement...</div>;
   }
@@ -53,8 +65,8 @@ const HistoriqueModifsDevis = () => {
           </tr>
         </thead>
         <tbody>
-          {history.length > 0 ? (
-            history.map((entry, index) => (
+          {currentPageHistory.length > 0 ? (
+            currentPageHistory.map((entry, index) => (
               <tr key={index}>
                 <td>{entry.modifiedBy}</td>
                 <td>{new Date(entry.timestamp).toLocaleDateString()}</td>
@@ -68,6 +80,20 @@ const HistoriqueModifsDevis = () => {
           )}
         </tbody>
       </table>
+
+      {/* Pagination */}
+      <ReactPaginate
+        previousLabel={'Précédent'}
+        nextLabel={'Suivant'}
+        breakLabel={'...'}
+        breakClassName={'break-me'}
+        pageCount={Math.ceil(history.length / historyPerPage)}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={'pagination9'}
+        activeClassName={'active'}
+      />
     </div>
   );
 };
