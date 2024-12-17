@@ -6,221 +6,223 @@
     font-family: Arial, sans-serif;
     padding: 10px 25px 0px 35px; /* Réduction du padding */
     box-sizing: border-box;
-}
-
-/* En-tête et informations principales */
-.print-header {
+  }
+  
+  /* En-tête et informations principales */
+  .print-header {
     text-align: center;
-    margin-bottom: 10px; 
-}
-.billing-infoFACT {
+    margin-bottom: 10px;
+  }
+  .billing-infoFACT {
     margin-top: 50px;
     margin-left: -80px;
     font-family: Arial, sans-serif;
     display: grid;
     grid-template-columns: 200px auto; /* Colonne pour titres et valeurs */
-    row-gap: 10px; /* Espacement entre les lignes */
-}
-
-.billing-infoFACT p, .billing-infoFACT h3 {
-    margin: 0; /* Supprime les marges par défaut */
-}
-
-.billing-infoFACT h3 {
+    row-gap: 8px; /* Espacement entre les lignes */
+  }
   
+  .billing-infoFACT p,
+  .billing-infoFACT h3 {
+    margin: 0; /* Supprime les marges par défaut */
+    font-size: 13px;
    
-}
-
-.billing-infoFACT .title {
+  }
+  
+  .billing-infoFACT .title {
     font-weight: bold;
-}
-
-
-
-.caution-section {
+  }
+  
+  .caution-section {
+    
     grid-column: 1 / -1; /* Occupe toute la largeur */
     margin-top: 15px;
-}
-
-.caution-section label {
+  }
+  
+  .caution-section label {
     font-weight: bold;
     display: block;
     margin-bottom: 5px;
-}
-
-.caution-section input {
+  }
+  
+  .caution-section input {
     padding: 8px;
     width: 100%;
-    max-width: 300px;
+    max-width: 150px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
-}
-
-.caution-section button {
+  }
+  
+  .caution-section button {
+    font-size: 12px;
     margin-top: 10px;
-    padding: 10px 20px;
-    background-color: #24B4DE;
+    padding: 10px 13px;
+    background-color: #24b4de;
     color: #fff;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-
-.caution-section button:hover {
-    background-color:  #24B4DE;
-}
-
-
-
-.headerF {
+  }
+  
+  .caution-section button:hover {
+    background-color: #24b4de;
+  }
+  
+  .headerF {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logoF img {
+  }
+  
+  .logoF img {
     height: 75px; /* Taille réduite de l'image */
     width: 115px; /* Taille réduite de l'image */
-}
-
-.company-infoF h1 {
-    color: #24B4DE;
-}
-
-.company-infoF {
+  }
+  
+  .company-infoF h1 {
+    color: #24b4de;
+  }
+  
+  .company-infoF {
     font-size: 14px; /* Réduction de la taille de la police */
     text-align: right;
-}
-
-.separatorF {
+  }
+  
+  .separatorF {
     border-top: 1px solid #ccc;
     margin-top: 5px; /* Réduction des marges */
     margin-bottom: 5px; /* Réduction des marges */
-}
-
-/* Informations client */
-.client-info-box {
+  }
+  
+  /* Informations client */
+  .client-info-box {
     border: 1px solid #aaaaaa;
     padding: 5px 10px; /* Réduction du padding */
     border-radius: 5px; /* Bordure plus petite */
     width: 30%; /* Réduction de la largeur */
     float: right;
     margin-bottom: 30px; /* Réduction de la marge */
-    text-align: left;  
+    text-align: left;
     font-size: 11px;
     margin-top: -12px;
-}
-
-.print-header:after {
+  }
+  
+  .print-header:after {
     content: "";
     display: table;
     clear: both;
-}
-
-/* Table d'informations */
-.invoice-info-table {
+  }
+  
+  /* Table d'informations */
+  .invoice-info-table {
     width: 70%;
     border-collapse: collapse;
     margin-bottom: 20px; /* Réduction de la marge */
     margin-left: 100px;
     font-size: 11px; /* Taille de police réduite */
-}
-
-.invoice-info-table th {
+  }
+  
+  .invoice-info-table th {
     height: 18px; /* Hauteur des th ajustée */
     border: 1px solid #ccc; /* Bordure pour uniformité */
     padding: 5px; /* Réduction du padding pour correspondre à la hauteur */
     text-align: left;
-}
-
-.invoice-info-table td {
+  }
+  
+  .invoice-info-table td {
     border: 1px solid #ccc;
     padding: 5px; /* Réduction du padding */
     text-align: left;
-}
-
-.print-table {
+  }
+  
+  .print-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 30px; /* Réduction de la marge */
     font-size: 11px; /* Taille de police réduite */
-}
-
-.print-table th, .left-table th, .right-table th {
+  }
+  
+  .print-table th,
+  .left-table th,
+  .right-table th {
     height: 18px; /* Hauteur des th ajustée */
     border: 1px solid #ccc; /* Bordure pour uniformité */
     padding: 5px; /* Réduction du padding pour correspondre à la hauteur */
     text-align: left;
-}
-
-.print-table td {
+  }
+  
+  .print-table td {
     border: 1px solid #ccc;
     padding: 5px; /* Réduction du padding */
     text-align: left;
-}
-
-.print-table th {
+  }
+  
+  .print-table th {
     color: black;
-    background-color: #24B4DE;
+    background-color: #24b4de;
     border-left: none; /* Suppression de la bordure gauche */
     border-right: none; /* Suppression de la bordure droite */
-}
-
-/* Période locative */
-.billing-period {
+  }
+  
+  /* Période locative */
+  .billing-period {
     margin-bottom: 30px; /* Réduction de la marge */
     text-align: center;
     font-size: 12px; /* Taille de police réduite */
     line-height: 0.7;
-}
-
-/* Tables financières */
-.financial-tables {
+  }
+  
+  /* Tables financières */
+  .financial-tables {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px; /* Réduction de la marge */
     font-size: 11px; /* Taille de police réduite */
-}
-
-.left-table, .right-table {
+  }
+  
+  .left-table,
+  .right-table {
     width: 45%;
     border-collapse: collapse;
-}
-
-.left-table th, .right-table th {
-  background-color: #24B4DE;
-}
-
-.left-table td, .right-table td {
+  }
+  
+  .left-table th,
+  .right-table th {
+    background-color: #24b4de;
+  }
+  
+  .left-table td,
+  .right-table td {
     border: 1px solid #ccc;
     padding: 5px; /* Réduction du padding */
-}
-
-/* Pied de page */
-.print-footer {
+  }
+  
+  /* Pied de page */
+  .print-footer {
     margin-top: 10px; /* Réduction de la marge */
     font-size: 10px; /* Taille de police réduite */
     text-align: left;
-}
-
-/* Section de signature */
-.signature-section {
+  }
+  
+  /* Section de signature */
+  .signature-section {
     display: flex;
     justify-content: space-between;
     margin-top: 30px; /* Réduction de la marge */
     margin-bottom: 110px; /* Réduction de la marge */
     font-weight: bold;
     text-align: center;
-}
-
-.left-signature, .right-signature {
+  }
+  
+  .left-signature,
+  .right-signature {
     text-decoration: underline;
     width: 45%;
-}
-
-.blue-strip {
+  }
+  
+  .blue-strip {
     background-color: #21a3cb;
     color: white;
     padding: 5px; /* Réduction du padding */
@@ -230,71 +232,76 @@
     margin-left: 0; /* Centrage du bandeau */
     font-size: 9px; /* Taille de police réduite */
     line-height: 1.3;
-}
-
-.print-button {
+  }
+  
+  .print-button {
     margin-top: 40px;
     margin-left: 300px;
     background-color: white;
-    color: black; 
+    color: black;
     padding: 7px 16px; /* Padding for size */
     font-size: 14px; /* Font size */
     border: 2px solid black; /* Ajouter une bordure noire */
     border-radius: 5px; /* Rounded corners */
     cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Smooth transition effect */
-}
-
-.print-button:hover {
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease; /* Smooth transition effect */
+  }
+  
+  .print-button:hover {
     background-color: #f4f3f3;
     transform: scale(1.02);
-}
-
-/* Additional styles */
-.hidden-print {
+  }
+  
+  /* Additional styles */
+  .hidden-print {
     display: none;
-}
-
-@media print {
-   
+  }
+  
+  @media print {
     .caution-section button {
-        display: none;
+      display: none;
     }
     .hidden-print {
-        display: none; /* Ensure it's hidden during print */
+      display: none; /* Ensure it's hidden during print */
     }
-
+  
     /* Other existing print styles */
     body * {
-        visibility: hidden;
+      visibility: hidden;
     }
-
-    .print-area, .print-area * {
-        visibility: visible;
+  
+    .print-area,
+    .print-area * {
+      visibility: visible;
     }
-
+  
     .print-area {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 190mm; /* Largeur optimisée pour A4 */
-        height: 277mm; /* Hauteur optimisée pour A4 */
-        margin: 5mm auto; /* Marges réduites */
-        box-sizing: border-box;
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 190mm; /* Largeur optimisée pour A4 */
+      height: 277mm; /* Hauteur optimisée pour A4 */
+      margin: 5mm auto; /* Marges réduites */
+      box-sizing: border-box;
     }
-
-    .print-table, .invoice-info-table, .financial-tables, .signature-section {
-        page-break-inside: avoid; /* Évite la coupure à l'intérieur de ces sections */
+  
+    .print-table,
+    .invoice-info-table,
+    .financial-tables,
+    .signature-section {
+      page-break-inside: avoid; /* Évite la coupure à l'intérieur de ces sections */
     }
-
+  
     .print-button-container {
-        display: none;
+      display: none;
     }
-
+  
     /* Conserver les couleurs à l'impression */
     * {
-        -webkit-print-color-adjust: exact; /* Conserve les couleurs */
-        print-color-adjust: exact; /* Conserve les couleurs */
+      -webkit-print-color-adjust: exact; /* Conserve les couleurs */
+      print-color-adjust: exact; /* Conserve les couleurs */
     }
-}
-
+  }
+  
