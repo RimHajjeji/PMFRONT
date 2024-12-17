@@ -91,32 +91,37 @@ const Imprimedevis = () => {
                     </div>
 
                     <div className="billing-infoFACT">
-                        <p><strong>Numéro de Facture :</strong> {devis.devisNumber}</p>
-                        <p><strong>Date :</strong> {new Date(devis.date).toLocaleDateString()}</p>
-                        <h3>Période Locative :</h3>
-                        <p>
-                            {devis.billingPeriod ? (
-                                `${new Date(devis.billingPeriod.startDate).toLocaleDateString()} - ${new Date(devis.billingPeriod.endDate).toLocaleDateString()}`
-                            ) : 'N/A'}
-                        </p>
-                        <div className="caution-section">
-                <label htmlFor="caution">Caution (en CFA) :</label>
-                <input
-                    type="number"
-                    id="caution"
-                    value={caution}
-                    onChange={(e) => setCaution(e.target.value)}
-                    placeholder="Montant de la caution"
-                />
-                <button onClick={handleUpdateCaution}>Mettre à jour la Caution</button>
-            </div>
-                    </div>
+    {/* Ligne Numéro de Facture */}
+    <p className="title"><strong>Numéro de DEVIS :</strong></p>
+    <p className="value">{devis.devisNumber}</p>
+
+    {/* Ligne Date */}
+    <p className="title"><strong>Date :</strong></p>
+    <p className="value">{new Date(devis.date).toLocaleDateString()}</p>
+
+    {/* Période Locative */}
+    <h3>Période Locative :</h3>
+    <p className="value">
+        {devis.billingPeriod ? (
+            `${new Date(devis.billingPeriod.startDate).toLocaleDateString()} - ${new Date(devis.billingPeriod.endDate).toLocaleDateString()}`
+        ) : 'N/A'}
+    </p>
+
+    {/* Section Caution */}
+    <div className="caution-section">
+        <label htmlFor="caution">Caution (en CFA) :</label>
+        <input
+            type="number"
+            id="caution"
+            value={caution}
+            onChange={(e) => setCaution(e.target.value)}
+            placeholder="Montant de la caution"
+        />
+        <button onClick={handleUpdateCaution}>Mettre à jour la Caution</button>
+    </div>
+</div>
                 </div>
             </header>
-
-            {/* Champ caution */}
-           
-
             <table className="print-table">
                 <thead>
                     <tr>
