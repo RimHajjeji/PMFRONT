@@ -428,6 +428,7 @@ const ModifDevis = () => {
                   <td>
                     <input
                       type="number"
+                      onWheel={(e) => e.target.blur()} // Désactive le scroll
                       className="modif-devis-input"
                       {...register(`vehicles[${index}].dailyRate`, {
                         valueAsNumber: true,
@@ -444,6 +445,7 @@ const ModifDevis = () => {
                   <td>
                     <input
                       type="number"
+                      onWheel={(e) => e.target.blur()} // Désactive le scroll
                       className="modif-devis-input"
                       {...register(`vehicles[${index}].daysRented`, {
                         valueAsNumber: true,
@@ -482,6 +484,7 @@ const ModifDevis = () => {
               className="modif-devis-input"
               {...register("fraisCarburant")}
               defaultValue={devis?.fraisSupplementaires?.fraisCarburant || 0}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-devis-field">
@@ -491,6 +494,7 @@ const ModifDevis = () => {
               className="modif-devis-input"
               {...register("fraisKilometrage")}
               defaultValue={devis?.fraisSupplementaires?.fraisKilometrage || 0}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-devis-field">
@@ -500,6 +504,7 @@ const ModifDevis = () => {
               className="modif-devis-input"
               {...register("fraisLivraison")}
               defaultValue={devis?.fraisSupplementaires?.fraisLivraison || 0}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-devis-field">
@@ -509,6 +514,7 @@ const ModifDevis = () => {
               className="modif-devis-input"
               {...register("fraisChauffeur")}
               defaultValue={devis?.fraisSupplementaires?.fraisChauffeur || 0}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-devis-field">
@@ -550,6 +556,7 @@ const ModifDevis = () => {
               className="modif-devis-input"
               {...register("montantRemboursement")}
               defaultValue={devis?.montantRemboursement}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
         </div>
@@ -575,6 +582,7 @@ const ModifDevis = () => {
               className="modif-devis-input"
               {...register("discountPercentage")}
               defaultValue={devis?.discountPercentage}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
   
