@@ -209,8 +209,7 @@ const ModifFacture = () => {
     try {
       // Créez une entrée pour l'historique des modifications
     const modificationData = {
-      modifiedByNom: `${admin.nom}`,  // Utilisez le nom et prénom de l'admin
-      modifiedByPrenom: `${admin.prenom}`,  // Utilisez le nom et prénom de l'admin
+      modifiedBy: `${admin.nom} ${admin.prenom}`,  // Utilisez le nom et prénom de l'admin
       modifiedAt: new Date().toISOString(),
       changes: JSON.stringify(data), // Vous pouvez personnaliser ce champ selon les besoins
     };

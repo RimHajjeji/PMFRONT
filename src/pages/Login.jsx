@@ -13,6 +13,27 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
 
+    const login = async (email, password) => {
+        try {
+          const response = await axios.post("http://localhost:5000/api/admin/login", { email, password });
+          const { token } = response.data;
+      
+          // Vérifiez si le token est bien renvoyé
+          if (token) {
+            localStorage.setItem("x-auth-token", token); // Stockage du token dans localStorage
+            alert("Connexion réussie !");
+            // Redirigez vers la page souhaitée après la connexion (optionnel)
+            // navigate("/dashboard");
+          } else {
+            alert("Erreur de connexion : aucun token reçu");
+          }
+        } catch (err) {
+          console.error("Erreur lors de la connexion", err);
+          alert("Erreur de connexion. Veuillez vérifier vos informations.");
+        }
+      };
+      
+
     const handleSubmit = async (e) => {
         e.preventDefault();
     

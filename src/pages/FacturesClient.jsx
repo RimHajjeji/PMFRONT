@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react"; 
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../style/FacturesClient.css";
@@ -42,6 +42,11 @@ const FactureClient = () => {
     // Fonction pour naviguer vers la modification d'une facture
     const handleModifierFacture = (invoiceId) => {
         navigate(`/modif_facture/${invoiceId}`);
+    };
+
+    // Fonction pour naviguer vers l'historique des modifications d'une facture
+    const handleHistoriqueModifications = (invoiceId) => {
+        navigate(`/historiquemodifsfact/${invoiceId}`);
     };
 
     // Affichage du contenu en fonction de l'état de chargement ou d'erreur
@@ -98,8 +103,8 @@ const FactureClient = () => {
                                 </td>
                                 <td>
                                     <button
-                                        className="Historique-modif-button"
-                                        onClick={() => navigate(`/historique_modifs/${facture._id}`)}
+                                        className="historique-modif-button"
+                                        onClick={() => handleHistoriqueModifications(facture._id)}
                                     >
                                         Modifications précédentes
                                     </button>
