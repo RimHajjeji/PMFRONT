@@ -342,56 +342,59 @@ const Facture = () => {
           </div>
 
           <div className="invoice__vehicle-list">
-            <h3>Véhicules Loués</h3>
-            <table className="invoice__table">
-            <thead>
-  <tr>
-    <th>Marque</th>
-    <th>Modèle</th>
-    <th>
-      Type de Tarif
-      <select
-        onChange={(e) => setSelectedTarifType(e.target.value)}
-        defaultValue=""
-      >
-        <option value="" disabled>
-          Choisissez
-        </option>
-        <option value=" Tarif journalier">Tarif journalier</option>
-        <option value=" Tarif hebdomadaire">Tarif hebdomadaire</option>
-        <option value=" Tarif mensuel">Tarif mensuel</option>
-      </select>
-    </th>
-    <th>
-      Type de Durée
-      <select
-        onChange={(e) => setSelectedDurationType(e.target.value)}
-        defaultValue=""
-      >
-        <option value="" disabled>
-          Choisissez
-        </option>
-        <option value="Nombres de jours">Nombres de jours</option>
-        <option value="Nombres de semaines">Nombres de semaines</option>
-        <option value="Nombres de mois">Nombres de mois</option>
-      </select>
-    </th>
-    <th>Montant</th>
-  </tr>
-</thead>
-              <tbody>
-                {rentedVehicles.map((vehicle, index) => (
-                  <tr key={index}>
-                    <td>{vehicle.marque}</td>
-                    <td>{vehicle.modele}</td>
-                    <td>{vehicle.dailyRate.toFixed(2)}</td>
-                    <td>{vehicle.daysRented}</td>
-                    <td>{vehicle.montant.toFixed(2)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+  <h3>Véhicules Loués</h3>
+  <table className="invoice__table">
+    <thead>
+      <tr>
+        <th>Marque</th>
+        <th>Modèle</th>
+        <th>
+          Type de Tarif
+          <select
+            className="invoice__dropdown invoice__dropdown--tarif"
+            onChange={(e) => setSelectedTarifType(e.target.value)}
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Choisissez
+            </option>
+            <option value="Tarif journalier">Tarif journalier</option>
+            <option value="Tarif hebdomadaire">Tarif hebdomadaire</option>
+            <option value="Tarif mensuel">Tarif mensuel</option>
+          </select>
+        </th>
+        <th>
+          Type de Durée
+          <select
+            className="invoice__dropdown invoice__dropdown--duree"
+            onChange={(e) => setSelectedDurationType(e.target.value)}
+            defaultValue=""
+          >
+            <option value="" disabled>
+              Choisissez
+            </option>
+            <option value="Nombres de jours">Nombres de jours</option>
+            <option value="Nombres de semaines">Nombres de semaines</option>
+            <option value="Nombres de mois">Nombres de mois</option>
+          </select>
+        </th>
+        <th>Montant</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rentedVehicles.map((vehicle, index) => (
+        <tr key={index}>
+          <td>{vehicle.marque}</td>
+          <td>{vehicle.modele}</td>
+          <td>{vehicle.dailyRate.toFixed(2)}</td>
+          <td>{vehicle.daysRented}</td>
+          <td>{vehicle.montant.toFixed(2)}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
 
           <div className="invoice__vehicle-selection">
             <h3>Sélectionner un véhicule à louer</h3>

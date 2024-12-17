@@ -55,7 +55,7 @@ const HistoriqueModifsDevis = () => {
 
   return (
     <div className="historique-container">
-      <h2 className="title">Historique des Modifications du Devis</h2>
+      <h2 className="titledevis">Historique des Modifications du Devis</h2>
       <table className="historique-table">
         <thead>
           <tr>
