@@ -116,7 +116,7 @@ const VoirFact = () => {
                                 id="caution"
                                 value={caution}
                                 onChange={(e) => setCaution(e.target.value)}
-                                placeholder="Montant de la caution"
+                                placeholder="0"
                                 readOnly
                             />
                     

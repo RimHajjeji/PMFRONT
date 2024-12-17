@@ -91,24 +91,22 @@ const Imprimedevis = () => {
                     </div>
 
                     <div className="billing-infoFACT">
-    {/* Ligne Numéro de Facture */}
-    <p className="title"><strong>Numéro de DEVIS :</strong></p>
-    <p className="value">{devis.devisNumber}</p>
+                        {/* Ligne Numéro de Facture */}
+                        <p className="title"><strong>Numéro de Devis :</strong></p>
+                        <p className="value">{devis.devisNumber}</p>
 
-    {/* Ligne Date */}
-    <p className="title"><strong>Date :</strong></p>
-    <p className="value">{new Date(devis.date).toLocaleDateString()}</p>
+                        {/* Ligne Date */}
+                        <p className="title"><strong>Date :</strong></p>
+                        <p className="value">{new Date(devis.date).toLocaleDateString()}</p>
 
-    {/* Période Locative */}
-    <h3>Période Locative :</h3>
-    <p className="value">
-        {devis.billingPeriod ? (
-            `${new Date(devis.billingPeriod.startDate).toLocaleDateString()} - ${new Date(devis.billingPeriod.endDate).toLocaleDateString()}`
-        ) : 'N/A'}
-    </p>
-
- 
-</div>
+                        {/* Période Locative */}
+                        <h3>Période Locative :</h3>
+                        <p className="value">
+                            {devis.billingPeriod ? (
+                                `${new Date(devis.billingPeriod.startDate).toLocaleDateString()} - ${new Date(devis.billingPeriod.endDate).toLocaleDateString()}`
+                            ) : 'N/A'}
+                        </p> 
+                    </div>
                 </div>
             </header>
             <table className="print-table">
