@@ -13,6 +13,66 @@
     text-align: center;
     margin-bottom: 10px; 
 }
+.billing-infoFACT {
+    margin-top: 50px;
+    margin-left: -80px;
+    font-family: Arial, sans-serif;
+    display: grid;
+    grid-template-columns: 200px auto; /* Colonne pour titres et valeurs */
+    row-gap: 10px; /* Espacement entre les lignes */
+}
+
+.billing-infoFACT p, .billing-infoFACT h3 {
+    margin: 0; /* Supprime les marges par défaut */
+}
+
+.billing-infoFACT h3 {
+  
+   
+}
+
+.billing-infoFACT .title {
+    font-weight: bold;
+}
+
+
+
+.caution-section {
+    grid-column: 1 / -1; /* Occupe toute la largeur */
+    margin-top: 15px;
+}
+
+.caution-section label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.caution-section input {
+    padding: 8px;
+    width: 100%;
+    max-width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.caution-section button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #24B4DE;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.caution-section button:hover {
+    background-color:  #24B4DE;
+}
+
+
 
 .headerF {
     display: flex;
@@ -50,6 +110,7 @@
     margin-bottom: 30px; /* Réduction de la marge */
     text-align: left;  
     font-size: 11px;
+    margin-top: -12px;
 }
 
 .print-header:after {
@@ -195,6 +256,10 @@
 }
 
 @media print {
+   
+    .caution-section button {
+        display: none;
+    }
     .hidden-print {
         display: none; /* Ensure it's hidden during print */
     }

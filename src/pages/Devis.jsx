@@ -340,39 +340,6 @@ const Devis = () => {
               />
             </div>
           </div>
-
-          <div className="devis__vehicle-selectionD">
-            <h3>Sélectionner un véhicule à louer</h3>
-            <select
-              className="devis__select--categoryD"
-              value={selectedCategory}
-              onChange={(e) => handleCategorySelect(e.target.value)}
-              required={rentedVehicles.length === 0}
-            >
-              <option value="">Sélectionner une catégorie</option>
-              {categories.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-            <br />
-            <select
-              className="devis__select--vehicleD"
-              value={selectedVehicle ? vehicles.indexOf(selectedVehicle) : ""}
-              onChange={(e) => handleVehicleSelect(e.target.value)}
-              required={rentedVehicles.length === 0}
-              disabled={!selectedCategory}
-            >
-              <option value="">Sélectionner un véhicule</option>
-              {vehicles.map((vehicle, index) => (
-                <option key={index} value={index}>
-                  {vehicle.marque} {vehicle.modele}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <div className="devis__vehicle-listD">
             <h3>Véhicules Loués</h3>
             <table className="devis__tableD">
@@ -425,6 +392,39 @@ const Devis = () => {
             </table>
           </div>
 
+          <div className="devis__vehicle-selectionD">
+            <h3>Sélectionner un véhicule à louer</h3>
+            <select
+              className="devis__select--categoryD"
+              value={selectedCategory}
+              onChange={(e) => handleCategorySelect(e.target.value)}
+              required={rentedVehicles.length === 0}
+            >
+              <option value="">Sélectionner une catégorie</option>
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <br />
+            <select
+              className="devis__select--vehicleD"
+              value={selectedVehicle ? vehicles.indexOf(selectedVehicle) : ""}
+              onChange={(e) => handleVehicleSelect(e.target.value)}
+              required={rentedVehicles.length === 0}
+              disabled={!selectedCategory}
+            >
+              <option value="">Sélectionner un véhicule</option>
+              {vehicles.map((vehicle, index) => (
+                <option key={index} value={index}>
+                  {vehicle.marque} {vehicle.modele}
+                </option>
+              ))}
+            </select>
+          </div>
+
+
           {isPopupOpen && (
   <div className="devis__popupD">
     <div className="devis__popup-contentD">
@@ -437,6 +437,7 @@ const Devis = () => {
           value={dailyRate}
           onChange={(e) => setDailyRate(e.target.value)}
           required
+          onWheel={(e) => e.target.blur()} // Désactive le scroll
         />
       </label>
       <label>
@@ -448,6 +449,7 @@ const Devis = () => {
           onChange={(e) => setDaysRented(e.target.value)}
           required
           min="1"
+          onWheel={(e) => e.target.blur()} // Désactive le scroll
         />
       </label>
       <button className="btndevis1" type="button" onClick={handleAddVehicle}>
@@ -473,7 +475,7 @@ const Devis = () => {
                     value={discountPercentage}
                     onChange={(e) => setDiscountPercentage(Number(e.target.value))}
                     required
-                   
+                    onWheel={(e) => e.target.blur()} // Désactive le scroll
                   />
                 </label>
                 <button className="btndevis3" type="button" onClick={handleDiscountYes}>Appliquer</button>
@@ -490,6 +492,7 @@ const Devis = () => {
       type="number"
       value={fraisCarburant}
       onChange={(e) => setFraisCarburant(e.target.value)}
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -498,7 +501,7 @@ const Devis = () => {
       type="number"
       value={fraisKilometrage}
       onChange={(e) => setFraisKilometrage(e.target.value)}
-      min="0"
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -507,7 +510,7 @@ const Devis = () => {
       type="number"
       value={fraisLivraison}
       onChange={(e) => setFraisLivraison(e.target.value)}
-      min="0"
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -516,7 +519,7 @@ const Devis = () => {
       type="number"
       value={fraisChauffeur}
       onChange={(e) => setFraisChauffeur(e.target.value)}
-      min="0"
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
 </div>
@@ -529,7 +532,7 @@ const Devis = () => {
       type="number"
       value={acompte}
       onChange={(e) => setAcompte(parseFloat(e.target.value) )}
-      min="0"
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -538,7 +541,7 @@ const Devis = () => {
       type="number"
       value={montantRemboursement}
       onChange={(e) => setMontantRemboursement(parseFloat(e.target.value) )}
-      min="0"
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
 </div>
