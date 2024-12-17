@@ -272,6 +272,8 @@
 
 
 .vehicletableMaterial button {
+    margin-left: 20px;
+    margin-right: -40px;
     padding: 10px 20px;
     background-color: #e74c3c; /* Red color for the delete button */
     color: white;

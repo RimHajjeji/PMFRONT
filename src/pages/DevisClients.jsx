@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ReactPaginate from 'react-paginate'; // Import ReactPaginate
 import "../style/DevisClients.css";
 
 const DevisClients = () => {
@@ -9,6 +10,8 @@ const DevisClients = () => {
     const [client, setClient] = useState(null); // État pour les détails du client
     const [loading, setLoading] = useState(true); // État de chargement
     const [error, setError] = useState(null); // État d'erreur
+    const [currentPage, setCurrentPage] = useState(0); // Page actuelle
+    const devisPerPage = 5; // Nombre d'éléments à afficher par page
     const navigate = useNavigate(); // Pour la navigation
 
     // Fonction pour récupérer les devis et les détails du client
@@ -17,7 +20,9 @@ const DevisClients = () => {
             try {
                 // Récupérer les devis du client
                 const devisResponse = await axios.get(`http://localhost:5000/api/devis/client/${clientId}`);
-                setDevis(devisResponse.data.devis);
+                // Tri des devis par date décroissante
+                const sortedDevis = devisResponse.data.devis.sort((a, b) => new Date(b.date) - new Date(a.date));
+                setDevis(sortedDevis);
 
                 // Récupérer les détails du client
                 const clientResponse = await axios.get(`http://localhost:5000/api/clients/${clientId}`);
@@ -34,6 +39,15 @@ const DevisClients = () => {
         fetchDevisEtClient(); // Appel à la fonction de récupération
     }, [clientId]);
 
+    // Pagination : calculer les devis pour la page actuelle
+    const offset = currentPage * devisPerPage;
+    const currentPageDevis = devis.slice(offset, offset + devisPerPage);
+
+    // Fonction pour gérer le changement de page
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
+
     // Fonction pour naviguer vers l'affichage d'un devis
     const handleVoirDevis = (devisId) => {
         navigate(`/voirdevis/${devisId}`);
@@ -42,6 +56,11 @@ const DevisClients = () => {
     // Fonction pour naviguer vers la modification d'un devis
     const handleModifierDevis = (devisId) => {
         navigate(`/modif_devis/${devisId}`);
+    };
+
+    // Fonction pour naviguer vers l'historique des modifications d'un devis
+    const handleHistoriqueModifications = (devisId) => {
+        navigate(`/historiquemodifsdevis/${devisId}`);
     };
 
     // Affichage du contenu en fonction de l'état de chargement ou d'erreur
@@ -76,7 +95,7 @@ const DevisClients = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {devis.map((devisItem, index) => (
+                        {currentPageDevis.map((devisItem, index) => (
                             <tr key={devisItem._id}>
                                 <td>{index + 1}</td>
                                 <td>{devisItem.devisNumber}</td>
@@ -99,7 +118,7 @@ const DevisClients = () => {
                                 <td>
                                     <button
                                         className="historique-modif-button"
-                                        onClick={() => navigate(`/historique_modifs_devis/${devisItem._id}`)}
+                                        onClick={() => handleHistoriqueModifications(devisItem._id)}
                                     >
                                         Modifications précédentes
                                     </button>
@@ -109,6 +128,20 @@ const DevisClients = () => {
                     </tbody>
                 </table>
             )}
+
+            {/* Pagination */}
+            <ReactPaginate
+                previousLabel={'Précédent'}
+                nextLabel={'Suivant'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={Math.ceil(devis.length / devisPerPage)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination8'}
+                activeClassName={'active'}
+            />
         </div>
     );
 };

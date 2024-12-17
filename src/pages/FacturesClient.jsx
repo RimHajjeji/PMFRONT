@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"; 
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ReactPaginate from 'react-paginate'; // Import ReactPaginate
 import "../style/FacturesClient.css";
 
 const FactureClient = () => {
@@ -9,6 +10,8 @@ const FactureClient = () => {
     const [client, setClient] = useState(null); // État pour les détails du client
     const [loading, setLoading] = useState(true); // État de chargement
     const [error, setError] = useState(null); // État d'erreur
+    const [currentPage, setCurrentPage] = useState(0); // Page actuelle pour la pagination
+    const facturesPerPage = 5; // Nombre de factures à afficher par page
     const navigate = useNavigate(); // Pour la navigation
 
     // Fonction pour récupérer les factures et les détails du client
@@ -17,7 +20,9 @@ const FactureClient = () => {
             try {
                 // Récupérer les factures du client
                 const facturesResponse = await axios.get(`http://localhost:5000/api/invoices/client/${clientId}`);
-                setFactures(facturesResponse.data.invoices);
+                // Tri des factures par date décroissante
+                const sortedFactures = facturesResponse.data.invoices.sort((a, b) => new Date(b.date) - new Date(a.date));
+                setFactures(sortedFactures);
 
                 // Récupérer les détails du client
                 const clientResponse = await axios.get(`http://localhost:5000/api/clients/${clientId}`);
@@ -33,6 +38,15 @@ const FactureClient = () => {
 
         fetchFacturesEtClient(); // Appel à la fonction de récupération
     }, [clientId]);
+
+    // Pagination : calculer les factures pour la page actuelle
+    const offset = currentPage * facturesPerPage;
+    const currentPageFactures = factures.slice(offset, offset + facturesPerPage);
+
+    // Fonction pour gérer le changement de page
+    const handlePageClick = ({ selected }) => {
+        setCurrentPage(selected);
+    };
 
     // Fonction pour naviguer vers l'affichage d'une facture
     const handleVoirFacture = (invoiceId) => {
@@ -81,7 +95,7 @@ const FactureClient = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {factures.map((facture, index) => (
+                        {currentPageFactures.map((facture, index) => (
                             <tr key={facture._id}>
                                 <td>{index + 1}</td>
                                 <td>{facture.invoiceNumber}</td>
@@ -103,7 +117,7 @@ const FactureClient = () => {
                                 </td>
                                 <td>
                                     <button
-                                        className="historique-modif-button"
+                                        className="Historique-fact-button"
                                         onClick={() => handleHistoriqueModifications(facture._id)}
                                     >
                                         Modifications précédentes
@@ -114,6 +128,20 @@ const FactureClient = () => {
                     </tbody>
                 </table>
             )}
+
+            {/* Pagination */}
+            <ReactPaginate
+                previousLabel={'Précédent'}
+                nextLabel={'Suivant'}
+                breakLabel={'...'}
+                breakClassName={'break-me'}
+                pageCount={Math.ceil(factures.length / facturesPerPage)}
+                marginPagesDisplayed={2}
+                pageRangeDisplayed={5}
+                onPageChange={handlePageClick}
+                containerClassName={'pagination6'}
+                activeClassName={'active'}
+            />
         </div>
     );
 };
