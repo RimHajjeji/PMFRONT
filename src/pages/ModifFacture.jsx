@@ -425,11 +425,13 @@ const ModifFacture = () => {
                       className="modif-facture-input"
                       {...register(`vehicles[${index}].modele`)}
                       defaultValue={vehicle.modele}
+                      onWheel={(e) => e.target.blur()} // Désactive le scroll
                     />
                   </td>
                   <td>
                     <input
                       type="number"
+                      onWheel={(e) => e.target.blur()} // Désactive le scroll
                       className="modif-facture-input"
                       {...register(`vehicles[${index}].dailyRate`, {
                         valueAsNumber: true,
@@ -446,6 +448,7 @@ const ModifFacture = () => {
                   <td>
                     <input
                       type="number"
+                      onWheel={(e) => e.target.blur()} // Désactive le scroll
                       className="modif-facture-input"
                       {...register(`vehicles[${index}].daysRented`, {
                         valueAsNumber: true,
@@ -484,6 +487,7 @@ const ModifFacture = () => {
               className="modif-facture-input"
               {...register("fraisCarburant")}
               defaultValue={invoice?.fraisSupplementaires?.fraisCarburant || 0}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-facture-field">
@@ -495,6 +499,7 @@ const ModifFacture = () => {
               defaultValue={
                 invoice?.fraisSupplementaires?.fraisKilometrage || 0
               }
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-facture-field">
@@ -504,6 +509,7 @@ const ModifFacture = () => {
               className="modif-facture-input"
               {...register("fraisLivraison")}
               defaultValue={invoice?.fraisSupplementaires?.fraisLivraison || 0}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-facture-field">
@@ -513,6 +519,7 @@ const ModifFacture = () => {
               className="modif-facture-input"
               {...register("fraisChauffeur")}
               defaultValue={invoice?.fraisSupplementaires?.fraisChauffeur || 0}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
           <div className="modif-facture-field">
@@ -554,6 +561,7 @@ const ModifFacture = () => {
               className="modif-facture-input"
               {...register("montantRemboursement")}
               defaultValue={invoice?.montantRemboursement}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
         </div>
@@ -580,6 +588,7 @@ const ModifFacture = () => {
               className="modif-facture-input"
               {...register("discountPercentage")}
               defaultValue={invoice?.discountPercentage}
+              onWheel={(e) => e.target.blur()} // Désactive le scroll
             />
           </div>
 
