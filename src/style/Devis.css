@@ -1,7 +1,7 @@
 /* General styles */
-.devis {
+.devisD {
   padding: 30px 60px;
-  font-family: 'Arial', sans-serif; /* Changement de la police pour un look plus moderne */
+  font-family: "Arial", sans-serif; /* Changement de la police pour un look plus moderne */
   background: #f1f1f1; /* Arrière-plan doux pour la page */
   line-height: 2;
   font-size: 18px;
@@ -49,7 +49,8 @@
   margin-bottom: 30px; /* Plus d'espace entre les sections */
 }
 
-.devis__client-detailsD, .devis__detailsD {
+.devis__client-detailsD,
+.devis__detailsD {
   width: 45%;
 }
 
@@ -143,7 +144,7 @@
   justify-content: center;
 }
 
-.devis__popup--discountD{
+.devis__popup--discountD {
   position: fixed;
   top: 0;
   left: 0;
@@ -176,8 +177,7 @@
   margin-left: 150px;
 }
 
-
-.devis__popup-contentD h3{
+.devis__popup-contentD h3 {
   color: #3498db;
   font-size: 25px;
   margin-top: 10px;
@@ -197,7 +197,6 @@
   margin-bottom: 15px; /* Espacement uniforme en bas */
   width: 100%; /* Pour aligner les éléments uniformément */
   box-sizing: border-box; /* Assurer que les paddings et bordures ne débordent pas */
- 
 }
 
 /* Uniformiser l'espacement interne */
@@ -208,7 +207,6 @@
   margin-bottom: 15px; /* Espacement uniforme en bas */
   width: 100%; /* Pour aligner les éléments uniformément */
   box-sizing: border-box; /* Assurer que les paddings et bordures ne débordent pas */
- 
 }
 
 .devis__popup-contentD input,
@@ -237,7 +235,6 @@
   border: none;
 }
 
-
 /* Retirer le dernier espacement */
 .devis__popup-contentD h3:last-child,
 .devis__popup-contentD p:last-child,
@@ -254,22 +251,21 @@
   margin-bottom: 0;
 }
 
-.btndevis1{
+.btndevis1 {
   margin-top: 20px;
 }
 
-.btndevis2{
+.btndevis2 {
   margin-top: 0px;
 }
 
-.btndevis3{
+.btndevis3 {
   margin-top: 20px;
 }
 
-.btndevis4{
+.btndevis4 {
   margin-top: 0px;
 }
-
 
 /* Total */
 .devis__totalD {
@@ -283,7 +279,7 @@
   color: #2980b9; /* Couleur forte pour les totaux */
 }
 
-.devis__btn-submitD{
+.devis__btn-submitD {
   padding: 12px 25px; /* Boutons plus grands pour une meilleure accessibilité */
   background: #2980b9;
   color: white;
@@ -361,3 +357,22 @@
   background-color: #fff;
 }
 
+
+.devis__dropdown {
+  width: 50%;
+  padding: 4px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  transition:
+    border-color 0.3s,
+    box-shadow 0.3s;
+  margin-left: 10px;
+}
+
+.devis__dropdown:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}

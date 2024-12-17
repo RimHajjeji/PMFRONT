@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import "../style/Devis.css";
 
 const Devis = () => {
@@ -32,7 +32,6 @@ const Devis = () => {
   const [selectedTarifType, setSelectedTarifType] = useState("");
   const [selectedDurationType, setSelectedDurationType] = useState("");
 
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -48,22 +47,32 @@ const Devis = () => {
 
     const fetchAdminDetails = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/admin/profile", {
-          headers: {
-            "x-auth-token": localStorage.getItem("token"), // Utilise le token stocké localement
+        const response = await axios.get(
+          "http://localhost:5000/api/admin/profile",
+          {
+            headers: {
+              "x-auth-token": localStorage.getItem("token"), // Utilise le token stocké localement
+            },
           },
-        });
+        );
         const { nom, prenom } = response.data;
         setIssuedBy(`${nom} ${prenom}`); // Combine le nom et le prénom
       } catch (error) {
-        console.error("Erreur lors de la récupération des détails de l'admin :", error);
-        alert("Impossible de récupérer les informations de l'utilisateur connecté.");
+        console.error(
+          "Erreur lors de la récupération des détails de l'admin :",
+          error,
+        );
+        alert(
+          "Impossible de récupérer les informations de l'utilisateur connecté.",
+        );
       }
     };
 
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/categories/categories");
+        const response = await axios.get(
+          "http://localhost:5000/api/categories/categories",
+        );
         setCategories(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des catégories:", error);
@@ -93,29 +102,31 @@ const Devis = () => {
   };
 
   const handleAddVehicle = () => {
-    if (
-      !dailyRate ||
-      !daysRented ||
-      !selectedVehicle
-    ) {
+    if (!dailyRate || !daysRented || !selectedVehicle) {
       alert("Veuillez remplir tous les champs obligatoires.");
       return;
     }
-  
+
     const dailyRateNumber = Number(dailyRate);
     const daysRentedNumber = Number(daysRented);
-  
+
     if (isNaN(dailyRateNumber) || isNaN(daysRentedNumber)) {
-      alert("Les champs Tarif Journalier et Nombre de jours doivent être des nombres.");
+      alert(
+        "Les champs Tarif Journalier et Nombre de jours doivent être des nombres.",
+      );
       return;
     }
-  
+
     const montant = dailyRateNumber * daysRentedNumber;
-  
+
     // Retain the previously selected tarifType and durationType if not explicitly changed
-    const appliedTarifType = selectedTarifType || (rentedVehicles.length > 0 ? rentedVehicles[0].tarifType : "");
-    const appliedDurationType = selectedDurationType || (rentedVehicles.length > 0 ? rentedVehicles[0].durationType : "");
-  
+    const appliedTarifType =
+      selectedTarifType ||
+      (rentedVehicles.length > 0 ? rentedVehicles[0].tarifType : "");
+    const appliedDurationType =
+      selectedDurationType ||
+      (rentedVehicles.length > 0 ? rentedVehicles[0].durationType : "");
+
     setRentedVehicles([
       ...rentedVehicles,
       {
@@ -128,7 +139,7 @@ const Devis = () => {
         durationType: appliedDurationType,
       },
     ]);
-  
+
     setIsPopupOpen(false);
     setDailyRate("");
     setDaysRented("");
@@ -138,17 +149,25 @@ const Devis = () => {
     setSelectedDurationType(appliedDurationType); // Pre-fill the durationType for the next vehicle
     setVehicles([]);
   };
-  
-  
 
   const calculateTotalHTFrais = () => {
-    const totalLocation = rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
-    const totalFraisSupplémentaires = Number(fraisCarburant) + Number(fraisKilometrage) + Number(fraisLivraison) + Number(fraisChauffeur);
+    const totalLocation = rentedVehicles.reduce(
+      (total, vehicle) => total + vehicle.montant,
+      0,
+    );
+    const totalFraisSupplémentaires =
+      Number(fraisCarburant) +
+      Number(fraisKilometrage) +
+      Number(fraisLivraison) +
+      Number(fraisChauffeur);
     return totalLocation + totalFraisSupplémentaires;
   };
 
   const calculateTotalHT = () => {
-    return rentedVehicles.reduce((total, vehicle) => total + vehicle.montant, 0);
+    return rentedVehicles.reduce(
+      (total, vehicle) => total + vehicle.montant,
+      0,
+    );
   };
 
   const calculateTVA = () => {
@@ -169,10 +188,10 @@ const Devis = () => {
 
   const calculateTotalNet = () => {
     const totalTTC = calculateTotalTTC();
-    const deduction = (remise || 0) + (acompte || 0) + (montantRemboursement || 0);
+    const deduction =
+      (remise || 0) + (acompte || 0) + (montantRemboursement || 0);
     return totalTTC - deduction;
   };
-
 
   const handleDiscountPopup = () => {
     setIsDiscountPopupOpen(true);
@@ -247,9 +266,15 @@ const Devis = () => {
     };
 
     try {
-      const response = await axios.post("http://localhost:5000/api/devis/add", newDevis);
-      alert("Devis créée avec succès. Numéro de Devis: " + response.data.devis.devisNumber);
-      navigate('/table-devis'); 
+      const response = await axios.post(
+        "http://localhost:5000/api/devis/add",
+        newDevis,
+      );
+      alert(
+        "Devis créée avec succès. Numéro de Devis: " +
+          response.data.devis.devisNumber,
+      );
+      navigate("/table-devis");
     } catch (error) {
       console.error("Erreur lors de la création de la devis:", error);
       if (error.response && error.response.data && error.response.data.error) {
@@ -261,14 +286,14 @@ const Devis = () => {
   };
 
   return (
-        <div className="devisD">
+    <div className="devisD">
       <div className="devis__containerD">
         <div className="devis__headerD">
           <div className="devis__logoD">
             <img src="/assets/logo.png" alt="Logo" />
           </div>
           <div className="devis__company-infoD">
-          <strong className="devis__titleD">DEVIS</strong>
+            <strong className="devis__titleD">DEVIS</strong>
           </div>
         </div>
 
@@ -279,7 +304,9 @@ const Devis = () => {
             <div className="devis__client-detailsD">
               <strong>Devis à</strong>
               <br />
-              <strong className="devis__client-highlightD">Le Locataire:</strong>
+              <strong className="devis__client-highlightD">
+                Le Locataire:
+              </strong>
               <select
                 className="devis__select--clientD"
                 onChange={(e) => handleClientSelect(e.target.value)}
@@ -295,27 +322,27 @@ const Devis = () => {
               <br />
               <strong>N° de Téléphone:</strong> {selectedClient?.phone || "N/A"}
               <br />
-              <strong>Code client:</strong> {selectedClient?.codeClient || "N/A"}
+              <strong>Code client:</strong>{" "}
+              {selectedClient?.codeClient || "N/A"}
               <br />
-              <strong>Type client:</strong> {selectedClient?.typeClient || "N/A"}
+              <strong>Type client:</strong>{" "}
+              {selectedClient?.typeClient || "N/A"}
               <br />
               <strong>Email:</strong> {selectedClient?.email || "N/A"}
               <br />
             </div>
 
             <div className="devis__detailsD">
-              
-              
-              <strong>Devis N°:</strong> 
+              <strong>Devis N°:</strong>
               <br />
               <strong>Etablie Par:</strong>
-            <input
-                  type="text"
-                   className="devis__input--issued-byD"
-                    value={issuedBy}
-                     readOnly // Rendre le champ non modifiable
-                      />
-                      <br />
+              <input
+                type="text"
+                className="devis__input--issued-byD"
+                value={issuedBy}
+                readOnly // Rendre le champ non modifiable
+              />
+              <br />
               <strong>Date:</strong> {date}
               <br />
               <strong>Période :</strong>
@@ -325,7 +352,10 @@ const Devis = () => {
                 className="devis__input--period-startD"
                 value={billingPeriod.startDate}
                 onChange={(e) =>
-                  setBillingPeriod({ ...billingPeriod, startDate: e.target.value })
+                  setBillingPeriod({
+                    ...billingPeriod,
+                    startDate: e.target.value,
+                  })
                 }
                 required
               />
@@ -334,7 +364,10 @@ const Devis = () => {
                 className="devis__input--period-endD"
                 value={billingPeriod.endDate}
                 onChange={(e) =>
-                  setBillingPeriod({ ...billingPeriod, endDate: e.target.value })
+                  setBillingPeriod({
+                    ...billingPeriod,
+                    endDate: e.target.value,
+                  })
                 }
                 required
               />
@@ -343,41 +376,43 @@ const Devis = () => {
           <div className="devis__vehicle-listD">
             <h3>Véhicules Loués</h3>
             <table className="devis__tableD">
-            <thead>
-  <tr>
-    <th>Marque</th>
-    <th>Modèle</th>
-    <th>
-      Type de Tarif
-      <select
-        onChange={(e) => setSelectedTarifType(e.target.value)}
-        defaultValue=""
-      >
-        <option value="" disabled>
-          Choisissez
-        </option>
-        <option value=" Tarif journalier">Tarif journalier</option>
-        <option value=" Tarif hebdomadaire">Tarif hebdomadaire</option>
-        <option value=" Tarif mensuel">Tarif mensuel</option>
-      </select>
-    </th>
-    <th>
-      Type de Durée
-      <select
-        onChange={(e) => setSelectedDurationType(e.target.value)}
-        defaultValue=""
-      >
-        <option value="" disabled>
-          Choisissez
-        </option>
-        <option value="Nombres de jours">Nombres de jours</option>
-        <option value="Nombres de semaines">Nombres de semaines</option>
-        <option value="Nombres de mois">Nombres de mois</option>
-      </select>
-    </th>
-    <th>Montant</th>
-  </tr>
-</thead>
+              <thead>
+                <tr>
+                  <th>Marque</th>
+                  <th>Modèle</th>
+                  <th>
+                    Type de Tarif
+                    <select
+                      className="devis__dropdown devis__dropdown--tarif"
+                      onChange={(e) => setSelectedTarifType(e.target.value)}
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Choisissez
+                      </option>
+                      <option value="Tarif journalier">Tarif journalier</option>
+                      <option value="Tarif hebdomadaire">Tarif hebdomadaire</option>
+                      <option value="Tarif mensuel">Tarif mensuel</option>
+                    </select>
+                  </th>
+                  <th>
+                    Type de Durée
+                    <select
+                      className="devis__dropdown devis__dropdown--duree"
+                      onChange={(e) => setSelectedDurationType(e.target.value)}
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        Choisissez
+                      </option>
+                      <option value="Nombres de jours">Nombres de jours</option>
+                      <option value="Nombres de semaines">Nombres de semaines</option>
+                      <option value="Nombres de mois">Nombres de mois</option>
+                    </select>
+                  </th>
+                  <th>Montant</th>
+                </tr>
+              </thead>
               <tbody>
                 {rentedVehicles.map((vehicle, index) => (
                   <tr key={index}>
@@ -424,44 +459,50 @@ const Devis = () => {
             </select>
           </div>
 
-
           {isPopupOpen && (
-  <div className="devis__popupD">
-    <div className="devis__popup-contentD">
-      <h3>Ajouter un véhicule</h3>
-      <label>
-        {selectedTarifType || "Tarif"} :
-        <input
-          type="number"
-          className="devis__input--daily-rateD"
-          value={dailyRate}
-          onChange={(e) => setDailyRate(e.target.value)}
-          required
-          onWheel={(e) => e.target.blur()} // Désactive le scroll
-        />
-      </label>
-      <label>
-        {selectedDurationType || "Durée"} :
-        <input
-          type="number"
-          className="devis__input--days-rentedD"
-          value={daysRented}
-          onChange={(e) => setDaysRented(e.target.value)}
-          required
-          min="1"
-          onWheel={(e) => e.target.blur()} // Désactive le scroll
-        />
-      </label>
-      <button className="btndevis1" type="button" onClick={handleAddVehicle}>
-        Ajouter
-      </button>
-      <button className="btndevis2" type="button" onClick={() => setIsPopupOpen(false)}>
-        Annuler
-      </button>
-    </div>
-  </div>
-)}
-
+            <div className="devis__popupD">
+              <div className="devis__popup-contentD">
+                <h3>Ajouter un véhicule</h3>
+                <label>
+                  {selectedTarifType || "Tarif"} :
+                  <input
+                    type="number"
+                    className="devis__input--daily-rateD"
+                    value={dailyRate}
+                    onChange={(e) => setDailyRate(e.target.value)}
+                    required
+                    onWheel={(e) => e.target.blur()} // Désactive le scroll
+                  />
+                </label>
+                <label>
+                  {selectedDurationType || "Durée"} :
+                  <input
+                    type="number"
+                    className="devis__input--days-rentedD"
+                    value={daysRented}
+                    onChange={(e) => setDaysRented(e.target.value)}
+                    required
+                    min="1"
+                    onWheel={(e) => e.target.blur()} // Désactive le scroll
+                  />
+                </label>
+                <button
+                  className="btndevis1"
+                  type="button"
+                  onClick={handleAddVehicle}
+                >
+                  Ajouter
+                </button>
+                <button
+                  className="btndevis2"
+                  type="button"
+                  onClick={() => setIsPopupOpen(false)}
+                >
+                  Annuler
+                </button>
+              </div>
+            </div>
+          )}
 
           {isDiscountPopupOpen && (
             <div className="devis__popup--discountD">
@@ -473,84 +514,102 @@ const Devis = () => {
                     type="number"
                     className="devis__input--discountD"
                     value={discountPercentage}
-                    onChange={(e) => setDiscountPercentage(Number(e.target.value))}
+                    onChange={(e) =>
+                      setDiscountPercentage(Number(e.target.value))
+                    }
                     required
                     onWheel={(e) => e.target.blur()} // Désactive le scroll
                   />
                 </label>
-                <button className="btndevis3" type="button" onClick={handleDiscountYes}>Appliquer</button>
-                <button className="btndevis4" type="button" onClick={handleDiscountNo}>Annuler</button>
+                <button
+                  className="btndevis3"
+                  type="button"
+                  onClick={handleDiscountYes}
+                >
+                  Appliquer
+                </button>
+                <button
+                  className="btndevis4"
+                  type="button"
+                  onClick={handleDiscountNo}
+                >
+                  Annuler
+                </button>
               </div>
             </div>
           )}
 
-<div className="devis-frais-supplementaires">
-  <h3>Frais Supplémentaires</h3>
-  <label>
-    Frais de carburant:
-    <input
-      type="number"
-      value={fraisCarburant}
-      onChange={(e) => setFraisCarburant(e.target.value)}
-      onWheel={(e) => e.target.blur()} // Désactive le scroll
-    />
-  </label>
-  <label>
-    Frais de kilométrage:
-    <input
-      type="number"
-      value={fraisKilometrage}
-      onChange={(e) => setFraisKilometrage(e.target.value)}
-      onWheel={(e) => e.target.blur()} // Désactive le scroll
-    />
-  </label>
-  <label>
-    Frais de livraison:
-    <input
-      type="number"
-      value={fraisLivraison}
-      onChange={(e) => setFraisLivraison(e.target.value)}
-      onWheel={(e) => e.target.blur()} // Désactive le scroll
-    />
-  </label>
-  <label>
-    Frais de chauffeur:
-    <input
-      type="number"
-      value={fraisChauffeur}
-      onChange={(e) => setFraisChauffeur(e.target.value)}
-      onWheel={(e) => e.target.blur()} // Désactive le scroll
-    />
-  </label>
-</div>
+          <div className="devis-frais-supplementaires">
+            <h3>Frais Supplémentaires</h3>
+            <label>
+              Frais de carburant:
+              <input
+                type="number"
+                value={fraisCarburant}
+                onChange={(e) => setFraisCarburant(e.target.value)}
+                onWheel={(e) => e.target.blur()} // Désactive le scroll
+              />
+            </label>
+            <label>
+              Frais de kilométrage:
+              <input
+                type="number"
+                value={fraisKilometrage}
+                onChange={(e) => setFraisKilometrage(e.target.value)}
+                onWheel={(e) => e.target.blur()} // Désactive le scroll
+              />
+            </label>
+            <label>
+              Frais de livraison:
+              <input
+                type="number"
+                value={fraisLivraison}
+                onChange={(e) => setFraisLivraison(e.target.value)}
+                onWheel={(e) => e.target.blur()} // Désactive le scroll
+              />
+            </label>
+            <label>
+              Frais de chauffeur:
+              <input
+                type="number"
+                value={fraisChauffeur}
+                onChange={(e) => setFraisChauffeur(e.target.value)}
+                onWheel={(e) => e.target.blur()} // Désactive le scroll
+              />
+            </label>
+          </div>
 
-<div className="devis-autres-montants">
-  <h3>Autres Montants</h3>
-  <label>
-    Acompte:
-    <input
-      type="number"
-      value={acompte}
-      onChange={(e) => setAcompte(parseFloat(e.target.value) )}
-      onWheel={(e) => e.target.blur()} // Désactive le scroll
-    />
-  </label>
-  <label>
-    Montant Remboursement:
-    <input
-      type="number"
-      value={montantRemboursement}
-      onChange={(e) => setMontantRemboursement(parseFloat(e.target.value) )}
-      onWheel={(e) => e.target.blur()} // Désactive le scroll
-    />
-  </label>
-</div>
+          <div className="devis-autres-montants">
+            <h3>Autres Montants</h3>
+            <label>
+              Acompte:
+              <input
+                type="number"
+                value={acompte}
+                onChange={(e) => setAcompte(parseFloat(e.target.value))}
+                onWheel={(e) => e.target.blur()} // Désactive le scroll
+              />
+            </label>
+            <label>
+              Montant Remboursement:
+              <input
+                type="number"
+                value={montantRemboursement}
+                onChange={(e) =>
+                  setMontantRemboursement(parseFloat(e.target.value))
+                }
+                onWheel={(e) => e.target.blur()} // Désactive le scroll
+              />
+            </label>
+          </div>
 
           <div className="devis__totalD">
-          <strong>Total DES LOCATION :</strong> {calculateTotalHT().toFixed(2)} FCFA
-          <br />
-          <strong>Total HT + Frais supplementaires:</strong> {calculateTotalHTFrais().toFixed(2)} FCFA
-          <br />
+            <strong>Total DES LOCATION :</strong>{" "}
+            {calculateTotalHT().toFixed(2)} FCFA
+            <br />
+            <strong>Total HT + Frais supplementaires:</strong>{" "}
+            {calculateTotalHTFrais().toFixed(2)} FCFA
+            <br />
             <strong>TVA (18%):</strong> {calculateTVA().toFixed(2)} FCFA
             <br />
             <strong>CSS (1%):</strong> {calculateCSS().toFixed(2)} FCFA
@@ -559,20 +618,28 @@ const Devis = () => {
             <br />
             {remise !== null && (
               <>
-                <strong>Remise ({discountPercentage}%):</strong> {remise.toFixed(2)} FCFA
+                <strong>Remise ({discountPercentage}%):</strong>{" "}
+                {remise.toFixed(2)} FCFA
                 <br />
               </>
             )}
             <strong>Total Net:</strong> {calculateTotalNet().toFixed(2)} FCFA
             <br />
-            <button type="button" className="devis__btn-submitD" onClick={handleDiscountPopup}>Appliquer une remise</button>
-          
-            </div>
-        {/* Submit Button */}
-        <button type="submit" className="devis__btn-submitD">Créer Devis</button>
+            <button
+              type="button"
+              className="devis__btn-submitD"
+              onClick={handleDiscountPopup}
+            >
+              Appliquer une remise
+            </button>
+          </div>
+          {/* Submit Button */}
+          <button type="submit" className="devis__btn-submitD">
+            Créer Devis
+          </button>
         </form>
       </div>
-    </div>  
+    </div>
   );
 };
 
