@@ -13,6 +13,27 @@ const ModifFacture = () => {
   const [loadingInvoice, setLoadingInvoice] = useState(true);
   const [error, setError] = useState(null);
   const [modificationHistory, setModificationHistory] = useState([]);
+  const [admin, setAdmin] = useState("");
+
+
+
+  useEffect(() => {
+    const fetchAdminProfile = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/admin/profile", {
+          headers: {
+            "x-auth-token": localStorage.getItem("x-auth-token") // Assurez-vous que le token est dans localStorage
+          }
+        });
+        const { nom, prenom } = response.data;
+        setAdmin(`${nom} ${prenom}`);
+      } catch (err) {
+        console.error("Erreur lors de la récupération du profil admin", err);
+      }
+    };
+  
+    fetchAdminProfile();
+  }, []);
 
   // Récupérer la liste des clients
   useEffect(() => {
@@ -187,11 +208,12 @@ const ModifFacture = () => {
   const onSubmit = async (data) => {
     try {
       // Créez une entrée pour l'historique des modifications
-      const modificationData = {
-        modifiedBy: "Utilisateur Connecté", // Remplacez par l'utilisateur actuel
-        modificationDate: new Date().toISOString(),
-        changes: JSON.stringify(data), // Vous pouvez personnaliser ce champ selon les besoins
-      };
+    const modificationData = {
+      modifiedByNom: `${admin.nom}`,  // Utilisez le nom et prénom de l'admin
+      modifiedByPrenom: `${admin.prenom}`,  // Utilisez le nom et prénom de l'admin
+      modifiedAt: new Date().toISOString(),
+      changes: JSON.stringify(data), // Vous pouvez personnaliser ce champ selon les besoins
+    };
 
       // Ajoutez l'entrée à l'historique des modifications existant
       const updatedHistory = [...modificationHistory, modificationData];
@@ -215,7 +237,7 @@ const ModifFacture = () => {
         css: calculateCSS(),
         totalTTC: calculateTotalTTC(),
         totalNet: calculateTotalNet(),
-        modifiedBy: "Utilisateur Connecté", // Utilisateur actuel
+
         modificationHistory: updatedHistory, // Ajouter l'historique mis à jour
       };
       await axios.put(

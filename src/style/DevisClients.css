@@ -1,0 +1,92 @@
+/* Style de base pour la page des devis clients */
+.devis-clients-page {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.devis-clients-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Style pour le tableau des devis */
+.devis-clients-table {
+    width: 90%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.devis-clients-table th,
+.devis-clients-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.devis-clients-table th {
+    background-color: #34495e;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.devis-clients-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.devis-clients-table tr:hover {
+    background-color: #e1e1e1;
+}
+
+/* Boutons */
+.voir-devis-button,
+.modifier-devis-button,
+.historique-modif-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.voir-devis-button {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.voir-devis-button:hover {
+    background-color: #2980b9;
+}
+
+.modifier-devis-button {
+    background-color: #e67e22;
+    color: #fff;
+}
+
+.modifier-devis-button:hover {
+    background-color: #d35400;
+}
+
+.historique-modif-button {
+    background-color: #27ae60;
+    color: #fff;
+}
+
+.historique-modif-button:hover {
+    background-color: #229954;
+}

@@ -41,11 +41,10 @@ const ClientList = () => {
         navigate(`/factures_client/${clientId}`); // Passe l'ID du client dans l'URL
     };
     
-    
 
     // Fonction pour gérer le clic sur le bouton "Devis"
     const handleDevisClick = (clientId) => {
-        navigate('/devis_client'); // Redirection vers la page de devis pour le client
+        navigate(`/devis_clients/${clientId}`); // Redirection vers la page de devis pour le client
     };
 
     return (
