@@ -104,7 +104,7 @@ const ClientList = () => {
                     marginPagesDisplayed={2}
                     pageRangeDisplayed={5}
                     onPageChange={handlePageClick}
-                    containerClassName={'facture-devis-pagination'}
+                    containerClassName={'pagination5'}
                     activeClassName={'active'}
                 />
             </div>

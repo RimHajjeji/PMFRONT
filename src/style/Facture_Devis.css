@@ -52,7 +52,7 @@
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.145);
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .facture-devis-table th,
@@ -63,34 +63,6 @@
 
 .facture-devis-table th {
     background-color: #d4f0f8;
-}
-
-.facture-devis-pagination {
-    display: flex;
-    justify-content: flex-end;
-    list-style: none;
-    padding: 0;
-    margin-bottom: 40px;
-}
-
-.facture-devis-pagination li {
-    margin: 0 5px;
-    cursor: pointer;
-}
-
-.facture-devis-pagination li a {
-    padding: 8px 14px;
-    border-radius: 5px;
-    background-color: #ffffff;
-    border: 1px solid #ced4da;
-    color: #a4acb5;
-    text-decoration: none;
-}
-
-.facture-devis-pagination li.active a {
-    background-color: #a4acb5;
-    color: #ffffff;
-    border: 1px solid #a4acb5;
 }
 
 .facture-button, .devis-button {
@@ -110,4 +82,38 @@
 .facture-button:hover, .devis-button:hover {
     background-color: #1d94b7;
     transform: scale(1.02);
+}
+
+.pagination5 {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    padding: 0;
+    margin-left: 600px;
+    margin-bottom: 40px;
+}
+
+.pagination5 li {
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.pagination5 li a {
+    padding: 8px 14px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #a4acb5;
+    text-decoration: none;
+}
+
+.pagination5 li.active a {
+    background-color: #a4acb5;
+    color: #ffffff;
+    border: 1px solid #a4acb5;
+}
+
+.pagination5 li a:hover {
+    background-color: #f3f3f3;
+    border-color: #bec3c8;
 }
