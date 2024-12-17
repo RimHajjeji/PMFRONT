@@ -58,6 +58,7 @@ const Sidebar = () => {
                     <span className="text">Imprimer Devis</span>
                 </div>
             </nav>
+            
         </aside>
     );
 };
