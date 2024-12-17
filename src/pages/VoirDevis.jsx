@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import "../style/Imprimedevis.css";
 
-const Imprimedevis = () => {
+const VoirDevis = () => {
     
     const { devisId } = useParams();
     const [devis, setDevis] = useState(null);
@@ -230,4 +230,4 @@ const Imprimedevis = () => {
     );
 };
 
-export default Imprimedevis;
+export default VoirDevis;

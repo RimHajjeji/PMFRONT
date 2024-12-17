@@ -33,7 +33,7 @@ const Sidebar = () => {
 
                 <div className="menu-item" onClick={() => navigate('/facture_devis')}>
                     <FaFileInvoice className="icon" />
-                    <span className="text">Factures et Devis</span>
+                    <span className="text">Modifications</span>
                 </div>
 
                 <div className="menu-item" onClick={() => navigate('/add-material')}>
