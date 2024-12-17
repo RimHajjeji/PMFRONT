@@ -103,7 +103,7 @@ const FactureClient = () => {
                                 </td>
                                 <td>
                                     <button
-                                        className="historique-modif-button"
+                                        className="Historique-fact-button"
                                         onClick={() => handleHistoriqueModifications(facture._id)}
                                     >
                                         Modifications précédentes

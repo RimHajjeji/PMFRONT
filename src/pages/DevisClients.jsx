@@ -44,6 +44,11 @@ const DevisClients = () => {
         navigate(`/modif_devis/${devisId}`);
     };
 
+    // Fonction pour naviguer vers l'historique des modifications d'une facture
+    const handleHistoriqueModifications = (devisId) => {
+        navigate(`/historiquemodifsdevis/${devisId}`);
+    };
+
     // Affichage du contenu en fonction de l'état de chargement ou d'erreur
     if (loading) {
         return <div>Chargement des données...</div>;
@@ -97,9 +102,9 @@ const DevisClients = () => {
                                     </button>
                                 </td>
                                 <td>
-                                    <button
+                                <button
                                         className="historique-modif-button"
-                                        onClick={() => navigate(`/historique_modifs_devis/${devisItem._id}`)}
+                                        onClick={() => handleHistoriqueModifications(devisItem._id)}
                                     >
                                         Modifications précédentes
                                     </button>
