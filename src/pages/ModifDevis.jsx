@@ -2,20 +2,18 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import "../style/ModifFacture.css";
+import '../style/ModifDevis.css'
 
-const ModifFacture = () => {
-  const { devisId } = useParams(); // ID de la facture dans l'URL
+const ModifDevis = () => {
+  const { devisId } = useParams(); // ID du devis dans l'URL
   const { register, handleSubmit, reset, setValue, watch } = useForm();
-  const [devis, setDevis] = useState(null); // Données de la facture
+  const [devis, setDevis] = useState(null); // Données du devis
   const [clients, setClients] = useState([]); // Liste des clients
   const [selectedClient, setSelectedClient] = useState(null); // Client sélectionné
   const [loadingDevis, setLoadingDevis] = useState(true);
   const [error, setError] = useState(null);
   const [modificationHistory, setModificationHistory] = useState([]);
-  const [admin, setAdmin] = useState({ nom: "", prenom: "" });
-
-
+  const [admin, setAdmin] = useState("");
 
   useEffect(() => {
     const fetchAdminProfile = async () => {
@@ -25,7 +23,8 @@ const ModifFacture = () => {
             "x-auth-token": localStorage.getItem("x-auth-token") // Assurez-vous que le token est dans localStorage
           }
         });
-        setAdmin({ nom: response.data.nom, prenom: response.data.prenom });
+        const { nom, prenom } = response.data;
+        setAdmin(`${nom} ${prenom}`);
       } catch (err) {
         console.error("Erreur lors de la récupération du profil admin", err);
       }
@@ -48,7 +47,7 @@ const ModifFacture = () => {
     fetchClients();
   }, []);
 
-  // Récupérer les données de la facture
+  // Récupérer les données du devis
   useEffect(() => {
     const fetchDevis = async () => {
       try {
@@ -59,7 +58,7 @@ const ModifFacture = () => {
 
         setDevis(devisData);
         setModificationHistory(devisData.modificationHistory || []);
-        reset(devisData); // Pré-remplir le formulaire avec les données de la facture
+        reset(devisData); // Pré-remplir le formulaire avec les données du devis
         setSelectedClient(devisData.client); // Définir le client initial
 
         // Pré-remplir les dates et les frais supplémentaires
@@ -89,7 +88,7 @@ const ModifFacture = () => {
           devisData.fraisSupplementaires?.fraisChauffeur || 0,
         );
       } catch (err) {
-        setError("Erreur lors de la récupération de la facture.");
+        setError("Erreur lors de la récupération du devis.");
         console.error(err);
       } finally {
         setLoadingDevis(false);
@@ -207,11 +206,11 @@ const ModifFacture = () => {
   const onSubmit = async (data) => {
     try {
       // Créez une entrée pour l'historique des modifications
-    const modificationData = {
-      modifiedBy: `${admin.nom} ${admin.prenom}`,  // Utilisez le nom et prénom de l'admin
-      modifiedAt: new Date().toISOString(),
-      changes: JSON.stringify(data), // Vous pouvez personnaliser ce champ selon les besoins
-    };
+      const modificationData = {
+        modifiedBy: `${admin.nom} ${admin.prenom}`,  // Utilisez le nom et prénom de l'admin
+        modifiedAt: new Date().toISOString(),
+        changes: JSON.stringify(data), // Vous pouvez personnaliser ce champ selon les besoins
+      };
 
       // Ajoutez l'entrée à l'historique des modifications existant
       const updatedHistory = [...modificationHistory, modificationData];
@@ -235,35 +234,35 @@ const ModifFacture = () => {
         css: calculateCSS(),
         totalTTC: calculateTotalTTC(),
         totalNet: calculateTotalNet(),
-
+           
         modificationHistory: updatedHistory, // Ajouter l'historique mis à jour
       };
       await axios.put(
         `http://localhost:5000/api/devis/${devisId}`,
         updatedData,
       );
-      alert("Facture mise à jour avec succès !");
+      alert("Devis mis à jour avec succès !");
     } catch (err) {
-      setError("Erreur lors de la mise à jour de la facture.");
+      setError("Erreur lors de la mise à jour du devis.");
       console.error(err);
     }
   };
 
-  if (loadingDevis) return <p>Chargement des données de la facture...</p>;
+  if (loadingDevis) return <p>Chargement des données du devis...</p>;
   if (error) return <p>{error}</p>;
 
-  return (
-    <div className="modif-facture">
-      <h1 className="modif-facture-title">
-        Modifier la Facture #{devis?.devisNumber}
+  return ( 
+    <div className="modif-devis">
+      <h1 className="modif-devis-title">
+        Modifier le Devis #{devis?.devisNumber}
       </h1>
-
+  
       {/* Sélection du client */}
-      <h2 className="modif-facture-client-info">Informations du Client</h2>
-      <div className="modif-facture-client-select">
-        <label className="modif-facture-label">Client :</label>
+      <h2 className="modif-devis-client-info">Informations du Client</h2>
+      <div className="modif-devis-client-select">
+        <label className="modif-devis-label">Client :</label>
         <select
-          className="modif-facture-select"
+          className="modif-devis-select"
           value={selectedClient?._id || ""}
           onChange={(e) => handleClientChange(e.target.value)}
         >
@@ -272,72 +271,72 @@ const ModifFacture = () => {
             <option
               key={client._id}
               value={client._id}
-              className="modif-facture-client-option"
+              className="modif-devis-client-option"
             >
               {client.firstName} {client.lastName}
             </option>
           ))}
         </select>
       </div>
-
+  
       {/* Affichage des informations du client */}
       {selectedClient && (
-        <div className="modif-facture-client-details">
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Prénom :</label>
+        <div className="modif-devis-client-details">
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Prénom :</label>
             <input
               type="text"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("client.firstName")}
               defaultValue={selectedClient.firstName}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Nom :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Nom :</label>
             <input
               type="text"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("client.lastName")}
               defaultValue={selectedClient.lastName}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Email :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Email :</label>
             <input
               type="email"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("client.email")}
               defaultValue={selectedClient.email}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Téléphone :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Téléphone :</label>
             <input
               type="text"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("client.phone")}
               defaultValue={selectedClient.phone}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Code Client :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Code Client :</label>
             <input
               type="text"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("client.codeClient")}
               defaultValue={selectedClient.codeClient}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Type de Client :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Type de Client :</label>
             <input
               type="text"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("client.typeClient")}
               defaultValue={selectedClient.typeClient}
               readOnly
@@ -345,75 +344,75 @@ const ModifFacture = () => {
           </div>
         </div>
       )}
-
-      {/* Formulaire de modification de la facture */}
-      <h2 className="modif-facture-info">Informations de la Facture</h2>
-      <form className="modif-facture-form" onSubmit={handleSubmit(onSubmit)}>
-        <div className="modif-facture-field">
-          <label className="modif-facture-label">Date de Facturation :</label>
+  
+      {/* Formulaire de modification du devis */}
+      <h2 className="modif-devis-info">Informations du Devis</h2>
+      <form className="modif-devis-form" onSubmit={handleSubmit(onSubmit)}>
+        <div className="modif-devis-field">
+          <label className="modif-devis-label">Date de Devis :</label>
           <input
             type="date"
-            className="modif-facture-input"
+            className="modif-devis-input"
             {...register("date")}
             readOnly
           />
         </div>
-
-        <div className="modif-facture-field">
-          <label className="modif-facture-label">Émis Par :</label>
+  
+        <div className="modif-devis-field">
+          <label className="modif-devis-label">Émis Par :</label>
           <input
-            className="modif-facture-input"
+            className="modif-devis-input"
             {...register("issuedBy")}
             defaultValue={devis?.issuedBy}
             readOnly
           />
         </div>
-        <div className="modif-facture-billing-period">
-          <label className="modif-facture-label">
-            Période de Facturation :
+        <div className="modif-devis-billing-period">
+          <label className="modif-devis-label">
+            Période de Devis :
           </label>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Début :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Début :</label>
             <input
               type="date"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("billingPeriod.startDate")}
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Fin :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Fin :</label>
             <input
               type="date"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("billingPeriod.endDate")}
             />
           </div>
         </div>
-
-        {/* Informations des véhicules facturés */}
-        <div className="modif-facture-vehicles">
-          <h3 className="modif-facture-subtitle">Véhicules Facturés :</h3>
-          <table className="modif-facture-table">
+  
+        {/* Informations des véhicules devisés */}
+        <div className="modif-devis-vehicles">
+          <h3 className="modif-devis-subtitle">Véhicules Devisés :</h3>
+          <table className="modif-devis-table">
             <thead>
               <tr>
-                <th className="modif-facture-th">Marque</th>
-                <th className="modif-facture-th">Modèle</th>
-                <th className="modif-facture-th">
+                <th className="modif-devis-th">Marque</th>
+                <th className="modif-devis-th">Modèle</th>
+                <th className="modif-devis-th">
                   {devis?.vehicles[0]?.tarifType || "Tarif"}
                 </th>
-                <th className="modif-facture-th">
+                <th className="modif-devis-th">
                   {devis?.vehicles[0]?.durationType || "Durée"}
                 </th>
-                <th className="modif-facture-th">Montant</th>
+                <th className="modif-devis-th">Montant</th>
               </tr>
             </thead>
             <tbody>
               {rentedVehicles.map((vehicle, index) => (
-                <tr key={index} className="modif-facture-row">
+                <tr key={index} className="modif-devis-row">
                   <td>
                     <input
                       type="text"
-                      className="modif-facture-input"
+                      className="modif-devis-input"
                       {...register(`vehicles[${index}].marque`)}
                       defaultValue={vehicle.marque}
                     />
@@ -421,7 +420,7 @@ const ModifFacture = () => {
                   <td>
                     <input
                       type="text"
-                      className="modif-facture-input"
+                      className="modif-devis-input"
                       {...register(`vehicles[${index}].modele`)}
                       defaultValue={vehicle.modele}
                     />
@@ -429,7 +428,7 @@ const ModifFacture = () => {
                   <td>
                     <input
                       type="number"
-                      className="modif-facture-input"
+                      className="modif-devis-input"
                       {...register(`vehicles[${index}].dailyRate`, {
                         valueAsNumber: true,
                         onChange: (e) => {
@@ -445,7 +444,7 @@ const ModifFacture = () => {
                   <td>
                     <input
                       type="number"
-                      className="modif-facture-input"
+                      className="modif-devis-input"
                       {...register(`vehicles[${index}].daysRented`, {
                         valueAsNumber: true,
                         onChange: (e) => {
@@ -458,10 +457,10 @@ const ModifFacture = () => {
                       defaultValue={vehicle.daysRented}
                     />
                   </td>
-                  <td className="modif-facture-amount">
+                  <td className="modif-devis-amount">
                     <input
                       type="number"
-                      className="modif-facture-input"
+                      className="modif-devis-input"
                       {...register(`vehicles[${index}].montant`)}
                       defaultValue={vehicle.dailyRate * vehicle.daysRented || 0}
                       readOnly
@@ -475,158 +474,156 @@ const ModifFacture = () => {
         <br />
         <br />
         {/* Nouveaux champs */}
-        <div className="modif-facture-additional-fees">
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Frais Carburant :</label>
+        <div className="modif-devis-additional-fees">
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Frais Carburant :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("fraisCarburant")}
               defaultValue={devis?.fraisSupplementaires?.fraisCarburant || 0}
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Frais Kilométrage :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Frais Kilométrage :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("fraisKilometrage")}
-              defaultValue={
-                devis?.fraisSupplementaires?.fraisKilometrage || 0
-              }
+              defaultValue={devis?.fraisSupplementaires?.fraisKilometrage || 0}
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Frais Livraison :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Frais Livraison :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("fraisLivraison")}
               defaultValue={devis?.fraisSupplementaires?.fraisLivraison || 0}
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Frais Chauffeur :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Frais Chauffeur :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("fraisChauffeur")}
               defaultValue={devis?.fraisSupplementaires?.fraisChauffeur || 0}
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">CSS :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">CSS :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("css")}
               defaultValue={devis?.css}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Total HT Frais :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Total HT Frais :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("totalHTFrais")}
               defaultValue={devis?.totalHTFrais}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Acompte :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Acompte :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("acompte")}
               defaultValue={devis?.acompte}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">
               Montant Remboursement :
             </label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("montantRemboursement")}
               defaultValue={devis?.montantRemboursement}
             />
           </div>
         </div>
-
-        {/* Totaux de la facture */}
-
-        <div className="modif-facture-totals">
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Remise :</label>
+  
+        {/* Totaux du devis */}
+        <div className="modif-devis-totals">
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Remise :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("remise")}
               defaultValue={devis?.remise}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">
               Pourcentage de Réduction :
             </label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("discountPercentage")}
               defaultValue={devis?.discountPercentage}
             />
           </div>
-
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Total HT :</label>
+  
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Total HT :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("totalHT")}
               readOnly
             />
           </div>
-
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">TVA :</label>
+  
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">TVA :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("tva")}
               readOnly
             />
           </div>
-
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Total TTC :</label>
+  
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Total TTC :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("totalTTC")}
               readOnly
             />
           </div>
-          <div className="modif-facture-field">
-            <label className="modif-facture-label">Total Net :</label>
+          <div className="modif-devis-field">
+            <label className="modif-devis-label">Total Net :</label>
             <input
               type="number"
-              className="modif-facture-input"
+              className="modif-devis-input"
               {...register("totalNet")}
               readOnly
             />
           </div>
         </div>
-        <button type="submit" className="modif-facture-submit">
+        <button type="submit" className="modif-devis-submit">
           Modifier
         </button>
       </form>
     </div>
   );
-};
-
-export default ModifFacture;
+  };
+  
+  export default ModifDevis;
+  

@@ -13,11 +13,15 @@ import Layout from './components/Layout';
 import Imprimefact from './pages/Imprimefact'; 
 import Imprimedevis from './pages/Imprimedevis';
 import Facture_Devis from './pages/Facture_Devis';
-import DevisClient from './pages/DevisClient';
+import DevisClient from './pages/DevisClients';
 import FacturesClient from './pages/FacturesClient';
 import ModifFacture from './pages/ModifFacture';
 import ModiferClient from './pages/ModiferClient';
 import HistoriqueModifs from './pages/HistoriqueModifs';
+import DevisClients from './pages/DevisClients';
+import ModifDevis from './pages/ModifDevis';
+import VoirDevis from './pages/VoirDevis';
+import VoirFacture from './pages/VoirFacture';
 
 function App() {
   return (
@@ -87,6 +91,16 @@ function App() {
           }
         />
         <Route
+          path="/devis_clients/:clientId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <DevisClients />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
           path="/historique_modifs/:invoiceId"
           element={
             <PrivateRoute>
@@ -102,6 +116,16 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <ModifFacture />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/modif_devis/:devisId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <ModifDevis />
               </Layout>
             </PrivateRoute>
           }
@@ -164,6 +188,27 @@ function App() {
             <PrivateRoute>
               <Layout>
                 <Imprimedevis/>
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+
+        <Route
+          path="/Voirfacture/:invoiceId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <VoirFacture />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/Voirdevis/:devisId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <VoirDevis />
               </Layout>
             </PrivateRoute>
           }
