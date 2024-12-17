@@ -107,18 +107,7 @@ const Imprimedevis = () => {
         ) : 'N/A'}
     </p>
 
-    {/* Section Caution */}
-    <div className="caution-section">
-        <label htmlFor="caution">Caution (en CFA) :</label>
-        <input
-            type="number"
-            id="caution"
-            value={caution}
-            onChange={(e) => setCaution(e.target.value)}
-            placeholder="Montant de la caution"
-        />
-        <button onClick={handleUpdateCaution}>Mettre à jour la Caution</button>
-    </div>
+ 
 </div>
                 </div>
             </header>
