@@ -17,7 +17,9 @@ const FactureClient = () => {
             try {
                 // Récupérer les factures du client
                 const facturesResponse = await axios.get(`http://localhost:5000/api/invoices/client/${clientId}`);
-                setFactures(facturesResponse.data.invoices);
+                // Tri des factures par date décroissante
+                const sortedFactures = facturesResponse.data.invoices.sort((a, b) => new Date(b.date) - new Date(a.date));
+                setFactures(sortedFactures);
 
                 // Récupérer les détails du client
                 const clientResponse = await axios.get(`http://localhost:5000/api/clients/${clientId}`);

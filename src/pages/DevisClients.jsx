@@ -17,7 +17,9 @@ const DevisClients = () => {
             try {
                 // Récupérer les devis du client
                 const devisResponse = await axios.get(`http://localhost:5000/api/devis/client/${clientId}`);
-                setDevis(devisResponse.data.devis);
+                // Tri des devis par date décroissante
+                const sortedDevis = devisResponse.data.devis.sort((a, b) => new Date(b.date) - new Date(a.date));
+                setDevis(sortedDevis);
 
                 // Récupérer les détails du client
                 const clientResponse = await axios.get(`http://localhost:5000/api/clients/${clientId}`);
@@ -44,7 +46,7 @@ const DevisClients = () => {
         navigate(`/modif_devis/${devisId}`);
     };
 
-    // Fonction pour naviguer vers l'historique des modifications d'une facture
+    // Fonction pour naviguer vers l'historique des modifications d'un devis
     const handleHistoriqueModifications = (devisId) => {
         navigate(`/historiquemodifsdevis/${devisId}`);
     };
@@ -102,7 +104,7 @@ const DevisClients = () => {
                                     </button>
                                 </td>
                                 <td>
-                                <button
+                                    <button
                                         className="historique-modif-button"
                                         onClick={() => handleHistoriqueModifications(devisItem._id)}
                                     >
