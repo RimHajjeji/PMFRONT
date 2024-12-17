@@ -22,7 +22,7 @@ import ModifDevis from './pages/ModifDevis';
 import VoirDevis from './pages/VoirDevis';
 import VoirFacture from './pages/VoirFacture';
 import HistoriqueModifsFact from './pages/HistoriqueModifsFact';
-
+import HistoriqueModifsDevis from './pages/HistoriqueModifsDevis';
 
 
 function App() {
@@ -112,7 +112,16 @@ function App() {
             </PrivateRoute>
           }
         />
-       
+        <Route
+          path="/historiquemodifsdevis/:devisId"
+          element={
+            <PrivateRoute>
+              <Layout>
+                <HistoriqueModifsDevis />
+              </Layout>
+            </PrivateRoute>
+          }
+        />
         <Route
           path="/modif_facture/:invoiceId"
           element={
