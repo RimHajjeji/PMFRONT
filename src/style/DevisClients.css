@@ -65,28 +65,28 @@
 }
 
 .voir-devis-button {
-    background-color: #27ae7f;
+    background-color: #187c59;
     color: #fff;
 }
 
 .voir-devis-button:hover {
-    background-color: #137452;
+    background-color: #14523c;
 }
 
 .modifier-devis-button {
-    background-color: #27ae7f;
+    background-color: #187c59;
     color: #fff;
 }
 
 .modifier-devis-button:hover {
-    background-color: #137452;
+    background-color: #14523c;
 }
 
 .historique-modif-button {
-    background-color: #27ae7f;
+    background-color: #187c59;
     color: #fff;
 }
 
 .historique-modif-button:hover {
-    background-color: #137452;
+    background-color: #14523c;
 }

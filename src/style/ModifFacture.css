@@ -1,145 +1,151 @@
-/* Styles généraux */
-.modif-facture-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    font-family: 'Arial', sans-serif;
-    color: #333;
-  }
-  
-  /* Titres */
-  .modif-facture-heading {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #4caf50;
-    text-align: center;
-  }
-  
-  .modif-facture-subheading {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin: 1.5rem 0 0.5rem;
-    color: #333;
-  }
-  
-  /* Form Labels */
-  .modif-facture-label {
-    font-weight: bold;
-    margin-right: 1rem;  /* Ajoute de l'espace entre le label et l'input */
-    color: #666;
-    font-size: 1rem;
-  }
-  
-  /* Inputs */
-  .modif-facture-input,
-  .modif-facture-select {
-    width: 90%;
-    max-width: 400px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .modif-facture-input:focus,
-  .modif-facture-select:focus {
-    border-color: #4caf50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-  }
-  
-  /* Table Styles */
-  .modif-facture-table {
-    width: 90%;
-    border-collapse: collapse;
-    margin-top: 1.5rem;
-  }
-  
-  .modif-facture-th, .modif-facture-td {
-    padding: 0.75rem;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .modif-facture-th {
-    background-color: #4caf50;
-    color: #fff;
-    font-weight: bold;
-  }
-  
-  .modif-facture-td {
-    background-color: #fafafa;
-  }
-  
-  .modif-facture-row input.modif-facture-input {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    box-sizing: border-box; /* Fixe la largeur totale des inputs */
-  }
-  
-  .modif-facture-row input.modif-facture-input:focus {
-    border-color: #4caf50;
-    outline: none;
-    box-shadow: 0 0 4px rgba(76, 175, 80, 0.5);
-  }
-  
-  .modif-facture-row:hover .modif-facture-td {
-    background-color: #f1f1f1;
-  }
-  
-  /* Totals */
-  .modif-facture-total {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #4caf50;
-    text-align: right;
-    margin-top: 1rem;
-  }
-  
-  /* Buttons */
-  .modif-facture-submit {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #4caf50;
-    border: none;
-    border-radius: 24px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-  }
-  
-  .modif-facture-submit:hover {
-    background-color: #3e8e41;
-    transform: translateY(-2px);
-  }
-  
-  .modif-facture-submit:active {
-    transform: translateY(0);
-  }
-  
-  /* Alignement des labels et inputs côte à côte */
-  .modif-facture-field {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;  /* Espacement entre les champs */
-  }
-  
-  .modif-facture-field .modif-facture-label {
-    flex: 0 0 150px; /* Fixe la largeur du label */
-  }
-  
-  .modif-facture-field .modif-facture-input {
-    flex: 1; /* L'input prend tout l'espace restant */
-  }
-  
+/* Mise en page générale */ 
+.modif-facture {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7fc;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 1200px;
+  margin: auto;
+  box-sizing: border-box; /* Ajouté pour gérer les bordures et paddings */
+  overflow-x: auto; /* Ajouté pour gérer les débordements horizontaux */
+}
+
+.modif-facture-title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #004d99;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modif-facture-info, .modif-facture-client-info {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #2b3d50;
+}
+
+/* Style des champs du formulaire */
+.modif-facture-field {
+  margin-bottom: 15px;
+}
+
+.modif-facture-label {
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.modif-facture-input, .modif-facture-select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  color: #555;
+  box-sizing: border-box; /* Ajouté pour éviter les débordements horizontaux */
+}
+
+.modif-facture-input:focus, .modif-facture-select:focus {
+  border-color: #0066cc;
+  outline: none;
+}
+
+.modif-facture-client-select, .modif-facture-billing-period, .modif-facture-vehicles {
+  margin-bottom: 20px;
+}
+
+/* Style des options dans le select */
+.modif-facture-client-option {
+  font-size: 16px;
+  color: #333;
+}
+
+/* Table des véhicules */
+.modif-facture-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  table-layout: fixed; /* Ajouté pour éviter le débordement des colonnes */
+}
+
+.modif-facture-th, .modif-facture-td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+  word-wrap: break-word; /* Ajouté pour éviter que le texte ne dépasse */
+  overflow: hidden; /* Ajouté pour cacher les débordements */
+}
+
+.modif-facture-th {
+  background-color: #f0f5ff;
+  font-size: 16px;
+  color: #2b3d50;
+}
+
+.modif-facture-row:hover {
+  background-color: #fafafa;
+}
+
+.modif-facture-amount input {
+  text-align: center;
+}
+
+/* Style des frais supplémentaires */
+.modif-facture-additional-fees {
+  margin-bottom: 25px;
+}
+
+/* Totaux */
+.modif-facture-totals .modif-facture-field {
+  margin-top: 15px;
+}
+
+/* Sections avec des bordures */
+.modif-facture-client-details, .modif-facture-billing-period, .modif-facture-vehicles, .modif-facture-additional-fees {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+/* Styles pour les titres */
+.modif-facture-subtitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #2b3d50;
+  margin-bottom: 15px;
+}
+
+.modif-facture-totals {
+  background-color: #f9fafb;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Espacement entre les sections */
+.modif-facture-field + .modif-facture-field {
+  margin-top: 15px;
+}
+
+.modif-facture-submit {
+  padding: 12px 30px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.modif-facture-submit:hover {
+  background-color: #004d99;
+}

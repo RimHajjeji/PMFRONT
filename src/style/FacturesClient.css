@@ -65,29 +65,29 @@
 }
 
 .voir-facture-button {
-    background-color: #c73838;
+    background-color: #004d99;
     color: #fff;
 }
 
 .voir-facture-button:hover {
-    background-color: #a51e1e;
+    background-color: #073462;
 }
 
 .modifier-facture-button {
-    background-color: #c73838;
+    background-color: #004d99;
     color: #fff;
 }
 
 .modifier-facture-button:hover {
-    background-color: #a51e1e;
+    background-color: #073462;
 }
 
 .Historique-fact-button {
-    background-color: #c73838;
+    background-color: #004d99;
     color: #fff;
 }
 
 .Historique-fact-button:hover {
-    background-color: #a51e1e;
+    background-color: #073462;
 }
 

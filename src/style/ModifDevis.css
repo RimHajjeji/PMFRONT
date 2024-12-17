@@ -1,154 +1,152 @@
-/* Styles généraux */
-.modif-devis-container {
-    max-width: 1200px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #fff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
+/* Mise en page générale */
+.modif-devis {
     font-family: 'Arial', sans-serif;
-    color: #333;
+    background-color: #f4f7fc;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    margin: auto;
+    box-sizing: border-box; /* Ajouté pour gérer les bordures et paddings */
+    overflow-x: auto; /* Ajouté pour gérer les débordements horizontaux */
   }
   
-  /* Titres */
   .modif-devis-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-    color: #4caf50;
+    font-size: 32px;
+    font-weight: 600;
+    color: #004d99;
+    margin-bottom: 20px;
     text-align: center;
   }
   
-  .modif-devis-info,
-  .modif-devis-client-info {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin: 1.5rem 0 0.5rem;
+  .modif-devis-info, .modif-devis-client-info {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #2b3d50;
+  }
+  
+  /* Style des champs du formulaire */
+  .modif-devis-field {
+    margin-bottom: 15px;
+  }
+  
+  .modif-devis-label {
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  .modif-devis-input, .modif-devis-select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+    color: #555;
+    box-sizing: border-box; /* Ajouté pour éviter les débordements horizontaux */
+  }
+  
+  .modif-devis-input:focus, .modif-devis-select:focus {
+    border-color: #0066cc;
+    outline: none;
+  }
+  
+  .modif-devis-client-select, .modif-devis-billing-period, .modif-devis-vehicles {
+    margin-bottom: 20px;
+  }
+  
+  /* Style des options dans le select */
+  .modif-devis-client-option {
+    font-size: 16px;
     color: #333;
   }
   
-  .modif-devis-subtitle {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin-top: 1rem;
-    color: #555;
-  }
-  
-  /* Form Labels */
-  .modif-devis-label {
-    font-weight: bold;
-    margin-right: 1rem;
-    color: #666;
-    font-size: 1rem;
-  }
-  
-  /* Inputs */
-  .modif-devis-input,
-  .modif-devis-select {
-    width: 90%;
-    max-width: 400px;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 1rem;
-    transition: box-shadow 0.3s ease;
-  }
-  
-  .modif-devis-input:focus,
-  .modif-devis-select:focus {
-    border-color: #4caf50;
-    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
-  }
-  
-  /* Table Styles */
+  /* Table des véhicules */
   .modif-devis-table {
-    width: 90%;
+    width: 100%;
     border-collapse: collapse;
-    margin-top: 1.5rem;
+    margin-bottom: 20px;
+    table-layout: fixed; /* Ajouté pour éviter le débordement des colonnes */
   }
   
-  .modif-devis-th,
-  .modif-devis-td {
-    padding: 0.75rem;
+  .modif-devis-th, .modif-devis-td {
+    padding: 12px;
     text-align: left;
     border: 1px solid #ddd;
+    word-wrap: break-word; /* Ajouté pour éviter que le texte ne dépasse */
+    overflow: hidden; /* Ajouté pour cacher les débordements */
   }
   
   .modif-devis-th {
-    background-color: #4caf50;
-    color: #fff;
-    font-weight: bold;
+    background-color: #f0f5ff;
+    font-size: 16px;
+    color: #2b3d50;
   }
   
-  .modif-devis-td {
+  .modif-devis-row:hover {
     background-color: #fafafa;
   }
   
-  .modif-devis-row input.modif-devis-input {
-    width: 100%;
-    padding: 0.5rem;
-    margin: 0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    box-sizing: border-box;
+  .modif-devis-amount input {
+    text-align: center;
   }
   
-  .modif-devis-row input.modif-devis-input:focus {
-    border-color: #4caf50;
-    outline: none;
-    box-shadow: 0 0 4px rgba(76, 175, 80, 0.5);
+  /* Style des frais supplémentaires */
+  .modif-devis-additional-fees {
+    margin-bottom: 25px;
   }
   
-  .modif-devis-row:hover .modif-devis-td {
-    background-color: #f1f1f1;
+  /* Totaux */
+  .modif-devis-totals .modif-devis-field {
+    margin-top: 15px;
   }
   
-  /* Totals */
-  .modif-devis-total {
-    font-weight: bold;
-    font-size: 1.2rem;
-    color: #4caf50;
-    text-align: right;
-    margin-top: 1rem;
+  /* Sections avec des bordures */
+  .modif-devis-client-details, .modif-devis-billing-period, .modif-devis-vehicles, .modif-devis-additional-fees {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
   }
   
-  /* Buttons */
+  /* Styles pour les titres */
+  .modif-devis-subtitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #2b3d50;
+    margin-bottom: 15px;
+  }
+  
+  .modif-devis-totals {
+    background-color: #f9fafb;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Espacement entre les sections */
+  .modif-devis-field + .modif-devis-field {
+    margin-top: 15px;
+  }
+  
   .modif-devis-submit {
-    display: inline-block;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background-color: #4caf50;
+    padding: 12px 30px;
+    background-color: #0066cc;
+    color: white;
     border: none;
-    border-radius: 24px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
   }
   
   .modif-devis-submit:hover {
-    background-color: #3e8e41;
-    transform: translateY(-2px);
-  }
-  
-  .modif-devis-submit:active {
-    transform: translateY(0);
-  }
-  
-  /* Alignement des labels et inputs côte à côte */
-  .modif-devis-field {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-  }
-  
-  .modif-devis-field .modif-devis-label {
-    flex: 0 0 150px;
-  }
-  
-  .modif-devis-field .modif-devis-input {
-    flex: 1;
+    background-color: #004d99;
   }
   
