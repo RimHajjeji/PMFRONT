@@ -439,6 +439,7 @@ const Facture = () => {
           value={dailyRate}
           onChange={(e) => setDailyRate(e.target.value)}
           required
+          onWheel={(e) => e.target.blur()} // Désactive le scroll
         />
       </label>
       <label>
@@ -450,6 +451,7 @@ const Facture = () => {
           onChange={(e) => setDaysRented(e.target.value)}
           required
           min="1"
+          onWheel={(e) => e.target.blur()} // Désactive le scroll
         />
       </label>
       <button className="btnfacture1" type="button" onClick={handleAddVehicle}>
@@ -492,6 +494,7 @@ const Facture = () => {
       type="number"
       value={fraisCarburant}
       onChange={(e) => setFraisCarburant(e.target.value)}
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -500,7 +503,7 @@ const Facture = () => {
       type="number"
       value={fraisKilometrage}
       onChange={(e) => setFraisKilometrage(e.target.value)}
-      
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -509,7 +512,7 @@ const Facture = () => {
       type="number"
       value={fraisLivraison}
       onChange={(e) => setFraisLivraison(e.target.value)}
-      
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -518,7 +521,7 @@ const Facture = () => {
       type="number"
       value={fraisChauffeur}
       onChange={(e) => setFraisChauffeur(e.target.value)}
-     
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
 </div>
@@ -531,7 +534,7 @@ const Facture = () => {
       type="number"
       value={acompte}
       onChange={(e) => setAcompte(parseFloat(e.target.value) )}
-     
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
   <label>
@@ -540,7 +543,7 @@ const Facture = () => {
       type="number"
       value={montantRemboursement}
       onChange={(e) => setMontantRemboursement(parseFloat(e.target.value) )}
-   
+      onWheel={(e) => e.target.blur()} // Désactive le scroll
     />
   </label>
 </div>

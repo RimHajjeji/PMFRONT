@@ -91,26 +91,39 @@ const Imprimefact = () => {
                     </div>
 
                     <div className="billing-infoFACT">
-                        <p><strong>Numéro de Facture :</strong> {invoice.invoiceNumber}</p>
-                        <p><strong>Date :</strong> {new Date(invoice.date).toLocaleDateString()}</p>
-                        <h3>Période Locative :</h3>
-                        <p>
-                            {invoice.billingPeriod ? (
-                                `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
-                            ) : 'N/A'}
-                        </p>
-                        <div className="caution-section">
-                <label htmlFor="caution">Caution (en CFA) :</label>
-                <input
-                    type="number"
-                    id="caution"
-                    value={caution}
-                    onChange={(e) => setCaution(e.target.value)}
-                    placeholder="Montant de la caution"
-                />
-                <button onClick={handleUpdateCaution}>Mettre à jour la Caution</button>
-            </div>
-                    </div>
+    {/* Ligne Numéro de Facture */}
+    <p className="title">Numéro de Facture :</p>
+    <p className="value">{invoice.invoiceNumber}</p>
+
+    {/* Ligne Date */}
+    <p className="title">Date :</p>
+    <p className="value">{new Date(invoice.date).toLocaleDateString()}</p>
+
+    {/* Période Locative */}
+    <h3>Période Locative :</h3>
+    
+    <p className="value">
+        {invoice.billingPeriod
+            ? `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
+            : 'N/A'}
+    </p>
+
+    {/* Section Caution */}
+    <div className="caution-section">
+        <label htmlFor="caution">Caution (en CFA) :</label>
+        <input
+            type="number"
+            id="caution"
+            value={caution}
+            onChange={(e) => setCaution(e.target.value)}
+            placeholder="Montant de la caution"
+        />
+        <button onClick={handleUpdateCaution}>Mettre à jour la Caution</button>
+    </div>
+</div>
+
+
+
                 </div>
             </header>
 
