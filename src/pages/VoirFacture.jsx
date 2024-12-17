@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import "../style/Imprimefact.css";
 
-const VoirFacture = () => {
+const VoirFact = () => {
     const { invoiceId } = useParams(); // Récupérer l'ID de la facture depuis l'URL
     const [invoice, setInvoice] = useState(null);
     const [caution, setCaution] = useState(0); // Initialiser la caution à 0
@@ -91,26 +91,39 @@ const VoirFacture = () => {
                     </div>
 
                     <div className="billing-infoFACT">
-                        <p><strong>Numéro de Facture :</strong> {invoice.invoiceNumber}</p>
-                        <p><strong>Date :</strong> {new Date(invoice.date).toLocaleDateString()}</p>
+                        {/* Ligne Numéro de Facture */}
+                        <p className="title">Numéro de Facture :</p>
+                        <p className="value">{invoice.invoiceNumber}</p>
+
+                        {/* Ligne Date */}
+                        <p className="title">Date :</p>
+                        <p className="value">{new Date(invoice.date).toLocaleDateString()}</p>
+
+                        {/* Période Locative */}
                         <h3>Période Locative :</h3>
-                        <p>
-                            {invoice.billingPeriod ? (
-                                `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
-                            ) : 'N/A'}
+                        
+                        <p className="value">
+                            {invoice.billingPeriod
+                                ? `${new Date(invoice.billingPeriod.startDate).toLocaleDateString()} - ${new Date(invoice.billingPeriod.endDate).toLocaleDateString()}`
+                                : 'N/A'}
                         </p>
+
+                        {/* Section Caution */}
                         <div className="caution-section">
-                <label htmlFor="caution">Caution (en CFA) :</label>
-                <input
-                    type="number"
-                    id="caution"
-                    value={caution}
-                    onChange={(e) => setCaution(e.target.value)}
-                    placeholder="Montant de la caution"
-                />
-                <button onClick={handleUpdateCaution}>Mettre à jour la Caution</button>
-            </div>
+                            <label htmlFor="caution">Caution (en CFA) :</label>
+                            <input
+                                type="number"
+                                id="caution"
+                                value={caution}
+                                onChange={(e) => setCaution(e.target.value)}
+                                placeholder="Montant de la caution"
+                            />
+                    
+                        </div>
                     </div>
+
+
+
                 </div>
             </header>
 
@@ -122,8 +135,9 @@ const VoirFacture = () => {
                     <tr>
                         <th>N°</th>
                         <th>Description</th>
-                        <th>Tarif Journalier</th>
-                        <th>Nombre de Jours Facturés</th>
+                        <th>{invoice.vehicles.length > 0 ? invoice.vehicles[0].tarifType || 'N/A' : 'N/A'}</th>
+                        <th>{invoice.vehicles.length > 0 ? invoice.vehicles[0].durationType || 'N/A' : 'N/A'}</th>
+                       
                         <th>Montant</th>
                     </tr>
                 </thead>
@@ -235,4 +249,4 @@ const VoirFacture = () => {
     );
 };
 
-export default VoirFacture;
+export default VoirFact;

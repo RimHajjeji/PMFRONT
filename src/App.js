@@ -17,11 +17,13 @@ import DevisClient from './pages/DevisClients';
 import FacturesClient from './pages/FacturesClient';
 import ModifFacture from './pages/ModifFacture';
 import ModiferClient from './pages/ModiferClient';
-import HistoriqueModifs from './pages/HistoriqueModifs';
 import DevisClients from './pages/DevisClients';
 import ModifDevis from './pages/ModifDevis';
 import VoirDevis from './pages/VoirDevis';
 import VoirFacture from './pages/VoirFacture';
+import HistoriqueModifsFact from './pages/HistoriqueModifsFact';
+
+
 
 function App() {
   return (
@@ -101,15 +103,16 @@ function App() {
           }
         />
         <Route
-          path="/historique_modifs/:invoiceId"
+          path="/historiquemodifsfact/:invoiceId"
           element={
             <PrivateRoute>
               <Layout>
-                <HistoriqueModifs />
+                <HistoriqueModifsFact />
               </Layout>
             </PrivateRoute>
           }
         />
+       
         <Route
           path="/modif_facture/:invoiceId"
           element={
