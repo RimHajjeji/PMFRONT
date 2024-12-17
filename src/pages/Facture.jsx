@@ -341,38 +341,6 @@ const Facture = () => {
             </div>
           </div>
 
-          <div className="invoice__vehicle-selection">
-            <h3>Sélectionner un véhicule à louer</h3>
-            <select
-              className="invoice__select--category"
-              value={selectedCategory}
-              onChange={(e) => handleCategorySelect(e.target.value)}
-              required={rentedVehicles.length === 0}
-            >
-              <option value="">Sélectionner une catégorie</option>
-              {categories.map((category) => (
-                <option key={category._id} value={category._id}>
-                  {category.name}
-                </option>
-              ))}
-            </select>
-            <br />
-            <select
-              className="invoice__select--vehicle"
-              value={selectedVehicle ? vehicles.indexOf(selectedVehicle) : ""}
-              onChange={(e) => handleVehicleSelect(e.target.value)}
-              required={rentedVehicles.length === 0}
-              disabled={!selectedCategory}
-            >
-              <option value="">Sélectionner un véhicule</option>
-              {vehicles.map((vehicle, index) => (
-                <option key={index} value={index}>
-                  {vehicle.marque} {vehicle.modele}
-                </option>
-              ))}
-            </select>
-          </div>
-
           <div className="invoice__vehicle-list">
             <h3>Véhicules Loués</h3>
             <table className="invoice__table">
@@ -424,6 +392,40 @@ const Facture = () => {
               </tbody>
             </table>
           </div>
+
+          <div className="invoice__vehicle-selection">
+            <h3>Sélectionner un véhicule à louer</h3>
+            <select
+              className="invoice__select--category"
+              value={selectedCategory}
+              onChange={(e) => handleCategorySelect(e.target.value)}
+              required={rentedVehicles.length === 0}
+            >
+              <option value="">Sélectionner une catégorie</option>
+              {categories.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            <br />
+            <select
+              className="invoice__select--vehicle"
+              value={selectedVehicle ? vehicles.indexOf(selectedVehicle) : ""}
+              onChange={(e) => handleVehicleSelect(e.target.value)}
+              required={rentedVehicles.length === 0}
+              disabled={!selectedCategory}
+            >
+              <option value="">Sélectionner un véhicule</option>
+              {vehicles.map((vehicle, index) => (
+                <option key={index} value={index}>
+                  {vehicle.marque} {vehicle.modele}
+                </option>
+              ))}
+            </select>
+          </div>
+
+         
 
           {isPopupOpen && (
   <div className="invoice__popup">
@@ -498,7 +500,7 @@ const Facture = () => {
       type="number"
       value={fraisKilometrage}
       onChange={(e) => setFraisKilometrage(e.target.value)}
-      min="0"
+      
     />
   </label>
   <label>
@@ -507,7 +509,7 @@ const Facture = () => {
       type="number"
       value={fraisLivraison}
       onChange={(e) => setFraisLivraison(e.target.value)}
-      min="0"
+      
     />
   </label>
   <label>
@@ -516,7 +518,7 @@ const Facture = () => {
       type="number"
       value={fraisChauffeur}
       onChange={(e) => setFraisChauffeur(e.target.value)}
-      min="0"
+     
     />
   </label>
 </div>
@@ -529,7 +531,7 @@ const Facture = () => {
       type="number"
       value={acompte}
       onChange={(e) => setAcompte(parseFloat(e.target.value) )}
-      min="0"
+     
     />
   </label>
   <label>
@@ -538,7 +540,7 @@ const Facture = () => {
       type="number"
       value={montantRemboursement}
       onChange={(e) => setMontantRemboursement(parseFloat(e.target.value) )}
-      min="0"
+   
     />
   </label>
 </div>

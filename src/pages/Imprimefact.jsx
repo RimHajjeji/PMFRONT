@@ -122,8 +122,9 @@ const Imprimefact = () => {
                     <tr>
                         <th>N°</th>
                         <th>Description</th>
-                        <th>Tarif Journalier</th>
-                        <th>Nombre de Jours Facturés</th>
+                        <th>{invoice.vehicles.length > 0 ? invoice.vehicles[0].tarifType || 'N/A' : 'N/A'}</th>
+                        <th>{invoice.vehicles.length > 0 ? invoice.vehicles[0].durationType || 'N/A' : 'N/A'}</th>
+                       
                         <th>Montant</th>
                     </tr>
                 </thead>
