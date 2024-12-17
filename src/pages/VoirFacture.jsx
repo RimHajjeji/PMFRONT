@@ -130,7 +130,6 @@ const VoirFact = () => {
 
             {/* Champ caution */}
            
-
             <table className="print-table">
                 <thead>
                     <tr>
