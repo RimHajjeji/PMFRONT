@@ -89,6 +89,7 @@
 .client-formC button:hover {
     transform: scale(1.02); /* Slight enlargement on hover */
     background-color: #1d94b7;
+    
 }
 
 .client-table-containerC {
