@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useState, useEffect } from "react";  
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import ReactPaginate from 'react-paginate'; // Import ReactPaginate
@@ -20,8 +20,10 @@ const FactureClient = () => {
             try {
                 // Récupérer les factures du client
                 const facturesResponse = await axios.get(`http://localhost:5000/api/invoices/client/${clientId}`);
-                // Tri des factures par date décroissante
-                const sortedFactures = facturesResponse.data.invoices.sort((a, b) => new Date(b.date) - new Date(a.date));
+                // Tri des factures par date de création décroissante (les plus récentes en haut)
+                const sortedFactures = facturesResponse.data.invoices.sort((a, b) => {
+                    return new Date(b.createdAt) - new Date(a.createdAt); // Tri par date de création décroissante
+                });
                 setFactures(sortedFactures);
 
                 // Récupérer les détails du client

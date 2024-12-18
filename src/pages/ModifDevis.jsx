@@ -647,6 +647,7 @@ const ModifDevis = () => {
             />
           </div>
         </div>
+        <br />
 
         <div className="modif-devis-admin-verification">
           <div className="modif-devis-field">

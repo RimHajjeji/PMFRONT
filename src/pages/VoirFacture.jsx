@@ -110,7 +110,7 @@ const VoirFact = () => {
 
                         {/* Section Caution */}
                         <div className="caution-section">
-                            <label htmlFor="caution">Caution (en CFA) :</label>
+                            <label className='caut' htmlFor="caution">Caution (en CFA) :</label>
                             <input
                                 type="number"
                                 id="caution"
@@ -119,17 +119,16 @@ const VoirFact = () => {
                                 placeholder="0"
                                 readOnly
                             />
+                            <br />
                     
                         </div>
                     </div>
-
-
-
                 </div>
             </header>
 
             {/* Champ caution */}
            
+
             <table className="print-table">
                 <thead>
                     <tr>

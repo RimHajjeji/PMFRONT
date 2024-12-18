@@ -20,8 +20,9 @@ const DevisClients = () => {
             try {
                 // Récupérer les devis du client
                 const devisResponse = await axios.get(`http://localhost:5000/api/devis/client/${clientId}`);
-                // Tri des devis par date décroissante
-                const sortedDevis = devisResponse.data.devis.sort((a, b) => new Date(b.date) - new Date(a.date));
+                
+                // Tri des devis par date de création décroissante (createdAt)
+                const sortedDevis = devisResponse.data.devis.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
                 setDevis(sortedDevis);
 
                 // Récupérer les détails du client
