@@ -15,24 +15,23 @@ const ModifFacture = () => {
   const [modificationHistory, setModificationHistory] = useState([]);
   const [admin, setAdmin] = useState("");
 
-
+  const [admins, setAdmins] = useState([]); // Liste des admins
+  const [selectedAdmin, setSelectedAdmin] = useState(""); // Admin sélectionné
+  const [password, setPassword] = useState(""); // Mot de passe saisi
 
   useEffect(() => {
-    const fetchAdminProfile = async () => {
+    const fetchAdmins = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/admin/profile", {
-          headers: {
-            "x-auth-token": localStorage.getItem("x-auth-token") // Assurez-vous que le token est dans localStorage
-          }
-        });
-        const { nom, prenom } = response.data;
-        setAdmin(`${nom} ${prenom}`);
+        const response = await axios.get(
+          "http://localhost:5000/api/admin/admins",
+        );
+        setAdmins(response.data);
       } catch (err) {
-        console.error("Erreur lors de la récupération du profil admin", err);
+        setError("Erreur lors de la récupération des admins.");
+        console.error(err);
       }
     };
-  
-    fetchAdminProfile();
+    fetchAdmins();
   }, []);
 
   // Récupérer la liste des clients
@@ -204,21 +203,41 @@ const ModifFacture = () => {
     setValue("client.typeClient", client.typeClient);
   };
 
+  const handleAdminChange = (adminId) => {
+    const adminInfo = admins.find((a) => a._id === adminId);
+    setSelectedAdmin(adminId); // ID de l'admin sélectionné
+    setAdmin(adminInfo); // Met à jour les détails de l'admin sélectionné
+  };
+
   // Soumission du formulaire
   const onSubmit = async (data) => {
+    if (!selectedAdmin || !password) {
+      alert("Veuillez sélectionner un admin et fournir un mot de passe.");
+      return;
+    }
+    
     try {
+      if (!admin || !admin.nom || !admin.prenom || !password) {
+        alert(
+          "Veuillez sélectionner un admin valide et fournir un mot de passe.",
+        );
+        return;
+      }
+
       // Créez une entrée pour l'historique des modifications
-    const modificationData = {
-      modifiedBy: `${admin.nom} ${admin.prenom}`,  // Utilisez le nom et prénom de l'admin
-      modifiedAt: new Date().toISOString(),
-      changes: JSON.stringify(data), // Vous pouvez personnaliser ce champ selon les besoins
-    };
+      const modificationData = {
+        modifiedBy: `${admin.nom} ${admin.prenom}`, // Récupère le nom et prénom de l'admin sélectionné
+        modifiedAt: new Date().toISOString(),
+        changes: JSON.stringify(data), // Vous pouvez personnaliser ce champ selon les besoins
+      };
 
       // Ajoutez l'entrée à l'historique des modifications existant
       const updatedHistory = [...modificationHistory, modificationData];
 
       const updatedData = {
         ...data,
+        modifiedBy: selectedAdmin,
+        password, // Mot de passe pour vérification
         vehicles: data.vehicles.map((vehicle) => ({
           ...vehicle,
           montant: vehicle.dailyRate * vehicle.daysRented || 0, // Met à jour montant
@@ -631,6 +650,46 @@ const ModifFacture = () => {
             />
           </div>
         </div>
+        <br />
+
+        <div className="modif-facture-admin-verification">
+          <div className="modif-facture-field">
+            <label className="modif-facture-label" htmlFor="admin">
+              Sélectionnez un administrateur :
+            </label>
+            <select
+              id="admin"
+              className="modif-facture-select"
+              value={selectedAdmin}
+              onChange={(e) => handleAdminChange(e.target.value)}
+            >
+              <option value="">-- Sélectionnez --</option>
+              {admins.map((admin) => (
+                <option
+                  key={admin._id}
+                  value={admin._id}
+                  className="modif-facture-admin-option"
+                >
+                  {admin.nom} {admin.prenom}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="modif-facture-field">
+            <label className="modif-facture-label" htmlFor="password">
+              Mot de passe :
+            </label>
+            <input
+              type="password"
+              id="password"
+              className="modif-facture-input"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+        </div>
+
         <button type="submit" className="modif-facture-submit">
           Modifier
         </button>
