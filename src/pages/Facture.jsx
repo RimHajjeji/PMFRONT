@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 import "../style/Facture.css";
 
 const Facture = () => {
@@ -34,6 +35,78 @@ const Facture = () => {
 
   const navigate = useNavigate();
 
+  // Fonction pour vérifier l'expiration du token
+  const isTokenExpired = (token) => {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded && decoded.exp < Date.now() / 1000) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return true;
+    }
+  };
+
+  // Rafraîchissement du token
+  const refreshToken = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return null;
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/refresh-token", {}, {
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+      const newToken = response.data.token;
+      localStorage.setItem("token", newToken);
+      return newToken;
+    } catch (error) {
+      console.error("Error refreshing token:", error);
+      localStorage.removeItem("token");
+      navigate('/login');
+      return null;
+    }
+  };
+
+  // Récupérer les détails de l'admin connecté
+  const fetchAdminDetails = async () => {
+    let token = localStorage.getItem("token");
+
+    if (!token || isTokenExpired(token)) {
+      console.log('Token expired or not found, refreshing token...');
+      token = await refreshToken(); // Tente de rafraîchir le token
+
+      if (!token) {
+        navigate('/login'); // Rediriger vers la page de login si le token est invalide
+        return;
+      }
+    }
+
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/admin/profile",
+        {
+          headers: {
+            "x-auth-token": token, // Utilise le token stocké localement
+          },
+        }
+      );
+      const { nom, prenom } = response.data;
+      setIssuedBy(`${nom} ${prenom}`); // Combine le nom et le prénom
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des détails de l'admin :",
+        error
+      );
+      alert(
+        "Impossible de récupérer les informations de l'utilisateur connecté."
+      );
+    }
+  };
+
   useEffect(() => {
     const fetchClients = async () => {
       try {
@@ -45,33 +118,10 @@ const Facture = () => {
       }
     };
 
-    const fetchAdminDetails = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:5000/api/admin/profile",
-          {
-            headers: {
-              "x-auth-token": localStorage.getItem("token"), // Utilise le token stocké localement
-            },
-          },
-        );
-        const { nom, prenom } = response.data;
-        setIssuedBy(`${nom} ${prenom}`); // Combine le nom et le prénom
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des détails de l'admin :",
-          error,
-        );
-        alert(
-          "Impossible de récupérer les informations de l'utilisateur connecté.",
-        );
-      }
-    };
-
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/categories/categories",
+          "http://localhost:5000/api/categories/categories"
         );
         setCategories(response.data);
       } catch (error) {
@@ -79,6 +129,7 @@ const Facture = () => {
         alert("Erreur lors de la récupération des catégories.");
       }
     };
+
     fetchAdminDetails();
     fetchClients();
     fetchCategories();
@@ -112,7 +163,7 @@ const Facture = () => {
 
     if (isNaN(dailyRateNumber) || isNaN(daysRentedNumber)) {
       alert(
-        "Les champs Tarif Journalier et Nombre de jours doivent être des nombres.",
+        "Les champs Tarif Journalier et Nombre de jours doivent être des nombres."
       );
       return;
     }
@@ -153,7 +204,7 @@ const Facture = () => {
   const calculateTotalHTFrais = () => {
     const totalLocation = rentedVehicles.reduce(
       (total, vehicle) => total + vehicle.montant,
-      0,
+      0
     );
     const totalFraisSupplémentaires =
       Number(fraisCarburant) +
@@ -166,7 +217,7 @@ const Facture = () => {
   const calculateTotalHT = () => {
     return rentedVehicles.reduce(
       (total, vehicle) => total + vehicle.montant,
-      0,
+      0
     );
   };
 
@@ -268,11 +319,11 @@ const Facture = () => {
     try {
       const response = await axios.post(
         "http://localhost:5000/api/invoices/add",
-        newInvoice,
+        newInvoice
       );
       alert(
         "Facture créée avec succès. Numéro de facture: " +
-          response.data.invoice.invoiceNumber,
+          response.data.invoice.invoiceNumber
       );
       navigate("/dashboard");
     } catch (error) {

@@ -1,35 +1,85 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { jwtDecode } from 'jwt-decode'
 import { FaSearch } from 'react-icons/fa';
-import ReactPaginate from 'react-paginate'; // Import ReactPaginate
-import "../style/Dashboard.css"; // Assurez-vous que ce fichier CSS existe et correspond à vos besoins.
+import ReactPaginate from 'react-paginate';
+import "../style/Dashboard.css";
 
 const Dashboard = () => {
     const [invoices, setInvoices] = useState([]);
-    const [userInfo, setUserInfo] = useState({ nom: '', prenom: '' }); // État pour les informations de l'utilisateur
+    const [userInfo, setUserInfo] = useState({ nom: '', prenom: '' });
     const [searchTerm, setSearchTerm] = useState("");
-    const [currentPage, setCurrentPage] = useState(0); // État pour la page actuelle
-    const invoicesPerPage = 6; // Nombre de factures par page
+    const [currentPage, setCurrentPage] = useState(0);
+    const invoicesPerPage = 6;
 
     const navigate = useNavigate();
+
+    // Fonction pour vérifier l'expiration du token
+    const isTokenExpired = (token) => {
+        try {
+            const decoded = jwtDecode(token);
+            if (decoded && decoded.exp < Date.now() / 1000) {
+                return true;
+            }
+            return false;
+        } catch (error) {
+            return true;
+        }
+    };
+
+    // Rafraîchissement du token
+    const refreshToken = async () => {
+        const token = localStorage.getItem("token");
+
+        if (!token) return null;
+
+        try {
+            const response = await axios.post("http://localhost:5000/api/refresh-token", {}, {
+                headers: {
+                    'x-auth-token': token,
+                },
+            });
+            const newToken = response.data.token;
+            localStorage.setItem("token", newToken);
+            return newToken;
+        } catch (error) {
+            console.error("Error refreshing token:", error);
+            localStorage.removeItem("token");
+            navigate('/login');
+            return null;
+        }
+    };
 
     // Récupérer les données de l'utilisateur connecté
     useEffect(() => {
         const fetchUserInfo = async () => {
+            let token = localStorage.getItem("token");
+
+            if (!token || isTokenExpired(token)) {
+                console.log('Token expired or not found, refreshing token...');
+                token = await refreshToken(); // Tente de rafraîchir le token
+
+                if (!token) {
+                    navigate('/login'); // Rediriger vers la page de login si le token est invalide
+                    return;
+                }
+            }
+
             try {
-                const token = localStorage.getItem("token"); // Assurez-vous que le token est stocké dans le localStorage
-                const response = await axios.get("http://localhost:5000/api/admin/profile", {
-                    headers: { "x-auth-token": token },
+                const decoded = jwtDecode(token);
+                setUserInfo({
+                    nom: decoded.nom,
+                    prenom: decoded.prenom,
                 });
-                setUserInfo(response.data);
             } catch (error) {
-                console.error("Error fetching user info:", error);
+                console.error("Error decoding token:", error);
+                navigate('/login');
             }
         };
 
         fetchUserInfo();
-    }, []);
+    }, [navigate]);
 
     useEffect(() => {
         const fetchInvoices = async () => {
@@ -46,28 +96,21 @@ const Dashboard = () => {
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
-        setCurrentPage(0); // Réinitialiser à la première page lors de la recherche
+        setCurrentPage(0);
     };
 
     const handlePrint = (invoiceId) => {
         navigate(`/imprimefact/${invoiceId}`);
     };
 
-    // Tri des factures par date de création en ordre décroissant
     const sortedInvoices = [...invoices].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-    // Filtrage des factures par nom du client
     const filteredInvoices = sortedInvoices.filter((invoice) =>
-        `${invoice.client.firstName} ${invoice.client.lastName}`
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
+        `${invoice.client.firstName} ${invoice.client.lastName}`.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    // Pagination : calculer les factures pour la page actuelle
     const offset = currentPage * invoicesPerPage;
     const currentPageInvoices = filteredInvoices.slice(offset, offset + invoicesPerPage);
 
-    // Gestion du changement de page
     const handlePageClick = ({ selected }) => {
         setCurrentPage(selected);
     };
@@ -88,7 +131,6 @@ const Dashboard = () => {
                     <div className="invoices-section">
                         <h3>Liste des factures</h3>
 
-                        {/* Barre de recherche */}
                         <div className="search-bar">
                             <input 
                                 type="text" 
@@ -99,7 +141,6 @@ const Dashboard = () => {
                             <FaSearch className="search-icon" />
                         </div>
 
-                        {/* Tableau des factures */}
                         <div className="invoices-table-container">
                             <table className="invoices-table">
                                 <thead>
@@ -131,7 +172,6 @@ const Dashboard = () => {
                             </table>
                         </div>
 
-                        {/* Pagination */}
                         <ReactPaginate
                             previousLabel={'Précédent'}
                             nextLabel={'Suivant'}
