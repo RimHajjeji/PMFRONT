@@ -118,6 +118,29 @@ const Facture = () => {
       }
     };
 
+    const fetchAdminDetails = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/api/admin/profile",
+          {
+            headers: {
+              "x-auth-token": localStorage.getItem("token"), // Utilise le token stocké localement
+            },
+          },
+        );
+        const { nom, prenom } = response.data;
+        setIssuedBy(`${nom} ${prenom}`); // Combine le nom et le prénom
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des détails de l'admin :",
+          error,
+        );
+        alert(
+          "Impossible de récupérer les informations de l'utilisateur connecté.",
+        );
+      }
+    };
+
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
@@ -659,7 +682,7 @@ const Facture = () => {
           </div>
 
           <div className="invoice__total">
-            <strong>Total DES LOCATION :</strong>{" "}
+            <strong>Total des véhicules loués:</strong>{" "}
             {calculateTotalHT().toFixed(2)} FCFA
             <br />
             <strong>Total HT + Frais supplementaires:</strong>{" "}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { jwtDecode } from 'jwt-decode';
 import "../style/Devis.css";
 
 const Devis = () => {
@@ -33,6 +34,78 @@ const Devis = () => {
   const [selectedDurationType, setSelectedDurationType] = useState("");
 
   const navigate = useNavigate();
+
+  // Fonction pour vérifier l'expiration du token
+  const isTokenExpired = (token) => {
+    try {
+      const decoded = jwtDecode(token);
+      if (decoded && decoded.exp < Date.now() / 1000) {
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return true;
+    }
+  };
+
+  // Rafraîchissement du token
+  const refreshToken = async () => {
+    const token = localStorage.getItem("token");
+
+    if (!token) return null;
+
+    try {
+      const response = await axios.post("http://localhost:5000/api/refresh-token", {}, {
+        headers: {
+          'x-auth-token': token,
+        },
+      });
+      const newToken = response.data.token;
+      localStorage.setItem("token", newToken);
+      return newToken;
+    } catch (error) {
+      console.error("Error refreshing token:", error);
+      localStorage.removeItem("token");
+      navigate('/login');
+      return null;
+    }
+  };
+
+  // Récupérer les détails de l'admin connecté
+  const fetchAdminDetails = async () => {
+    let token = localStorage.getItem("token");
+
+    if (!token || isTokenExpired(token)) {
+      console.log('Token expired or not found, refreshing token...');
+      token = await refreshToken(); // Tente de rafraîchir le token
+
+      if (!token) {
+        navigate('/login'); // Rediriger vers la page de login si le token est invalide
+        return;
+      }
+    }
+
+    try {
+      const response = await axios.get(
+        "http://localhost:5000/api/admin/profile",
+        {
+          headers: {
+            "x-auth-token": token, // Utilise le token stocké localement
+          },
+        }
+      );
+      const { nom, prenom } = response.data;
+      setIssuedBy(`${nom} ${prenom}`); // Combine le nom et le prénom
+    } catch (error) {
+      console.error(
+        "Erreur lors de la récupération des détails de l'admin :",
+        error
+      );
+      alert(
+        "Impossible de récupérer les informations de l'utilisateur connecté."
+      );
+    }
+  };
 
   useEffect(() => {
     const fetchClients = async () => {
@@ -604,7 +677,7 @@ const Devis = () => {
           </div>
 
           <div className="devis__totalD">
-            <strong>Total DES LOCATION :</strong>{" "}
+            <strong>Total des véhicules loués:</strong>{" "}
             {calculateTotalHT().toFixed(2)} FCFA
             <br />
             <strong>Total HT + Frais supplementaires:</strong>{" "}
