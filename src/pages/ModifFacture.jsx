@@ -23,7 +23,7 @@ const ModifFacture = () => {
     const fetchAdmins = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/admin/admins",
+          "https://envoices.premiummotorscars.com/api/admin/admins",
         );
         setAdmins(response.data);
       } catch (err) {
@@ -38,7 +38,7 @@ const ModifFacture = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clients");
+        const response = await axios.get("https://envoices.premiummotorscars.com/api/clients");
         setClients(response.data);
       } catch (err) {
         setError("Erreur lors de la récupération des clients.");
@@ -53,7 +53,7 @@ const ModifFacture = () => {
     const fetchInvoice = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/invoices/${invoiceId}`,
+          `https://envoices.premiummotorscars.com/api/invoices/${invoiceId}`,
         );
         const invoiceData = response.data;
 
@@ -259,7 +259,7 @@ const ModifFacture = () => {
         modificationHistory: updatedHistory, // Ajouter l'historique mis à jour
       };
       await axios.put(
-        `http://localhost:5000/api/invoices/${invoiceId}`,
+        `https://envoices.premiummotorscars.com/api/invoices/${invoiceId}`,
         updatedData,
       );
       alert("Facture mise à jour avec succès !");

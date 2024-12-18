@@ -55,7 +55,7 @@ const Facture = () => {
     if (!token) return null;
 
     try {
-      const response = await axios.post("http://localhost:5000/api/refresh-token", {}, {
+      const response = await axios.post("https://envoices.premiummotorscars.com/api/refresh-token", {}, {
         headers: {
           'x-auth-token': token,
         },
@@ -87,7 +87,7 @@ const Facture = () => {
 
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/admin/profile",
+        "https://envoices.premiummotorscars.com/api/admin/profile",
         {
           headers: {
             "x-auth-token": token, // Utilise le token stocké localement
@@ -110,7 +110,7 @@ const Facture = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clients");
+        const response = await axios.get("https://envoices.premiummotorscars.com/api/clients");
         setClients(response.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des clients:", error);
@@ -121,7 +121,7 @@ const Facture = () => {
     const fetchCategories = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/categories/categories"
+          "https://envoices.premiummotorscars.com/api/categories/categories"
         );
         setCategories(response.data);
       } catch (error) {
@@ -318,7 +318,7 @@ const Facture = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/invoices/add",
+        "https://envoices.premiummotorscars.com/api/invoices/add",
         newInvoice
       );
       alert(

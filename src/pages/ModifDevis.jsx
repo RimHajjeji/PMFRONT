@@ -24,7 +24,7 @@ const ModifDevis = () => {
     const fetchAdmins = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/admin/admins",
+          "https://envoices.premiummotorscars.com/api/admin/admins",
         );
         setAdmins(response.data);
       } catch (err) {
@@ -39,7 +39,7 @@ const ModifDevis = () => {
   useEffect(() => {
     const fetchClients = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/clients");
+        const response = await axios.get("https://envoices.premiummotorscars.com/api/clients");
         setClients(response.data);
       } catch (err) {
         setError("Erreur lors de la récupération des clients.");
@@ -54,7 +54,7 @@ const ModifDevis = () => {
     const fetchDevis = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/devis/${devisId}`,
+          `https://envoices.premiummotorscars.com/api/devis/${devisId}`,
         );
         const devisData = response.data;
 
@@ -260,7 +260,7 @@ const ModifDevis = () => {
         modificationHistory: updatedHistory, // Ajouter l'historique mis à jour
       };
       await axios.put(
-        `http://localhost:5000/api/devis/${devisId}`,
+        `https://envoices.premiummotorscars.com/api/devis/${devisId}`,
         updatedData,
       );
       alert("Devis mis à jour avec succès !");

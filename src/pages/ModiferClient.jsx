@@ -20,7 +20,7 @@ const ModifierClient = () => {
     useEffect(() => {
         const fetchClient = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/clients/${clientId}`);
+                const response = await axios.get(`https://envoices.premiummotorscars.com/api/clients/${clientId}`);
                 setClientData(response.data);
             } catch (error) {
                 console.error("Erreur lors de la récupération des données du client:", error);
@@ -38,7 +38,7 @@ const ModifierClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:5000/api/clients/${clientId}`, clientData);
+            await axios.put(`https://envoices.premiummotorscars.com/api/clients/${clientId}`, clientData);
             toast.success("Client modifié avec succès !");
             setTimeout(() => navigate('/add-client'), 2000); // Redirection vers add-client après 2 secondes
         } catch (error) {

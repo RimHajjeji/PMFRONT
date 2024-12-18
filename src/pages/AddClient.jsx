@@ -32,7 +32,7 @@ const AddClient = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5000/api/clients/add', clientData);
+            const response = await axios.post('https://envoices.premiummotorscars.com/api/clients/add', clientData);
             setClients([...clients, response.data]);
             setClientData({
                 firstName: '',
@@ -57,7 +57,7 @@ const AddClient = () => {
     useEffect(() => {
         const fetchClients = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/clients');
+                const response = await axios.get('https://envoices.premiummotorscars.com/api/clients');
                 setClients(response.data);
             } catch (error) {
                 console.error('Error fetching clients', error);

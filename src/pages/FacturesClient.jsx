@@ -19,7 +19,7 @@ const FactureClient = () => {
         const fetchFacturesEtClient = async () => {
             try {
                 // Récupérer les factures du client
-                const facturesResponse = await axios.get(`http://localhost:5000/api/invoices/client/${clientId}`);
+                const facturesResponse = await axios.get(`https://envoices.premiummotorscars.com/api/invoices/client/${clientId}`);
                 // Tri des factures par date de création décroissante (les plus récentes en haut)
                 const sortedFactures = facturesResponse.data.invoices.sort((a, b) => {
                     return new Date(b.createdAt) - new Date(a.createdAt); // Tri par date de création décroissante
@@ -27,7 +27,7 @@ const FactureClient = () => {
                 setFactures(sortedFactures);
 
                 // Récupérer les détails du client
-                const clientResponse = await axios.get(`http://localhost:5000/api/clients/${clientId}`);
+                const clientResponse = await axios.get(`https://envoices.premiummotorscars.com/api/clients/${clientId}`);
                 setClient(clientResponse.data); // Stocker les données du client dans l'état
 
                 setLoading(false);
