@@ -456,7 +456,7 @@ const Devis = () => {
                   <th>
                     Type de Tarif
                     <select
-                      className="devis__dropdown devis__dropdown--tarif"
+                      className="devisDropdownTarif"
                       onChange={(e) => setSelectedTarifType(e.target.value)}
                       defaultValue=""
                     >
@@ -471,7 +471,7 @@ const Devis = () => {
                   <th>
                     Type de Durée
                     <select
-                      className="devis__dropdown devis__dropdown--duree"
+                      className="devisDropdownDuree"
                       onChange={(e) => setSelectedDurationType(e.target.value)}
                       defaultValue=""
                     >

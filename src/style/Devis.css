@@ -358,20 +358,20 @@
 }
 
 
-.devis__dropdown {
+.devisDropdownTarif,
+.devisDropdownDuree {
   width: 50%;
   padding: 4px;
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   background-color: #f9f9f9;
-  transition:
-    border-color 0.3s,
-    box-shadow 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
   margin-left: 10px;
 }
 
-.devis__dropdown:focus {
+.devisDropdownTarif:focus,
+.devisDropdownDuree:focus {
   border-color: #007bff;
   box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
   outline: none;
