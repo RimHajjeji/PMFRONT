@@ -37,7 +37,7 @@ const SignUp = () => {
         }
 
         try {
-            const res = await axios.post("http://localhost:5000/api/admin/signup", { email, password });
+            const res = await axios.post("https://envoices.premiummotorscars.com/api/admin/signup", { email, password });
             localStorage.setItem("token", res.data.token);
             toast.success("Admin créé avec succès !"); // Toast de succès spécifique
             navigate("/dashboard");

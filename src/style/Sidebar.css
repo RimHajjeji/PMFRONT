@@ -11,6 +11,14 @@
     box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
     border-radius: 10px 10px 10px 10px;
     padding-left: 20px; /* Add left padding to space out content from the edge */
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none; /* Masquer la barre de défilement dans Chrome, Safari et Edge */
 }
 
 .sidebar .logoS {

@@ -141,7 +141,7 @@
 }
 
 .client-tableC {
-    width: 100%;
+    width: 97%;
     border-collapse: collapse;
     text-align: left;
     font-size: 18px;
@@ -149,6 +149,7 @@
     overflow: hidden;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.145);
     margin-bottom: 25px; /* Ensure table itself has bottom margin */
+    font-size: 15px;
 }
 
 .client-tableC th, .client-tableC td {

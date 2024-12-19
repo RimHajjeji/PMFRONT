@@ -22,7 +22,7 @@ const Navbar = () => {
         const token = localStorage.getItem('token');
 
         try {
-            const response = await fetch('http://localhost:5000/api/admin/update', {
+            const response = await fetch('https://envoices.premiummotorscars.com/api/admin/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

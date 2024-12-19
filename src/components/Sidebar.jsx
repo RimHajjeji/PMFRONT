@@ -7,9 +7,6 @@ import { FaFileInvoice } from "react-icons/fa";
 import { FaFileInvoiceDollar } from "react-icons/fa";
 import { IoIosPaper } from "react-icons/io";
 import { MdLocalPrintshop } from "react-icons/md";
-
-
-
 import { useNavigate } from 'react-router-dom';
 import '../style/Sidebar.css';
 
@@ -30,12 +27,6 @@ const Sidebar = () => {
                     <FaUser className="icon" />
                     <span className="text">Ajouter Client</span>
                 </div>
-
-                <div className="menu-item" onClick={() => navigate('/facture_devis')}>
-                    <FaFileInvoice className="icon" />
-                    <span className="text">Modifications</span>
-                </div>
-
                 <div className="menu-item" onClick={() => navigate('/add-material')}>
                 <FaCar
                 className="icon" />
@@ -51,6 +42,11 @@ const Sidebar = () => {
                 <IoIosPaper
                 className="icon" />
                     <span className="text">Créer Devis</span>
+                </div>
+
+                <div className="menu-item" onClick={() => navigate('/facture_devis')}>
+                    <FaFileInvoice className="icon" />
+                    <span className="text">Modifications</span>
                 </div>
                 <div className="menu-item" onClick={() => navigate('/table-devis')}>
                 <MdLocalPrintshop 
