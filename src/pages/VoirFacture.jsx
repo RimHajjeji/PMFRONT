@@ -12,7 +12,7 @@ const VoirFact = () => {
     useEffect(() => {
         const fetchInvoice = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/invoices/${invoiceId}`);
+                const response = await axios.get(`https://envoices.premiummotorscars.com/api/invoices/${invoiceId}`);
                 setInvoice(response.data);
                 setCaution(response.data.caution); // Initialiser la caution à partir des données de la facture
             } catch (error) {
@@ -27,7 +27,7 @@ const VoirFact = () => {
     const handleUpdateCaution = async () => {
         try {
             const updatedInvoice = { caution }; // Données de la caution
-            await axios.put(`http://localhost:5000/api/invoices/${invoiceId}`, updatedInvoice);
+            await axios.put(`https://envoices.premiummotorscars.com/api/invoices/${invoiceId}`, updatedInvoice);
             alert("Caution mise à jour avec succès");
         } catch (error) {
             console.error("Erreur lors de la mise à jour de la caution:", error);

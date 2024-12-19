@@ -21,7 +21,7 @@ const HistoriqueModifsDevis = () => {
 
     const fetchModificationHistory = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/devis/${devisId}/modification-history`);
+        const response = await axios.get(`https://envoices.premiummotorscars.com/api/devis/${devisId}/modification-history`);
         // Tri des données par date décroissante
         const sortedHistory = response.data.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
         setHistory(sortedHistory);

@@ -12,7 +12,7 @@ const VoirDevis = () => {
     useEffect(() => {
         const fetchDevis = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/devis/${devisId}`);
+                const response = await axios.get(`https://envoices.premiummotorscars.com/api/devis/${devisId}`);
                 setDevis(response.data);
                 setCaution(response.data.caution); 
             } catch (error) {
@@ -27,7 +27,7 @@ const VoirDevis = () => {
     const handleUpdateCaution = async () => {
         try {
             const updatedDevis = { caution }; // Données de la caution
-            await axios.put(`http://localhost:5000/api/devis/${devisId}`, updatedDevis);
+            await axios.put(`https://envoices.premiummotorscars.com/api/devis/${devisId}`, updatedDevis);
             alert("Caution mise à jour avec succès");
         } catch (error) {
             console.error("Erreur lors de la mise à jour de la caution:", error);

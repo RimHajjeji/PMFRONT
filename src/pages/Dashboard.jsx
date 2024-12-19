@@ -35,7 +35,7 @@ const Dashboard = () => {
         if (!token) return null;
 
         try {
-            const response = await axios.post("http://localhost:5000/api/refresh-token", {}, {
+            const response = await axios.post("https://envoices.premiummotorscars.com/api/refresh-token", {}, {
                 headers: {
                     'x-auth-token': token,
                 },
@@ -84,7 +84,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchInvoices = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/api/invoices");
+                const response = await axios.get("https://envoices.premiummotorscars.com/api/invoices");
                 setInvoices(response.data);
             } catch (error) {
                 console.error("Error fetching invoices:", error);

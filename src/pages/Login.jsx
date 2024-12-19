@@ -15,7 +15,7 @@ const Login = () => {
 
     const login = async (email, password) => {
         try {
-          const response = await axios.post("http://localhost:5000/api/admin/login", { email, password });
+          const response = await axios.post("https://envoices.premiummotorscars.com/api/admin/login", { email, password });
           const { token } = response.data;
       
           // Vérifiez si le token est bien renvoyé
@@ -52,7 +52,7 @@ const Login = () => {
         }
     
         try {
-            const res = await axios.post("http://localhost:5000/api/admin/login", { email, password }); 
+            const res = await axios.post("https://envoices.premiummotorscars.com/api/admin/login", { email, password }); 
             localStorage.setItem("token", res.data.token);
             toast.success("Connexion réussie !");
             navigate("/dashboard"); 
